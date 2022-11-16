@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/favTicketListFragment"
+    android:id="@+id/navigationGraphFavorite">
+    <fragment
+        android:id="@+id/favTicketListFragment"
+        android:name="com.ls.iusta.ui.ticketslist.TicketsListFragment"
+        android:label="@string/menu_history"
+        tools:layout="@layout/fragment_tickets_list">
+        <action
+            android:id="@+id/action_ticketListFragment_to_ticketDetailFragment"
+            app:destination="@id/favTicketDetailFragment"
+            app:popUpTo="@+id/favTicketListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/favTicketDetailFragment"
+        android:name="com.ls.iusta.ui.ticketdetail.TicketDetailFragment"
+        android:label="@string/fragment_ticket_detail_title_label"
+        tools:layout="@layout/fragment_ticket_detail">
+        <argument
+            android:name="ticket_id"
+            android:defaultValue="0L"
+            app:argType="long" />
+    </fragment>
+</navigation>
