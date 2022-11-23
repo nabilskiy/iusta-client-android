@@ -1,15 +1,23 @@
 package com.ls.iusta.remote.api
 
 import com.ls.iusta.remote.models.TicketResponseModel
+import com.ls.iusta.remote.models.LoginModel
 import com.ls.iusta.remote.models.TicketModel
-import retrofit2.http.GET
-import retrofit2.http.Path
+import retrofit2.http.*
 
 interface TicketService {
 
-    @GET("character")
-    suspend fun getTickets(): TicketResponseModel
+    @FormUrlEncoded
+    @POST("mobile/tickets_history")
+    suspend fun getTickets(@Field("ticket_status") ticket_status: String,
+                           @Field("auth_token") auth_token: String,
+                           @Field("secret_key") secret_key: String): TicketResponseModel
 
-    @GET("character/{id}")
-    suspend fun getTicket(@Path("id") id: Long): TicketModel
+    @FormUrlEncoded
+    @POST("mobile/tickets_history")
+    suspend fun getTicket(@Field("ticket_status") status: String,
+                          @Field("auth_token") auth_token: String,
+                          @Field("secret_key") secret_key: String,
+                          @Field("ticket_id") id: Long): TicketResponseModel
+
 }

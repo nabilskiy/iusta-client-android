@@ -5,38 +5,55 @@ import com.ls.iusta.data.models.TicketEntity
 import javax.inject.Inject
 
 class TicketCacheMapper @Inject constructor(
-    private val ticketLocationCacheMapper: TicketLocationCacheMapper
 ) : CacheMapper<TicketCacheEntity, TicketEntity> {
 
-    override fun mapFromCached(type: TicketCacheEntity): TicketEntity {
+    override fun mapFromCached(model: TicketCacheEntity): TicketEntity {
         return TicketEntity(
-            created = type.created,
-            gender = type.gender,
-            id = type.id,
-            image = type.image,
-            characterLocation = ticketLocationCacheMapper.mapFromCached(type.characterLocation),
-            name = type.name,
-            species = type.species,
-            status = type.status,
-            type = type.type,
-            url = type.url,
-            isBookMarked = type.isBookMarked
+            archive_flag = model.archive_flag,
+            create_by = model.archive_flag,
+            create_time = model.create_time,
+            customer_id = model.customer_id,
+            customer_user_id = model.customer_user_id,
+            dynamic_category_id = model.dynamic_category_id,
+            dynamic_category_name = model.dynamic_category_name,
+            id = model.id,
+            owner_user_name = model.owner_user_name,
+            responsible_user_id = model.responsible_user_id,
+            service_id = model.service_id,
+            ticket_lock_id = model.ticket_lock_id,
+            ticket_priority_id = model.ticket_priority_id,
+            ticket_state_id = model.ticket_state_id,
+            ticket_state_name = model.ticket_state_name,
+            title = model.title,
+            tn = model.tn,
+            type_id = model.type_id,
+            user_id = model.user_id,
+            category_name = model.category_name
         )
     }
 
-    override fun mapToCached(type: TicketEntity): TicketCacheEntity {
+    override fun mapToCached(model: TicketEntity): TicketCacheEntity {
         return TicketCacheEntity(
-            created = type.created,
-            gender = type.gender,
-            id = type.id,
-            image = type.image,
-            characterLocation = ticketLocationCacheMapper.mapToCached(type.characterLocation),
-            name = type.name,
-            species = type.species,
-            status = type.status,
-            type = type.type,
-            url = type.url,
-            isBookMarked = type.isBookMarked
+            archive_flag = model.archive_flag,
+            create_by = model.archive_flag,
+            create_time = model.create_time,
+            customer_id = model.customer_id,
+            customer_user_id = model.customer_user_id,
+            dynamic_category_id = model.dynamic_category_id,
+            dynamic_category_name = model.dynamic_category_name,
+            id = model.id,
+            owner_user_name = model.owner_user_name,
+            responsible_user_id = model.responsible_user_id,
+            service_id = model.service_id,
+            ticket_lock_id = model.ticket_lock_id,
+            ticket_priority_id = model.ticket_priority_id,
+            ticket_state_id = model.ticket_state_id,
+            ticket_state_name = model.ticket_state_name,
+            title = model.title,
+            tn = model.tn,
+            type_id = model.type_id,
+            user_id = model.user_id,
+            category_name = model.category_name
         )
     }
 }

@@ -8,11 +8,11 @@ import javax.inject.Inject
 class TicketRemoteDataSource @Inject constructor(
     private val ticketRemote: TicketRemote
 ) : TicketDataSource {
-    override suspend fun getTickets(): List<TicketEntity> =
-        ticketRemote.getTickets()
+    override suspend fun getTickets(ticket_status: String, auth_token: String, secret_key: String): List<TicketEntity> =
+        ticketRemote.getTickets(ticket_status, auth_token, secret_key)
 
-    override suspend fun getTicket(ticketId: Long): TicketEntity =
-        ticketRemote.getTicket(ticketId)
+    override suspend fun getTicket(ticket_status: String, auth_token: String, secret_key: String, ticketId: Long): TicketEntity =
+        ticketRemote.getTicket(ticket_status, auth_token, secret_key, ticketId)
 
     override suspend fun saveTicket(listTickets: List<TicketEntity>) {
         throw UnsupportedOperationException("Save ticket is not supported for RemoteDataSource.")

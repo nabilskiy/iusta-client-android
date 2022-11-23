@@ -15,16 +15,16 @@ interface TicketDao {
     @Query("SELECT * FROM tickets WHERE  id = :id")
     fun getTicket(id: Long): TicketCacheEntity
 
-    @Query("SELECT * FROM tickets WHERE is_bookmarked = 1")
+    @Query("SELECT * FROM tickets WHERE id = 1")
     fun getBookMarkedTickets(): List<TicketCacheEntity>
 
     @Query("DELETE FROM tickets")
     fun clearTickets(): Int
 
-    @Query("UPDATE tickets SET is_bookmarked = 1 WHERE id = :id")
+    @Query("UPDATE tickets SET id = 1 WHERE id = :id")
     fun bookmarkTicket(id: Long): Int
 
-    @Query("UPDATE tickets SET is_bookmarked = 0 WHERE id = :id")
+    @Query("UPDATE tickets SET id = 0 WHERE id = :id")
     fun unBookmarkTicket(id: Long): Int
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

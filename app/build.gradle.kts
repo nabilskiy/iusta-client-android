@@ -23,6 +23,7 @@ android {
 
         // Configs
         buildConfigField("String", "BASE_URL", "\"" + Environments.Release.baseUrl + "\"")
+        buildConfigField("String", "SECRETKEY", "\"" + Environments.Release.secretKey + "\"")
     }
 
     buildTypes {

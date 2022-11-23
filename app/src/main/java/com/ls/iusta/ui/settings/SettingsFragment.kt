@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.ls.iusta.base.BaseFragment
 import com.ls.iusta.core.theme.ThemeUtils
 import com.ls.iusta.databinding.FragmentSettingsBinding
-import com.ls.iusta.domain.models.SettingUiModel
+import com.ls.iusta.domain.models.settings.SettingUiModel
 import com.ls.iusta.extension.observe
 import com.ls.iusta.presentation.viewmodel.SettingsViewModel
 import dagger.hilt.android.AndroidEntryPoint

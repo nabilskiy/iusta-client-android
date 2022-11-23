@@ -1,4 +1,6 @@
-package com.ls.iusta.domain.models
+package com.ls.iusta.domain.models.settings
+
+import com.ls.iusta.domain.models.UiAwareModel
 
 sealed class SettingUiModel : UiAwareModel() {
     object Loading : SettingUiModel()

@@ -8,9 +8,14 @@ import java.util.concurrent.TimeUnit
 
 object ServiceFactory {
 
-    fun create(isDebug: Boolean, baseUrl: String): TicketService {
+    fun createTicketService(isDebug: Boolean, baseUrl: String): TicketService {
         val retrofit = createRetrofit(isDebug, baseUrl)
         return retrofit.create(TicketService::class.java)
+    }
+
+    fun createUserService(isDebug: Boolean, baseUrl: String): UserService {
+        val retrofit = createRetrofit(isDebug, baseUrl)
+        return retrofit.create(UserService::class.java)
     }
 
     private fun createRetrofit(isDebug: Boolean, baseUrl: String): Retrofit {

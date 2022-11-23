@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.RequestManager
 import com.ls.iusta.base.BaseAdapter
 import com.ls.iusta.databinding.ItemTicketListBinding
-import com.ls.iusta.domain.models.Ticket
+import com.ls.iusta.domain.models.tickets.Ticket
 import javax.inject.Inject
 
 class TicketAdapter @Inject constructor(
@@ -41,8 +41,8 @@ class TicketAdapter @Inject constructor(
         RecyclerView.ViewHolder(binding.root), Binder<Ticket> {
         override fun bind(item: Ticket) {
             binding.apply {
-                textViewTicketName.text = item.name
-                glide.load(item.image).into(imageViewTicket)
+                textViewTicketName.text = item.title
+               // glide.load(item.image).into(imageViewTicket)
 
                 root.setOnClickListener {
                     onItemClickListener?.let { itemClick ->
@@ -50,8 +50,8 @@ class TicketAdapter @Inject constructor(
                     }
                 }
 
-                textViewStatus.text = "${item.status} - ${item.species}"
-                textViewKnownLocation.text = item.characterLocation.name
+                textViewStatus.text = "${item.ticket_state_name} - ${item.ticket_state_id}"
+               // textViewKnownLocation.text = item.characterLocation.name
             }
         }
     }

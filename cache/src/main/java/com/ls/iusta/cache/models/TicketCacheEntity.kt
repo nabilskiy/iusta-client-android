@@ -8,27 +8,27 @@ import com.ls.iusta.cache.utils.CacheConstants
 
 @Entity(tableName = CacheConstants.Ticket.TICKET_TABLE_NAME)
 data class TicketCacheEntity(
-    val created: String,
-    val gender: String,
+    val archive_flag: String,
+    val create_by : String,
+    val create_time : String,
+    val customer_id : String,
+    val customer_user_id : String,
+    val dynamic_category_id : String,
+    val dynamic_category_name :String,
     @PrimaryKey
-    val id: Int,
-    val image: String,
-    @Embedded /* It is a nested field */
-    val characterLocation: TicketLocationCacheEntity,
-    val name: String,
-    val species: String,
-    val status: String,
-    val type: String,
-    val url: String,
-    @ColumnInfo(name = "is_bookmarked")
-    var isBookMarked: Boolean
-)
-
-@Entity(tableName = CacheConstants.Ticket.TICKET_LOCATION_TABLE_NAME)
-data class TicketLocationCacheEntity(
-    @PrimaryKey
-    @ColumnInfo(name = "location")
-    val name: String,
-    @ColumnInfo(name = "location_url")
-    val url: String
+    val id : String,
+    val owner_user_name : String,
+    val responsible_user_id :String,
+    val service_id : String,
+    val ticket_lock_id : String,
+    val ticket_priority_id :String,
+    val ticket_state_id : String,
+    val ticket_state_name : String,
+    val title : String,
+    val tn : String,
+    val type_id : String,
+    val user_id : String,
+    val category_name : String,
+//    @ColumnInfo(name = "is_bookmarked")
+//    var isBookMarked: Boolean
 )

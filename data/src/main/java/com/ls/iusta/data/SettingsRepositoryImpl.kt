@@ -1,7 +1,7 @@
 package com.ls.iusta.data
 
-import com.ls.iusta.domain.models.SettingType
-import com.ls.iusta.domain.models.Settings
+import com.ls.iusta.domain.models.settings.SettingType
+import com.ls.iusta.domain.models.settings.Settings
 import com.ls.iusta.domain.repository.SettingsRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow

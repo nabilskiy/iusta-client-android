@@ -1,13 +1,14 @@
 package com.ls.iusta.domain.interactor
 
-import com.ls.iusta.domain.models.Ticket
+import com.ls.iusta.domain.models.tickets.GetTicketsRequest
+import com.ls.iusta.domain.models.tickets.Ticket
 import com.ls.iusta.domain.repository.TicketRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class GetTicketListUseCase @Inject constructor(
     private val ticketRepository: TicketRepository
-) : BaseUseCase<Unit, Flow<List<Ticket>>> {
-    override suspend fun invoke(params: Unit): Flow<List<Ticket>> =
-        ticketRepository.getTickets()
+) : BaseUseCase<GetTicketsRequest, Flow<List<Ticket>>> {
+    override suspend fun invoke(data: GetTicketsRequest): Flow<List<Ticket>> =
+        ticketRepository.getTickets(data.ticket_status, data.auth_token, data.secret_key)
 }

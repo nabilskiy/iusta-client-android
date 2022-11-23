@@ -5,13 +5,17 @@ import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.ls.iusta.BuildConfig
 import com.ls.iusta.R
 import com.ls.iusta.base.BaseFragment
 import com.ls.iusta.databinding.FragmentTicketsListBinding
-import com.ls.iusta.domain.models.TicketUIModel
+import com.ls.iusta.domain.models.auth.LoginUiModel
+import com.ls.iusta.domain.models.tickets.TicketUIModel
 import com.ls.iusta.extension.observe
 import com.ls.iusta.presentation.viewmodel.TicketsListViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
+import javax.crypto.Cipher.SECRET_KEY
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -28,11 +32,16 @@ class TicketsListFragment : BaseFragment<FragmentTicketsListBinding, TicketsList
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val isFavorite =
-            (findNavController().currentDestination?.label == getString(R.string.menu_history))
-        viewModel.getTickets(isFavorite)
+        val isActive =
+            (findNavController().currentDestination?.label == getString(R.string.menu_home))
+        viewModel.getTickets(isActive)
         observe(viewModel.ticketList, ::onViewStateChange)
         setupRecyclerView()
+
+
+        viewModel.startLogin("alex_n@alex_n.com","BZ67BeW4HwVqwBu", BuildConfig.SECRETKEY)
+        observe(viewModel.loginData, ::onLogin)
+
     }
 
     private fun setupRecyclerView() {
@@ -61,6 +70,22 @@ class TicketsListFragment : BaseFragment<FragmentTicketsListBinding, TicketsList
                 ticketAdapter.list = event.data
             }
             is TicketUIModel.Error -> {
+                handleErrorMessage(event.error)
+            }
+        }
+    }
+
+    private fun onLogin(event: LoginUiModel) {
+        if (event.isRedelivered) return
+        when (event) {
+            is LoginUiModel.Loading -> {
+                handleLoading(true)
+            }
+            is LoginUiModel.Success -> {
+                handleLoading(false)
+                Timber.e(event.data.auth_token)
+            }
+            is LoginUiModel.Error -> {
                 handleErrorMessage(event.error)
             }
         }

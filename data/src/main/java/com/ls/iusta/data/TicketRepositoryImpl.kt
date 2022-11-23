@@ -2,7 +2,7 @@ package com.ls.iusta.data
 
 import com.ls.iusta.data.mapper.TicketMapper
 import com.ls.iusta.data.source.TicketDataSourceFactory
-import com.ls.iusta.domain.models.Ticket
+import com.ls.iusta.domain.models.tickets.Ticket
 import com.ls.iusta.domain.repository.TicketRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -12,9 +12,9 @@ class TicketRepositoryImpl @Inject constructor(
     private val ticketDataSourceFactory: TicketDataSourceFactory,
     private val ticketMapper: TicketMapper
 ) : TicketRepository {
-    override suspend fun getTickets(): Flow<List<Ticket>> = flow {
+    override suspend fun getTickets(ticket_status: String, auth_token: String, secret_key: String): Flow<List<Ticket>> = flow {
         val isCached = ticketDataSourceFactory.getCacheDataSource().isCached()
-        val ticketList = ticketDataSourceFactory.getDataStore(isCached).getTickets()
+        val ticketList = ticketDataSourceFactory.getDataStore(isCached).getTickets(ticket_status, auth_token, secret_key)
             .map { ticketEntity ->
                 ticketMapper.mapFromEntity(ticketEntity)
             }
@@ -22,10 +22,10 @@ class TicketRepositoryImpl @Inject constructor(
         emit(ticketList)
     }
 
-    override suspend fun getTicket(ticketId: Long): Flow<Ticket> = flow {
-        var ticket = ticketDataSourceFactory.getCacheDataSource().getTicket(ticketId)
-        if (ticket.image.isEmpty()) {
-            ticket = ticketDataSourceFactory.getRemoteDataSource().getTicket(ticketId)
+    override suspend fun getTicket(ticket_status: String, auth_token: String, secret_key: String, ticketId: Long): Flow<Ticket> = flow {
+        var ticket = ticketDataSourceFactory.getCacheDataSource().getTicket(ticket_status, auth_token, secret_key, ticketId)
+        if (ticket.title.isEmpty()) {
+            ticket = ticketDataSourceFactory.getRemoteDataSource().getTicket(ticket_status, auth_token, secret_key, ticketId)
         }
 
         emit(ticketMapper.mapFromEntity(ticket))

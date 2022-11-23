@@ -5,6 +5,6 @@ object CacheConstants {
 
     object Ticket {
         const val TICKET_TABLE_NAME = "tickets"
-        const val TICKET_LOCATION_TABLE_NAME = "tickets_location"
+        const val USER_TABLE_NAME = "user"
     }
 }

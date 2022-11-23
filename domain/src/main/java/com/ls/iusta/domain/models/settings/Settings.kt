@@ -1,4 +1,4 @@
-package com.ls.iusta.domain.models
+package com.ls.iusta.domain.models.settings
 
 data class Settings(
     val id: Int,

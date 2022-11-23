@@ -1,4 +1,6 @@
-package com.ls.iusta.domain.models
+package com.ls.iusta.domain.models.tickets
+
+import com.ls.iusta.domain.models.UiAwareModel
 
 sealed class TicketDetailUIModel : UiAwareModel() {
     object Loading : TicketDetailUIModel()

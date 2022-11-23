@@ -1,12 +1,12 @@
 package com.ls.iusta.domain.repository
 
-import com.ls.iusta.domain.models.Ticket
+import com.ls.iusta.domain.models.tickets.Ticket
 import kotlinx.coroutines.flow.Flow
 
 interface TicketRepository {
     // Remote and cache
-    suspend fun getTickets(): Flow<List<Ticket>>
-    suspend fun getTicket(ticketId: Long): Flow<Ticket>
+    suspend fun getTickets(ticket_status: String, auth_token: String, secret_key: String): Flow<List<Ticket>>
+    suspend fun getTicket(ticket_status: String, auth_token: String, secret_key: String, ticketId: Long): Flow<Ticket>
 
     // Cache
     suspend fun saveTickets(listTickets: List<Ticket>)

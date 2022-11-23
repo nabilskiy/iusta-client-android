@@ -8,8 +8,8 @@ import com.bumptech.glide.RequestManager
 import com.ls.iusta.R
 import com.ls.iusta.base.BaseFragment
 import com.ls.iusta.databinding.FragmentTicketDetailBinding
-import com.ls.iusta.domain.models.Bookmark
-import com.ls.iusta.domain.models.TicketDetailUIModel
+import com.ls.iusta.domain.models.tickets.Bookmark
+import com.ls.iusta.domain.models.tickets.TicketDetailUIModel
 import com.ls.iusta.extension.observe
 import com.ls.iusta.extension.showSnackBar
 import com.ls.iusta.presentation.viewmodel.TicketDetailViewModel
@@ -61,14 +61,14 @@ class TicketDetailFragment :
                 result.data.let {
                     result.data.let { ticket ->
                         binding.apply {
-                            textViewTicketName.text = ticket.name
-                            glide.load(ticket.image).into(imageViewTicket)
+                            textViewTicketName.text = ticket.title
+                            //glide.load(ticket.image).into(imageViewTicket)
                             checkBoxBookmark.tag = ticket.id
-                            checkBoxBookmark.isChecked = ticket.isBookMarked
-                            textViewSpecies.text = ticket.species
-                            textViewGender.text = ticket.gender
-                            textViewGenderLocation.text = ticket.characterLocation.name
-                            textViewStatus.text = ticket.status
+                         //   checkBoxBookmark.isChecked = ticket.isBookMarked
+                            textViewSpecies.text = ticket.category_name
+                            textViewGender.text = ticket.tn
+                          //  textViewGenderLocation.text = ticket.characterLocation.name
+                            textViewStatus.text = ticket.ticket_state_name
                         }
                     }
                 }

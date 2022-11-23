@@ -3,8 +3,8 @@ package com.ls.iusta.presentation.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.ls.iusta.domain.interactor.GetSettingsUseCase
-import com.ls.iusta.domain.models.SettingUiModel
-import com.ls.iusta.domain.models.Settings
+import com.ls.iusta.domain.models.settings.SettingUiModel
+import com.ls.iusta.domain.models.settings.Settings
 import com.ls.iusta.presentation.utils.CoroutineContextProvider
 import com.ls.iusta.presentation.utils.PresentationPreferencesHelper
 import dagger.hilt.android.lifecycle.HiltViewModel

@@ -10,8 +10,8 @@ import com.google.android.material.shape.CornerFamily
 import com.ls.iusta.R
 import com.ls.iusta.base.BaseAdapter
 import com.ls.iusta.databinding.ItemSettingListBinding
-import com.ls.iusta.domain.models.SettingType
-import com.ls.iusta.domain.models.Settings
+import com.ls.iusta.domain.models.settings.SettingType
+import com.ls.iusta.domain.models.settings.Settings
 import com.ls.iusta.extension.makeGone
 import com.ls.iusta.extension.makeVisible
 import javax.inject.Inject
