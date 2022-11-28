@@ -3,6 +3,15 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
+    <color name="orange">#FF9800</color>
+    <color name="orange_dark">#BD7406</color>
+    <color name="red">#e52a22</color>
+    <color name="brown">#501212</color>
+    <color name="dark_grey">#636262</color>
+    <color name="grey">#C1C0C0</color>
+
+    <color name="colorGradientStart">#F5F5FC</color>
+    <color name="colorGradientEnd">#D9E7F2</color>
     <color name="blue_200">#6ccef2</color>
     <color name="blue_500">#009feb</color>
     <color name="blue_700">#007fca</color>

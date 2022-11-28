@@ -10,5 +10,5 @@ class GetTicketByIdUseCase @Inject constructor(
     private val ticketRepository: TicketRepository
 ) : BaseUseCase<GetTicketByIdRequest, Flow<Ticket>> {
     override suspend fun invoke(data: GetTicketByIdRequest): Flow<Ticket> =
-        ticketRepository.getTicket(data.ticket_status, data.auth_token, data.secret_key, data.ticket_id)
+        ticketRepository.getTicket(data.ticket_status, data.auth_token, data.ticket_id)
 }

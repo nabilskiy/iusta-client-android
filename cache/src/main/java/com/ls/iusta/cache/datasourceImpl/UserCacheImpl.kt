@@ -18,12 +18,15 @@ class UserCacheImpl @Inject constructor(
     private val cachePreferencesHelper: CachePreferencesHelper
 ) : UserCache {
 
-
     override suspend fun getLoginData(): LoginEntity =
         loginCacheMapper.mapFromCached(userDao.getLoginData())
 
-    override suspend fun login(email: String, password: String, secret_key: String): LoginEntity {
+    override suspend fun login(email: String, password: String): LoginEntity {
         TODO("Not yet implemented")
+    }
+
+    override suspend fun getAuthToken(): String? {
+        return cachePreferencesHelper.authToken
     }
 
     override suspend fun isCached(): Boolean =
@@ -39,12 +42,18 @@ class UserCacheImpl @Inject constructor(
         return currentTime - lastUpdateTime > EXPIRATION_TIME
     }
 
+    override suspend fun setAuthToken(authToken: String?) {
+        cachePreferencesHelper.authToken = authToken
+    }
+
     /**
      * Get in millis, the last time the cache was accessed.
      */
     private fun getLastCacheUpdateTimeMillis(): Long {
         return cachePreferencesHelper.lastCacheTime
     }
+
+
 
     companion object {
         /**

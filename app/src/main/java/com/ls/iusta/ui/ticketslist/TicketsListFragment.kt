@@ -14,6 +14,7 @@ import com.ls.iusta.domain.models.tickets.TicketUIModel
 import com.ls.iusta.extension.observe
 import com.ls.iusta.presentation.viewmodel.TicketsListViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.NonCancellable.isActive
 import timber.log.Timber
 import javax.crypto.Cipher.SECRET_KEY
 import javax.inject.Inject
@@ -37,15 +38,15 @@ class TicketsListFragment : BaseFragment<FragmentTicketsListBinding, TicketsList
         viewModel.getTickets(isActive)
         observe(viewModel.ticketList, ::onViewStateChange)
         setupRecyclerView()
-
-
-        viewModel.startLogin("alex_n@alex_n.com","BZ67BeW4HwVqwBu", BuildConfig.SECRETKEY)
-        observe(viewModel.loginData, ::onLogin)
-
     }
 
     private fun setupRecyclerView() {
-        binding.recyclerViewCharacters.apply {
+        binding.refresh.setOnRefreshListener {
+            binding.refresh.isRefreshing = false
+            viewModel.getTickets(true)
+        }
+
+        binding.recyclerViewTickets.apply {
             adapter = ticketAdapter
             layoutManager = LinearLayoutManager(requireContext())
         }
@@ -75,19 +76,5 @@ class TicketsListFragment : BaseFragment<FragmentTicketsListBinding, TicketsList
         }
     }
 
-    private fun onLogin(event: LoginUiModel) {
-        if (event.isRedelivered) return
-        when (event) {
-            is LoginUiModel.Loading -> {
-                handleLoading(true)
-            }
-            is LoginUiModel.Success -> {
-                handleLoading(false)
-                Timber.e(event.data.auth_token)
-            }
-            is LoginUiModel.Error -> {
-                handleErrorMessage(event.error)
-            }
-        }
-    }
+
 }

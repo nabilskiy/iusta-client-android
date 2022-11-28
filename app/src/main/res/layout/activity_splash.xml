@@ -5,11 +5,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.SplashActivity">
+    <ImageView
+        android:src="@drawable/background_menu_head"
+        android:scaleType="centerCrop"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
-    <com.google.android.material.textview.MaterialTextView
+    <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/splash_screen"
+        android:src="@drawable/logo_w"
+        android:scaleX="2"
+        android:scaleY="2"
         android:textAppearance="?textAppearanceHeadline4"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

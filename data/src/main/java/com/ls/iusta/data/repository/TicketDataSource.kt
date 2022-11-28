@@ -4,8 +4,8 @@ import com.ls.iusta.data.models.TicketEntity
 
 interface TicketDataSource {
     // Remote and cache
-    suspend fun getTickets(ticket_status: String, auth_token: String, secret_key: String): List<TicketEntity>
-    suspend fun getTicket(ticket_status: String, auth_token: String, secret_key: String, ticketId: Long): TicketEntity
+    suspend fun getTickets(ticket_status: String, auth_token: String): List<TicketEntity>
+    suspend fun getTicket(ticket_status: String, auth_token: String, ticketId: Long): TicketEntity
 
     // Cache
     suspend fun saveTicket(listTickets: List<TicketEntity>)

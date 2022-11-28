@@ -3,33 +3,61 @@ package com.ls.iusta.ui
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import com.ls.iusta.base.BaseActivity
+import com.ls.iusta.databinding.ActivityLoginBinding
 import com.ls.iusta.databinding.ActivitySplashBinding
+import com.ls.iusta.domain.models.auth.AuthUiModel
+import com.ls.iusta.domain.models.auth.LoginUiModel
+import com.ls.iusta.extension.observe
+import com.ls.iusta.presentation.viewmodel.LoginViewModel
+import com.ls.iusta.ui.auth.LoginActivity
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-@SuppressLint("CustomSplashScreen")
-class SplashActivity : AppCompatActivity() {
+@AndroidEntryPoint
+class SplashActivity : BaseActivity<ActivitySplashBinding>() {
 
-    private var _binding: ActivitySplashBinding? = null
-    private val binding get() = _binding!!
+    override fun getViewBinding() = ActivitySplashBinding.inflate(layoutInflater)
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        _binding = ActivitySplashBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+    override val viewModel: LoginViewModel by viewModels()
 
-        lifecycleScope.launch {
-            delay(1000)
-            startActivity(Intent(this@SplashActivity, MainActivity::class.java))
-            // close splash activity
-            finish()
+    override fun initUI() {
+        viewModel.isLogged()
+    }
+
+    override fun initViewModel() {
+        observe(viewModel.authData, ::onAuth)
+    }
+
+    private fun onAuth(event: AuthUiModel) {
+        if (event.isRedelivered) return
+        when (event) {
+            is AuthUiModel.Loading -> {
+                handleLoading(true)
+            }
+            is AuthUiModel.Success -> {
+                handleLoading(false)
+                lifecycleScope.launch {
+                    delay(1000)
+                    nextActivity(event.isLogged)
+                }
+            }
+            is AuthUiModel.Error -> {
+                handleErrorMessage(event.error)
+            }
         }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        _binding = null
+    private fun nextActivity(isLogged: Boolean?) {
+        if (isLogged == true)
+            MainActivity.startActivity(this@SplashActivity)
+        else
+            LoginActivity.startActivity(this@SplashActivity)
+        // close splash activity
+        finish()
     }
 }

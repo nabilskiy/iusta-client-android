@@ -1,4 +1,4 @@
-package com.ls.iusta.remote.models
+package com.ls.iusta.remote.models.user
 
 
 data class LoginModel (

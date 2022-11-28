@@ -12,7 +12,6 @@ import com.ls.iusta.domain.models.tickets.Ticket
 import javax.inject.Inject
 
 class TicketAdapter @Inject constructor(
-    private val glide: RequestManager
 ) : BaseAdapter<Ticket>() {
 
     private val diffCallback = object : DiffUtil.ItemCallback<Ticket>() {
@@ -42,16 +41,14 @@ class TicketAdapter @Inject constructor(
         override fun bind(item: Ticket) {
             binding.apply {
                 textViewTicketName.text = item.title
-               // glide.load(item.image).into(imageViewTicket)
+                textViewStatus.text = item.ticket_state_name
+                textViewDate.text = item.create_time
 
                 root.setOnClickListener {
                     onItemClickListener?.let { itemClick ->
                         itemClick(item)
                     }
                 }
-
-                textViewStatus.text = "${item.ticket_state_name} - ${item.ticket_state_id}"
-               // textViewKnownLocation.text = item.characterLocation.name
             }
         }
     }

@@ -1,8 +1,7 @@
 package com.ls.iusta.remote.mappers
 
 import com.ls.iusta.data.models.LoginEntity
-import com.ls.iusta.data.models.TicketEntity
-import com.ls.iusta.remote.models.LoginModel
+import com.ls.iusta.remote.models.user.LoginModel
 import javax.inject.Inject
 
 class LoginEntityMapper @Inject constructor(

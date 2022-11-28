@@ -43,9 +43,8 @@ class TicketDetailViewModel @Inject constructor(
         ticketByIdUseCase(
             GetTicketByIdRequest(
                 AppConstants.Status.OPENED,
+                //todo move to pref - for test
                 "8sPdHYouyEm1xhYlzGZM2uN5fmz3hOPm8s1XdkfVaGtO0jzqd49vYhGdskZcIdzd0pqTGMriFc4FMEuP",
-               // BuildConfig.SECRETKEY,
-                "oLOk6x4FC1YCBctFTtEzhkHhkZFYJeW5xFlPZccC4mSmI5Ji",
                 ticketId
             )
         ).collect {

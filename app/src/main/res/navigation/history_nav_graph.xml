@@ -2,20 +2,20 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    app:startDestination="@id/favTicketListFragment"
+    app:startDestination="@id/historyTicketListFragment"
     android:id="@+id/navigationGraphFavorite">
     <fragment
-        android:id="@+id/favTicketListFragment"
+        android:id="@+id/historyTicketListFragment"
         android:name="com.ls.iusta.ui.ticketslist.TicketsListFragment"
         android:label="@string/menu_history"
         tools:layout="@layout/fragment_tickets_list">
         <action
             android:id="@+id/action_ticketListFragment_to_ticketDetailFragment"
-            app:destination="@id/favTicketDetailFragment"
-            app:popUpTo="@+id/favTicketListFragment" />
+            app:destination="@id/historyTicketDetailFragment"
+            app:popUpTo="@+id/historyTicketListFragment" />
     </fragment>
     <fragment
-        android:id="@+id/favTicketDetailFragment"
+        android:id="@+id/historyTicketDetailFragment"
         android:name="com.ls.iusta.ui.ticketdetail.TicketDetailFragment"
         android:label="@string/fragment_ticket_detail_title_label"
         tools:layout="@layout/fragment_ticket_detail">

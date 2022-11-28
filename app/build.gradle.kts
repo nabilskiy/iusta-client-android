@@ -65,6 +65,7 @@ dependencies {
     implementation(UiDep.material)
     implementation(UiDep.constraint)
     implementation(UiDep.activityKtx)
+    implementation(UiDep.swipeRefreshLayout)
     // LifeCycle
     UiDep.LifeCycle.forEach {
         implementation(it)

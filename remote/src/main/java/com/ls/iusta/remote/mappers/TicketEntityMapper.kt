@@ -1,7 +1,7 @@
 package com.ls.iusta.remote.mappers
 
 import com.ls.iusta.data.models.TicketEntity
-import com.ls.iusta.remote.models.TicketModel
+import com.ls.iusta.remote.models.ticket.TicketModel
 import javax.inject.Inject
 
 class TicketEntityMapper @Inject constructor(

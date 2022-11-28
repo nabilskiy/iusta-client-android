@@ -1,4 +1,4 @@
-package com.ls.iusta.remote.models
+package com.ls.iusta.remote.models.ticket
 
 import com.google.gson.annotations.SerializedName
 

@@ -12,20 +12,28 @@ class TicketRepositoryImpl @Inject constructor(
     private val ticketDataSourceFactory: TicketDataSourceFactory,
     private val ticketMapper: TicketMapper
 ) : TicketRepository {
-    override suspend fun getTickets(ticket_status: String, auth_token: String, secret_key: String): Flow<List<Ticket>> = flow {
-        val isCached = ticketDataSourceFactory.getCacheDataSource().isCached()
-        val ticketList = ticketDataSourceFactory.getDataStore(isCached).getTickets(ticket_status, auth_token, secret_key)
-            .map { ticketEntity ->
-                ticketMapper.mapFromEntity(ticketEntity)
-            }
-        saveTickets(ticketList)
-        emit(ticketList)
-    }
+    override suspend fun getTickets(ticket_status: String, auth_token: String): Flow<List<Ticket>> =
+        flow {
+            val isCached = ticketDataSourceFactory.getCacheDataSource().isCached()
+            val ticketList =
+                ticketDataSourceFactory.getDataStore(isCached).getTickets(ticket_status, auth_token)
+                    .map { ticketEntity ->
+                        ticketMapper.mapFromEntity(ticketEntity)
+                    }
+            saveTickets(ticketList)
+            emit(ticketList)
+        }
 
-    override suspend fun getTicket(ticket_status: String, auth_token: String, secret_key: String, ticketId: Long): Flow<Ticket> = flow {
-        var ticket = ticketDataSourceFactory.getCacheDataSource().getTicket(ticket_status, auth_token, secret_key, ticketId)
+    override suspend fun getTicket(
+        ticket_status: String,
+        auth_token: String,
+        ticketId: Long
+    ): Flow<Ticket> = flow {
+        var ticket = ticketDataSourceFactory.getCacheDataSource()
+            .getTicket(ticket_status, auth_token, ticketId)
         if (ticket.title.isEmpty()) {
-            ticket = ticketDataSourceFactory.getRemoteDataSource().getTicket(ticket_status, auth_token, secret_key, ticketId)
+            ticket = ticketDataSourceFactory.getRemoteDataSource()
+                .getTicket(ticket_status, auth_token, ticketId)
         }
 
         emit(ticketMapper.mapFromEntity(ticket))

@@ -11,6 +11,7 @@ object Versions {
     const val appCompatVersion = "1.3.1"
     const val materialVersion = "1.4.0"
     const val constraintLayoutVersion = "2.1.0"
+    const val swipeRefreshLayoutVersion = "1.1.0"
 
     // Activity KTX for viewModels() dependencies
     const val activityKtxVersion = "1.3.1"

@@ -26,4 +26,8 @@ class UserDataSourceFactory @Inject constructor(
     fun getCacheDataSource(): UserDataSource {
         return userCacheDataSource
     }
+
+    open suspend fun getAuthToken(): String? {
+        return userCache.getAuthToken()
+    }
 }

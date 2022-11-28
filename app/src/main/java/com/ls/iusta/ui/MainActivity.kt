@@ -1,5 +1,7 @@
 package com.ls.iusta.ui
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LiveData
@@ -10,6 +12,8 @@ import com.ls.iusta.R
 import com.ls.iusta.databinding.ActivityMainBinding
 import com.ls.iusta.extension.setupWithNavController
 import com.ls.iusta.extension.showSnackBar
+import com.ls.iusta.extension.startWithAnimation
+import com.ls.iusta.ui.auth.LoginActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -45,7 +49,7 @@ class MainActivity : AppCompatActivity() {
     private fun setupBottomNavigationBar() {
         val navGraphIds = listOf(
             R.navigation.home_nav_graph,
-            R.navigation.favorite_nav_graph,
+            R.navigation.history_nav_graph,
             R.navigation.settings_nav_graph
         )
 
@@ -90,5 +94,12 @@ class MainActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+    }
+
+    companion object {
+        fun startActivity(activity: Activity?) {
+            val intent = Intent(activity, MainActivity::class.java)
+            activity?.startWithAnimation(intent, true)
+        }
     }
 }

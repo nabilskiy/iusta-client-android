@@ -23,6 +23,10 @@
             </intent-filter>
         </activity>
         <activity
+            android:theme="@style/Theme.Login"
+            android:name="com.ls.iusta.ui.auth.LoginActivity"
+            android:exported="true" />
+        <activity
             android:name="com.ls.iusta.ui.MainActivity"
             android:exported="true" />
     </application>
