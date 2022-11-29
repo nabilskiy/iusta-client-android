@@ -12,6 +12,16 @@
     <string name="next">Next</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
+    <string name="password_confirm">Confirm password</string>
+
+    <!-- Registration Activity -->
+    <string name="reg">Sign Up</string>
+    <string name="loginlabel">Already registered? <b><font color="#FF9800">Log In</font></b></string>
+    <string name="privacy">I accept all <b><u><font color="#FF9800">Terms and Conditions</font></u></b></string>
+    <string name="school">School Name</string>
+    <string name="name">Name</string>
+    <string name="surname">Surame</string>
+    <string name="emailaddress">Email Address</string>
 
     <!-- Tickets Fragment -->
     <string name="fragment_tickets_title_label">Active orders</string>

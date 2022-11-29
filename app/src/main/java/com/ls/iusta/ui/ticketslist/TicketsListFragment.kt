@@ -34,7 +34,6 @@ class TicketsListFragment : BaseFragment<FragmentTicketsListBinding, TicketsList
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         isActive =
             (findNavController().currentDestination?.label == getString(R.string.fragment_tickets_title_label))
         viewModel.getTickets(isActive)

@@ -1,6 +1,7 @@
-package com.ls.iusta.remote.mappers
+package com.ls.iusta.remote.mappers.ticket
 
 import com.ls.iusta.data.models.TicketEntity
+import com.ls.iusta.remote.mappers.EntityMapper
 import com.ls.iusta.remote.models.ticket.TicketModel
 import javax.inject.Inject
 

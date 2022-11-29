@@ -27,22 +27,16 @@ class RegActivity : BaseActivity<ActivityRegisterBinding>() {
 
     override fun initUI() {
         with(binding) {
-            passwordButton.setOnClickListener {
-                if (passwordEditText.isPassword()) {
-                    passwordEditText.setPasswordState(false)
-                    passwordButton.setImageResource(R.drawable.ic_password_on)
-                } else {
-                    passwordEditText.setPasswordState(true)
-                    passwordButton.setImageResource(R.drawable.ic_password_off)
-                }
-                passwordEditText.setSelection(passwordEditText.text.toString().length)
-            }
 
             nextButton.setOnClickListener {
-                val email = binding.emailTextInputEditText.text.toString()
-                val password = binding.passwordEditText.text.toString()
-                viewModel.startLogin(email, password)
+
             }
+
+            login.setOnClickListener {
+                LoginActivity.startActivity(this@RegActivity)
+            }
+
+
         }
     }
 

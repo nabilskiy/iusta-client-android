@@ -1,8 +1,17 @@
 package com.ls.iusta.data
 
-import com.ls.iusta.data.mapper.TicketMapper
+import com.ls.iusta.data.mapper.category.CategoryInfoMapper
+import com.ls.iusta.data.mapper.category.CategoryMapper
+import com.ls.iusta.data.mapper.ticket.ShortTicketMapper
+import com.ls.iusta.data.mapper.ticket.TicketMapper
+import com.ls.iusta.data.mapper.worker.RatingMapper
+import com.ls.iusta.data.mapper.worker.WorkerMapper
 import com.ls.iusta.data.source.TicketDataSourceFactory
+import com.ls.iusta.domain.models.category.CategoryInfo
+import com.ls.iusta.domain.models.tickets.ShortTicket
 import com.ls.iusta.domain.models.tickets.Ticket
+import com.ls.iusta.domain.models.worker.Rating
+import com.ls.iusta.domain.models.worker.Worker
 import com.ls.iusta.domain.repository.TicketRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -10,7 +19,11 @@ import javax.inject.Inject
 
 class TicketRepositoryImpl @Inject constructor(
     private val ticketDataSourceFactory: TicketDataSourceFactory,
-    private val ticketMapper: TicketMapper
+    private val ticketMapper: TicketMapper,
+    private val shortTicketMapper: ShortTicketMapper,
+    private val categoryInfoMapper: CategoryInfoMapper,
+    private val workerMapper: WorkerMapper,
+    private val ratingMapper: RatingMapper
 ) : TicketRepository {
     override suspend fun getTickets(
         ticket_status: String,
@@ -40,6 +53,60 @@ class TicketRepositoryImpl @Inject constructor(
         }
 
         emit(ticketMapper.mapFromEntity(ticket))
+    }
+
+    override suspend fun categories(menu_id: String, auth_token: String?): Flow<CategoryInfo> =
+        flow {
+            val categoryInfo = ticketDataSourceFactory.getRemoteDataSource().categories(menu_id, auth_token)
+            emit(categoryInfoMapper.mapFromEntity(categoryInfo))
+        }
+
+    override suspend fun createTicket(category_id: String, auth_token: String?): Flow<ShortTicket> =
+        flow {
+            val ticket =
+                ticketDataSourceFactory.getRemoteDataSource().createTicket(category_id, auth_token)
+            emit(shortTicketMapper.mapFromEntity(ticket))
+        }
+
+    override suspend fun addNoteTicket(
+        ticketId: Long,
+        ticketNote: String,
+        auth_token: String?
+    ): Flow<ShortTicket> = flow {
+        val ticket = ticketDataSourceFactory.getRemoteDataSource()
+            .addNoteTicket(ticketId, ticketNote, auth_token)
+        emit(shortTicketMapper.mapFromEntity(ticket))
+    }
+
+    override suspend fun getNoteTicket(
+        ticketId: Long,
+        ticketNote: String,
+        auth_token: String?
+    ): Flow<String> = flow {
+        val note = ticketDataSourceFactory.getRemoteDataSource()
+            .getNoteTicket(ticketId, ticketNote, auth_token)
+        emit(note)
+    }
+
+    override suspend fun addRating(
+        workerRating: Int,
+        ticketId: Long,
+        ticketNote: String,
+        auth_token: String?
+    ): Flow<Boolean> = flow {
+        val rating = ticketDataSourceFactory.getRemoteDataSource()
+            .addRating(workerRating, ticketId, ticketNote, auth_token)
+        emit(rating)
+    }
+
+    override suspend fun getRating(ticketId: Long, auth_token: String?): Flow<Rating> = flow {
+        val rating = ticketDataSourceFactory.getRemoteDataSource().getRating(ticketId, auth_token)
+        emit(ratingMapper.mapFromEntity(rating))
+    }
+
+    override suspend fun worker(id: Int, auth_token: String?): Flow<Worker> = flow {
+        val worker = ticketDataSourceFactory.getRemoteDataSource().worker(id, auth_token)
+        emit(workerMapper.mapFromEntity(worker))
     }
 
     override suspend fun saveTickets(listTickets: List<Ticket>) {

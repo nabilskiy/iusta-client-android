@@ -7,6 +7,6 @@ data class CategoryResponseInfoModel (
     val id: Int?,
     val name: String?,
     val back_menu: Int?,
-    val menus: List<CategoryModel>?,
-    val categories: List<CategoryModel>?
+    val menus: List<CategoryModel>,
+    val categories: List<CategoryModel>
 )

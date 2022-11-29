@@ -1,5 +1,6 @@
-package com.ls.iusta.data.mapper
+package com.ls.iusta.data.mapper.ticket
 
+import com.ls.iusta.data.mapper.Mapper
 import com.ls.iusta.data.models.TicketEntity
 import com.ls.iusta.domain.models.tickets.Ticket
 import javax.inject.Inject

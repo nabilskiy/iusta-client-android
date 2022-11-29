@@ -52,17 +52,17 @@ interface UserService {
 
     @FormUrlEncoded
     @POST(Endpoints.USER_INFO_ADD)
-    suspend fun userInfoAdd(
-        @Field("Username") Username: String,
-        @Field("Password") Password: String,
-        @Field("Password_confirmation") Password_confirmation: String,
-        @Field("Firstname") Firstname: String,
+    suspend fun registerUser(
+        @Field("username") username: String,
+        @Field("password") password: String,
+        @Field("password_confirmation") password_confirmation: String,
+        @Field("firstname") firstname: String,
         @Field("lastname") lastname: String,
         @Field("middlename") middlename: String,
-        @Field("Phone_number") Phone_number: String,
+        @Field("phone_number") phone_number: String,
         @Field("birthday") birthday: String,
-        @Field("Email") Email: String,
-        @Field("Il_customer_id") Il_customer_id: String,
+        @Field("email") email: String,
+        @Field("il_customer_id") il_customer_id: String,
         @Field("language") language: String,
         @Field("secret_key") secret_key: String = SECRET_KEY
     ): BaseModel
@@ -82,7 +82,7 @@ interface UserService {
         @Field("secret_key") secret_key: String = SECRET_KEY
     ): BaseModel
 
-    @GET(Endpoints.CUSTOMERS)
+    @POST(Endpoints.CUSTOMERS)
     suspend fun customers(
         @Field("query") query: String,
         @Field("secret_key") secret_key: String = SECRET_KEY

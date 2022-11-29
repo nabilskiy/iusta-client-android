@@ -1,7 +1,6 @@
-package com.ls.iusta.remote.models.category
+package com.ls.iusta.domain.models.category
 
-
-data class CategoryModel (
+data class Category(
     val id: Int?,
     val name: String?,
     val description: String?,

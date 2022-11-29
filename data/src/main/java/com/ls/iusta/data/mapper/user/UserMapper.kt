@@ -1,5 +1,6 @@
-package com.ls.iusta.data.mapper
+package com.ls.iusta.data.mapper.user
 
+import com.ls.iusta.data.mapper.Mapper
 import com.ls.iusta.data.models.UserEntity
 import com.ls.iusta.domain.models.user.User
 import javax.inject.Inject

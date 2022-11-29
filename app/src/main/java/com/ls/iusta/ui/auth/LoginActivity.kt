@@ -41,6 +41,10 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
                 val password = binding.passwordEditText.text.toString()
                 viewModel.startLogin(email, password)
             }
+
+            signUp.setOnClickListener {
+                RegActivity.startActivity(this@LoginActivity)
+            }
         }
     }
 

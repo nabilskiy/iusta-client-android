@@ -1,9 +1,11 @@
 package com.ls.iusta.data
 
-import com.ls.iusta.data.mapper.LoginMapper
-import com.ls.iusta.data.mapper.UserMapper
+import com.ls.iusta.data.mapper.customer.CustomerMapper
+import com.ls.iusta.data.mapper.user.LoginMapper
+import com.ls.iusta.data.mapper.user.UserMapper
 import com.ls.iusta.data.source.UserDataSourceFactory
 import com.ls.iusta.domain.models.auth.Login
+import com.ls.iusta.domain.models.customer.Customer
 import com.ls.iusta.domain.models.user.User
 import com.ls.iusta.domain.repository.UserRepository
 import kotlinx.coroutines.flow.Flow
@@ -13,7 +15,8 @@ import javax.inject.Inject
 class UserRepositoryImpl @Inject constructor(
     private val userDataSourceFactory: UserDataSourceFactory,
     private val loginMapper: LoginMapper,
-    private val userMapper: UserMapper
+    private val userMapper: UserMapper,
+    private val customerMapper: CustomerMapper
 ) : UserRepository {
 
     override suspend fun login(email: String, password: String): Flow<Login> = flow {
@@ -22,8 +25,38 @@ class UserRepositoryImpl @Inject constructor(
         emit(loginMapper.mapFromEntity(login))
     }
 
+    override suspend fun register(
+        username: String,
+        password: String,
+        password_confirmation: String,
+        firstname: String,
+        lastname: String,
+        middlename: String,
+        phone_number: String,
+        birthday: String,
+        email: String,
+        il_customer_id: String,
+        language: String
+    ): Flow<Boolean> = flow {
+        var created = userDataSourceFactory.getRemoteDataSource().register(
+            username,
+            password,
+            password_confirmation,
+            firstname,
+            lastname,
+            middlename,
+            phone_number,
+            birthday,
+            email,
+            il_customer_id,
+            language
+        )
+        emit(created)
+    }
+
     override suspend fun userInfo(): Flow<User> = flow {
-        var user = userDataSourceFactory.getRemoteDataSource().userInfo(userDataSourceFactory.getAuthToken())
+        var user = userDataSourceFactory.getRemoteDataSource()
+            .userInfo(userDataSourceFactory.getAuthToken())
         emit(userMapper.mapFromEntity(user))
     }
 
@@ -32,8 +65,74 @@ class UserRepositoryImpl @Inject constructor(
         emit(isLogged)
     }
 
-    override suspend fun getAuthToken(): Flow<String?>  = flow {
+    override suspend fun getAuthToken(): Flow<String?> = flow {
         var token = userDataSourceFactory.getAuthToken()
         emit(token)
+    }
+
+    override suspend fun customers(query: String): Flow<List<Customer>> = flow {
+        val customersList = userDataSourceFactory.getRemoteDataSource().customers(query)
+            .map { customerEntity ->
+                customerMapper.mapFromEntity(customerEntity)
+            }
+        emit(customersList)
+    }
+
+    override suspend fun editUserInfo(
+        firstname: String,
+        lastname: String,
+        middlename: String,
+        phone_number: String,
+        birthday: String,
+        email: String,
+        il_customer_id: String,
+        language: String,
+        auth_token: String
+    ): Flow<Boolean> = flow {
+        val edited = userDataSourceFactory.getRemoteDataSource().editUserInfo(
+            firstname,
+            lastname,
+            middlename,
+            phone_number,
+            birthday,
+            email,
+            il_customer_id,
+            language,
+            auth_token
+        )
+        emit(edited)
+    }
+
+    override suspend fun resetPassword(email: String): Flow<Boolean> = flow {
+        val reset = userDataSourceFactory.getRemoteDataSource().resetPassword(email)
+        emit(reset)
+    }
+
+    override suspend fun updatePassword(
+        old_password: String,
+        new_password: String,
+        new_password_confirmation: String,
+        auth_token: String
+    ): Flow<Boolean> = flow {
+        val updated = userDataSourceFactory.getRemoteDataSource()
+            .updatePassword(old_password, new_password, new_password_confirmation, auth_token)
+        emit(updated)
+    }
+
+    override suspend fun logout(auth_token: String): Flow<Boolean> = flow {
+        val logout = userDataSourceFactory.getRemoteDataSource().logout(auth_token)
+        emit(logout)
+    }
+
+    override suspend fun about(auth_token: String): Flow<Boolean> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun faq(lang: String, auth_token: String): Flow<Boolean> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun terms(lang: String, auth_token: String): Flow<Boolean> {
+        TODO("Not yet implemented")
     }
 }
