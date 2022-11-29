@@ -25,6 +25,8 @@ class TicketsListFragment : BaseFragment<FragmentTicketsListBinding, TicketsList
     @Inject
     lateinit var ticketAdapter: TicketAdapter
 
+    var isActive: Boolean = true
+
     override val viewModel: TicketsListViewModel by viewModels()
 
     override fun getViewBinding(): FragmentTicketsListBinding =
@@ -33,8 +35,8 @@ class TicketsListFragment : BaseFragment<FragmentTicketsListBinding, TicketsList
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val isActive =
-            (findNavController().currentDestination?.label == getString(R.string.menu_home))
+        isActive =
+            (findNavController().currentDestination?.label == getString(R.string.fragment_tickets_title_label))
         viewModel.getTickets(isActive)
         observe(viewModel.ticketList, ::onViewStateChange)
         setupRecyclerView()
@@ -43,7 +45,7 @@ class TicketsListFragment : BaseFragment<FragmentTicketsListBinding, TicketsList
     private fun setupRecyclerView() {
         binding.refresh.setOnRefreshListener {
             binding.refresh.isRefreshing = false
-            viewModel.getTickets(true)
+            viewModel.getTickets(isActive)
         }
 
         binding.recyclerViewTickets.apply {

@@ -1,5 +1,6 @@
-package com.ls.iusta.domain.interactor
+package com.ls.iusta.domain.interactor.ticket
 
+import com.ls.iusta.domain.interactor.BaseUseCase
 import com.ls.iusta.domain.models.tickets.GetTicketsRequest
 import com.ls.iusta.domain.models.tickets.Ticket
 import com.ls.iusta.domain.repository.TicketRepository

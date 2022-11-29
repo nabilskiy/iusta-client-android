@@ -8,10 +8,10 @@ import javax.inject.Inject
 class TicketCacheDataSource @Inject constructor(
     private val ticketCache: TicketCache
 ) : TicketDataSource {
-    override suspend fun getTickets(ticket_status: String, auth_token: String): List<TicketEntity> =
+    override suspend fun getTickets(ticket_status: String, auth_token: String?): List<TicketEntity> =
         ticketCache.getTickets()
 
-    override suspend fun getTicket(ticket_status: String, auth_token: String, ticketId: Long): TicketEntity =
+    override suspend fun getTicket(ticket_status: String, auth_token: String?, ticketId: Long): TicketEntity =
         ticketCache.getTicket(ticketId)
 
     override suspend fun saveTicket(listTickets: List<TicketEntity>) =

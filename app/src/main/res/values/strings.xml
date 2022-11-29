@@ -14,7 +14,8 @@
     <string name="password">Password</string>
 
     <!-- Tickets Fragment -->
-    <string name="fragment_tickets_title_label">Tickets</string>
+    <string name="fragment_tickets_title_label">Active orders</string>
+    <string name="fragment_tickets_history_label">Orders history</string>
     <string name="fragment_ticket_detail_title_label">Ticket Detail</string>
     <string name="order_status">Order status: </string>
     <string name="order_type">Order type: </string>

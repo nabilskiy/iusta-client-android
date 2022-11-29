@@ -1,5 +1,6 @@
-package com.ls.iusta.domain.interactor
+package com.ls.iusta.domain.interactor.settings
 
+import com.ls.iusta.domain.interactor.BaseUseCase
 import com.ls.iusta.domain.models.settings.Settings
 import com.ls.iusta.domain.repository.SettingsRepository
 import kotlinx.coroutines.flow.Flow

@@ -1,5 +1,6 @@
-package com.ls.iusta.domain.interactor
+package com.ls.iusta.domain.interactor.ticket
 
+import com.ls.iusta.domain.interactor.BaseUseCase
 import com.ls.iusta.domain.repository.TicketRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject

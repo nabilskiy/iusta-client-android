@@ -8,7 +8,7 @@ interface UserRepository {
     // Remote and cache
     suspend fun login(email: String, password: String): Flow<Login>
     suspend fun userInfo(): Flow<User>
-
+    suspend fun getAuthToken(): Flow<String?>
     suspend fun isUserLogged(): Flow<Boolean?>
 
     // Cache

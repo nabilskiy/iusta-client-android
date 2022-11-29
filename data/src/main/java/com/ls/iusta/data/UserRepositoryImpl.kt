@@ -32,5 +32,8 @@ class UserRepositoryImpl @Inject constructor(
         emit(isLogged)
     }
 
-
+    override suspend fun getAuthToken(): Flow<String?>  = flow {
+        var token = userDataSourceFactory.getAuthToken()
+        emit(token)
+    }
 }

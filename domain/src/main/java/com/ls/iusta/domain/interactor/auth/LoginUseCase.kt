@@ -1,5 +1,6 @@
-package com.ls.iusta.domain.interactor
+package com.ls.iusta.domain.interactor.auth
 
+import com.ls.iusta.domain.interactor.BaseUseCase
 import com.ls.iusta.domain.models.auth.Login
 import com.ls.iusta.domain.models.auth.LoginRequest
 import com.ls.iusta.domain.repository.UserRepository

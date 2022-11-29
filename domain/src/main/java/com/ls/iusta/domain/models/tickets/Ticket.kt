@@ -5,7 +5,7 @@ data class Ticket(
     val create_by : String,
     val create_time : String,
     val customer_id : String,
-    val customer_user_id : String,
+    val customer_user_id : String?,
     val dynamic_category_id : String,
     val dynamic_category_name :String,
     val id : String,

@@ -7,7 +7,7 @@
     <fragment
         android:id="@+id/historyTicketListFragment"
         android:name="com.ls.iusta.ui.ticketslist.TicketsListFragment"
-        android:label="@string/menu_history"
+        android:label="@string/fragment_tickets_history_label"
         tools:layout="@layout/fragment_tickets_list">
         <action
             android:id="@+id/action_ticketListFragment_to_ticketDetailFragment"

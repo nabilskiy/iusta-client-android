@@ -12,7 +12,10 @@ class TicketRepositoryImpl @Inject constructor(
     private val ticketDataSourceFactory: TicketDataSourceFactory,
     private val ticketMapper: TicketMapper
 ) : TicketRepository {
-    override suspend fun getTickets(ticket_status: String, auth_token: String): Flow<List<Ticket>> =
+    override suspend fun getTickets(
+        ticket_status: String,
+        auth_token: String?
+    ): Flow<List<Ticket>> =
         flow {
             val isCached = ticketDataSourceFactory.getCacheDataSource().isCached()
             val ticketList =
@@ -26,7 +29,7 @@ class TicketRepositoryImpl @Inject constructor(
 
     override suspend fun getTicket(
         ticket_status: String,
-        auth_token: String,
+        auth_token: String?,
         ticketId: Long
     ): Flow<Ticket> = flow {
         var ticket = ticketDataSourceFactory.getCacheDataSource()

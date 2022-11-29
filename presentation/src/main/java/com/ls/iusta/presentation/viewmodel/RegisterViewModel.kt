@@ -14,7 +14,7 @@ import kotlinx.coroutines.flow.collect
 import javax.inject.Inject
 
 @HiltViewModel
-class LoginViewModel @Inject constructor(
+class RegisterViewModel @Inject constructor(
     contextProvider: CoroutineContextProvider,
     private val loginUseCase: LoginUseCase,
     private val authUseCase: AuthUseCase
