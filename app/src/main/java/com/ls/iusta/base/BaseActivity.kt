@@ -2,6 +2,7 @@ package com.ls.iusta.base
 
 import android.content.res.Configuration
 import android.os.Bundle
+import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.DialogFragment
 import androidx.viewbinding.ViewBinding
@@ -48,4 +49,5 @@ abstract class BaseActivity<B : ViewBinding> : AppCompatActivity() {
         Timber.e(message)
         showSnackBar(binding.root, message)
     }
+
 }

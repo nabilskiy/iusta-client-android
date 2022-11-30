@@ -82,6 +82,8 @@ interface UserService {
         @Field("secret_key") secret_key: String = SECRET_KEY
     ): BaseModel
 
+
+    @FormUrlEncoded
     @POST(Endpoints.CUSTOMERS)
     suspend fun customers(
         @Field("query") query: String,
