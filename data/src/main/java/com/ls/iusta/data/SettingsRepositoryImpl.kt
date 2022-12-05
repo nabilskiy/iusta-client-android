@@ -17,8 +17,12 @@ class SettingsRepositoryImpl @Inject constructor(private val appVersion: String)
     private fun getData(isNightMode: Boolean): List<Settings> {
         val settingList = mutableListOf<Settings>()
         settingList.add(Settings(1, SettingType.SWITCH, "Theme mode", "", isNightMode))
-        settingList.add(Settings(2, SettingType.EMPTY, "Clear cache", ""))
-        settingList.add(Settings(2, SettingType.TEXT, "App version", appVersion))
+        settingList.add(Settings(2, SettingType.EMPTY, "Settings", ""))
+        settingList.add(Settings(3, SettingType.EMPTY, "Change password", ""))
+        settingList.add(Settings(4, SettingType.EMPTY, "Contact us", ""))
+        settingList.add(Settings(5, SettingType.EMPTY, "About", ""))
+        settingList.add(Settings(6, SettingType.EMPTY, "Logout", ""))
+        settingList.add(Settings(7, SettingType.TEXT, "App version", appVersion))
         return settingList
     }
 }

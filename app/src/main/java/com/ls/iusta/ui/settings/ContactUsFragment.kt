@@ -7,21 +7,23 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ls.iusta.base.BaseFragment
 import com.ls.iusta.core.theme.ThemeUtils
+import com.ls.iusta.databinding.FragmentContactusBinding
 import com.ls.iusta.databinding.FragmentSettingsBinding
 import com.ls.iusta.domain.models.settings.SettingUiModel
 import com.ls.iusta.extension.observe
+import com.ls.iusta.presentation.viewmodel.ContactUsViewModel
 import com.ls.iusta.presentation.viewmodel.SettingsViewModel
 import com.ls.iusta.ui.ticketslist.TicketsListFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class SettingsFragment : BaseFragment<FragmentSettingsBinding, SettingsViewModel>() {
+class ContactUsFragment : BaseFragment<FragmentContactusBinding, ContactUsViewModel>() {
 
-    override fun getViewBinding(): FragmentSettingsBinding =
-        FragmentSettingsBinding.inflate(layoutInflater)
+    override fun getViewBinding(): FragmentContactusBinding =
+        FragmentContactusBinding.inflate(layoutInflater)
 
-    override val viewModel: SettingsViewModel by viewModels()
+    override val viewModel: ContactUsViewModel by viewModels()
 
     @Inject
     lateinit var settingAdapter: SettingsAdapter
@@ -44,35 +46,6 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding, SettingsViewModel
         }
 
         settingAdapter.setItemClickListener { selectedSetting ->
-            when (selectedSetting.id) {
-                1 -> {
-                    viewModel.setSettings(selectedSetting)
-                }
-                2 -> {
-                    findNavController().navigate(
-                        SettingsFragmentDirections.actionSettingsFragmentToProfileFragment()
-                    )
-                }
-                3 -> {
-                    findNavController().navigate(
-                        SettingsFragmentDirections.actionSettingsFragmentToChangePassFragment()
-                    )
-                }
-                4 -> {
-                    findNavController().navigate(
-                        SettingsFragmentDirections.actionSettingsFragmentToContactFragment()
-                    )
-                }
-                5 -> {
-                    findNavController().navigate(
-                        SettingsFragmentDirections.actionSettingsFragmentToAboutFragment()
-                    )
-                }
-                6 -> {
-                    //todo logout
-                }
-            }
-
 
         }
     }

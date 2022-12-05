@@ -3,14 +3,14 @@
 
     <item
         android:id="@+id/navigationGraphHome"
-        android:icon="@drawable/ic_home"
+        android:icon="@drawable/ic_assignment"
         android:title="@string/menu_home" />
     <item
         android:id="@+id/navigationGraphFavorite"
-        android:icon="@drawable/ic_heart"
+        android:icon="@drawable/ic_history"
         android:title="@string/menu_history" />
     <item
         android:id="@+id/navigationGraphSettings"
-        android:icon="@drawable/ic_settings"
+        android:icon="@drawable/ic_baseline_menu_24"
         android:title="@string/menu_settings" />
 </menu>

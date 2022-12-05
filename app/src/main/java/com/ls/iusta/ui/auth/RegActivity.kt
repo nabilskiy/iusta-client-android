@@ -12,12 +12,10 @@ import com.ls.iusta.base.BaseActivity
 import com.ls.iusta.databinding.ActivityLoginBinding
 import com.ls.iusta.databinding.ActivityRegisterBinding
 import com.ls.iusta.domain.models.auth.LoginUiModel
+import com.ls.iusta.domain.models.auth.RegUiModel
 import com.ls.iusta.domain.models.customer.Customer
 import com.ls.iusta.domain.models.customer.CustomerUiModel
-import com.ls.iusta.extension.isPassword
-import com.ls.iusta.extension.observe
-import com.ls.iusta.extension.setPasswordState
-import com.ls.iusta.extension.startWithAnimation
+import com.ls.iusta.extension.*
 import com.ls.iusta.presentation.viewmodel.LoginViewModel
 import com.ls.iusta.presentation.viewmodel.RegisterViewModel
 import com.ls.iusta.ui.MainActivity
@@ -30,21 +28,38 @@ class RegActivity : BaseActivity<ActivityRegisterBinding>() {
     private var results = emptyList<String?>()
     private var customers = emptyList<Customer>()
     private lateinit var adapter: ArrayAdapter<String>
+    private lateinit var customerId: String
 
     override val viewModel: RegisterViewModel by viewModels()
 
     override fun getViewBinding() = ActivityRegisterBinding.inflate(layoutInflater)
 
+    override fun initViewModel() {
+        observe(viewModel.customersData, ::onSearch)
+        observe(viewModel.regData, ::onReg)
+    }
+
     override fun initUI() {
         with(binding) {
             nextButton.setOnClickListener {
-
+                viewModel.startReg(
+                    "",
+                    passwordTextInputEditText.text.toString(),
+                    confirmPassTextInputEditText.text.toString(),
+                    nameTextInputEditText.text.toString(),
+                    surnameTextInputEditText.text.toString(),
+                    "",
+                    phoneTextInputEditText.text.toString(),
+                    "",
+                    emailTextInputEditText.text.toString(),
+                    customerId,
+                    "az"
+                )
             }
 
             login.setOnClickListener {
                 LoginActivity.startActivity(this@RegActivity)
             }
-
 
             schoolTextInputEditText.threshold = 2
             schoolTextInputEditText.addTextChangedListener(object : TextWatcher {
@@ -61,7 +76,14 @@ class RegActivity : BaseActivity<ActivityRegisterBinding>() {
             })
 
             schoolTextInputEditText.setOnItemClickListener { adapterView, view, i, l ->
-                Timber.d(customers[i].name)
+                customerId = customers[i].id.toString()
+            }
+
+            binding.messageDialog.setOnClickListener {
+                binding.messageDialog.apply {
+                    fadeOut()
+                    onBackPressed()
+                }
             }
         }
     }
@@ -90,14 +112,30 @@ class RegActivity : BaseActivity<ActivityRegisterBinding>() {
         }
     }
 
-    override fun initViewModel() {
-        observe(viewModel.customersData, ::onSearch)
+    private fun onReg(event: RegUiModel) {
+        if (event.isRedelivered) return
+        when (event) {
+            is RegUiModel.Loading -> {
+                handleLoading(true)
+            }
+            is RegUiModel.Success -> {
+                handleLoading(false)
+                if (event.result) {
+                    binding.messageDialog.apply {
+                        makeVisible()
+                    }
+                }
+            }
+            is RegUiModel.Error -> {
+                handleErrorMessage(event.error)
+            }
+        }
     }
 
     companion object {
         fun startActivity(activity: Activity?) {
             val intent = Intent(activity, RegActivity::class.java)
-            activity?.startWithAnimation(intent, true)
+            activity?.startWithAnimation(intent, false)
         }
     }
 }

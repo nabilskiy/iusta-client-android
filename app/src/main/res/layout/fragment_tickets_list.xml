@@ -37,4 +37,14 @@
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 
+    <Button
+        android:id="@+id/nextButton"
+        style="@style/Button.Accent"
+        android:layout_width="match_parent"
+        android:layout_margin="16dp"
+        android:text="@string/new_ticket"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
