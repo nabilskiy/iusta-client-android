@@ -16,6 +16,13 @@
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/action_ticketListFragment_to_createTicketFragment"
+            app:destination="@id/createTicketFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
     <fragment
         android:id="@+id/ticketDetailFragment"
@@ -27,4 +34,11 @@
             android:defaultValue="0L"
             app:argType="long" />
     </fragment>
+
+    <fragment
+        android:id="@+id/createTicketFragment"
+        android:name="com.ls.iusta.ui.createticket.CategoriesListFragment"
+        android:label="@string/fragment_create_ticket_title_label"
+        tools:layout="@layout/fragment_categories_list"/>
+
 </navigation>

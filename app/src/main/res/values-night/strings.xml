@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="assigned_specialist">Assigned specialist</string>
+    <string name="proceed_to_scan">Proceed to scan</string>
+    <string name="get_repaired">Choose what you want to get repaired</string>
+    <string name="your_specialist_is_not_assigned">Your specialist is not assigned</string>
+</resources>

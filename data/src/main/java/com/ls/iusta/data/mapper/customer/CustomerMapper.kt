@@ -1,7 +1,7 @@
 package com.ls.iusta.data.mapper.customer
 
 import com.ls.iusta.data.mapper.Mapper
-import com.ls.iusta.data.models.CustomerEntity
+import com.ls.iusta.data.models.customer.CustomerEntity
 import com.ls.iusta.domain.models.customer.Customer
 import javax.inject.Inject
 

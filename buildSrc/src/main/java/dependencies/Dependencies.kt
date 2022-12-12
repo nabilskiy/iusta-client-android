@@ -57,6 +57,16 @@ object Dependencies {
         const val glideKapt = "com.github.bumptech.glide:compiler:${Versions.glideVersion}"
     }
 
+    object QrDep {
+        const val zxing = "com.journeyapps:zxing-android-embedded:${Versions.zxingVersion}"
+        const val desugar = "com.android.tools:desugar_jdk_libs:${Versions.desugarVersion}"
+    }
+
+    object ImagePickerDep {
+        const val imagePicker = "com.github.SimformSolutionsPvtLtd:SSImagePicker:${Versions.imagePickerVersion}"
+    }
+
+
     object TimberDep {
         const val timber = "com.jakewharton.timber:timber:${Versions.timberVersion}"
     }

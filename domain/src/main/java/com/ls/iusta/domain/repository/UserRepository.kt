@@ -2,6 +2,9 @@ package com.ls.iusta.domain.repository
 
 import com.ls.iusta.domain.models.auth.Login
 import com.ls.iusta.domain.models.customer.Customer
+import com.ls.iusta.domain.models.info.About
+import com.ls.iusta.domain.models.info.Faq
+import com.ls.iusta.domain.models.info.Terms
 import com.ls.iusta.domain.models.user.User
 import kotlinx.coroutines.flow.Flow
 
@@ -13,6 +16,7 @@ interface UserRepository {
         lastname: String, middlename: String, phone_number: String, birthday: String,
         email: String, il_customer_id: String, language: String
     ): Flow<Boolean>
+
     suspend fun userInfo(): Flow<User>
     suspend fun getAuthToken(): Flow<String?>
     suspend fun isUserLogged(): Flow<Boolean?>
@@ -40,13 +44,9 @@ interface UserRepository {
 
     suspend fun logout(auth_token: String): Flow<Boolean>
 
-
-    suspend fun about(auth_token: String): Flow<Boolean>
-    suspend fun faq(lang: String, auth_token: String): Flow<Boolean>
-    suspend fun terms(lang: String, auth_token: String): Flow<Boolean>
-
-
-
+    suspend fun about(auth_token: String): Flow<List<About>>
+    suspend fun faq(lang: String?, auth_token: String): Flow<List<Faq>>
+    suspend fun terms(lang: String?, auth_token: String): Flow<List<Terms>>
 
     // Cache
 }

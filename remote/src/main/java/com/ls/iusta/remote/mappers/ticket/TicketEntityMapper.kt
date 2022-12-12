@@ -1,6 +1,6 @@
 package com.ls.iusta.remote.mappers.ticket
 
-import com.ls.iusta.data.models.TicketEntity
+import com.ls.iusta.data.models.ticket.TicketEntity
 import com.ls.iusta.remote.mappers.EntityMapper
 import com.ls.iusta.remote.models.ticket.TicketModel
 import javax.inject.Inject
@@ -28,7 +28,13 @@ class TicketEntityMapper @Inject constructor(
             tn = model.tn,
             type_id = model.type_id,
             user_id = model.user_id,
-            category_name = model.category_name
+            category_name = model.category_name,
+            ticket_priority_name = model.ticket_priority_name,
+            ticket_priority_value_en = model.ticket_priority_value_en,
+            next_event_label = model.next_event_label,
+            next_event_id = model.next_event_id,
+            next_event_name = model.next_event_name,
+            current_event_label = model.current_event_label
         )
     }
 }

@@ -33,9 +33,13 @@ object UiDep {
         Dependencies.CoroutinesDep.coroutineAndroid
     )
 
+    const val imagePicker = Dependencies.ImagePickerDep.imagePicker
     const val glide = Dependencies.GlideDep.glide
     const val glideKapt = Dependencies.GlideDep.glideKapt
     const val timber = Dependencies.TimberDep.timber
     const val lottie = Dependencies.LottieDep.lottie
+
+    const val zxing = Dependencies.QrDep.zxing
+    const val desugar = Dependencies.QrDep.desugar
 
 }

@@ -1,9 +1,7 @@
 package com.ls.iusta.data.mapper.ticket
 
 import com.ls.iusta.data.mapper.Mapper
-import com.ls.iusta.data.models.CustomerEntity
-import com.ls.iusta.data.models.ShortTicketEntity
-import com.ls.iusta.domain.models.customer.Customer
+import com.ls.iusta.data.models.ticket.ShortTicketEntity
 import com.ls.iusta.domain.models.tickets.ShortTicket
 import javax.inject.Inject
 

@@ -14,7 +14,7 @@ interface TicketService {
     @FormUrlEncoded
     @POST(Endpoints.CATEGORIES)
     suspend fun categories(
-        @Field("menu_id") menu_id: String,
+        @Field("menu_id") menu_id: Int,
         @Field("auth_token") auth_token: String?,
         @Field("secret_key") secret_key: String = SECRET_KEY
     ): CategoryResponseModel
@@ -22,7 +22,7 @@ interface TicketService {
     @FormUrlEncoded
     @POST(Endpoints.TICKET_CREATE)
     suspend fun createTicket(
-        @Field("category_id") category_id: String,
+        @Field("category_id") category_id: Int,
         @Field("auth_token") auth_token: String?,
         @Field("secret_key") secret_key: String = SECRET_KEY
     ): CreateTicketResponseModel
@@ -62,8 +62,8 @@ interface TicketService {
         @Field("secret_key") secret_key: String = SECRET_KEY
     ): TicketNoteResponseModel
 
-
-    @GET(Endpoints.WORKER_RATING)
+    @FormUrlEncoded
+    @POST(Endpoints.WORKER_RATING)
     suspend fun addRating(
         @Field("worker_rating") rating: Int,
         @Field("ticket_id") id: Long,
@@ -72,14 +72,16 @@ interface TicketService {
         @Field("secret_key") secret_key: String = SECRET_KEY
     ): BaseModel
 
-    @GET(Endpoints.WORKER_RATING_INFO)
+    @FormUrlEncoded
+    @POST(Endpoints.WORKER_RATING_INFO)
     suspend fun getRating(
         @Field("ticket_id") id: Long,
         @Field("auth_token") query: String?,
         @Field("secret_key") secret_key: String = SECRET_KEY
     ): RatingResponseModel
 
-    @GET(Endpoints.WORKER_INFO)
+    @FormUrlEncoded
+    @POST(Endpoints.WORKER_INFO)
     suspend fun worker(
         @Field("id") id: Int,
         @Field("auth_token") query: String?,

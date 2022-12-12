@@ -39,6 +39,10 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
             nextButton.setOnClickListener {
                 val email = binding.emailTextInputEditText.text.toString()
                 val password = binding.passwordEditText.text.toString()
+
+                if(email.isEmpty())
+                    binding.emailTextInputLayout.error = "Empty email"
+
                 viewModel.startLogin(email, password)
             }
 

@@ -1,9 +1,12 @@
 package com.ls.iusta.remote
 
-import com.ls.iusta.data.models.*
+import com.ls.iusta.data.models.category.CategoryInfoEntity
+import com.ls.iusta.data.models.ticket.ShortTicketEntity
+import com.ls.iusta.data.models.ticket.TicketEntity
+import com.ls.iusta.data.models.worker.RatingEntity
+import com.ls.iusta.data.models.worker.WorkerEntity
 import com.ls.iusta.data.repository.TicketRemote
 import com.ls.iusta.remote.api.TicketService
-import com.ls.iusta.remote.mappers.category.CategoryEntityMapper
 import com.ls.iusta.remote.mappers.category.CategoryInfoEntityMapper
 import com.ls.iusta.remote.mappers.ticket.ShortTicketEntityMapper
 import com.ls.iusta.remote.mappers.ticket.TicketEntityMapper
@@ -40,7 +43,7 @@ class TicketRemoteImpl @Inject constructor(
             ).response[0]
         )
 
-    override suspend fun categories(menu_id: String, auth_token: String?): CategoryInfoEntity =
+    override suspend fun categories(menu_id: Int, auth_token: String?): CategoryInfoEntity =
         categoryInfoEntityMapper.mapFromModel(
             ticketService.categories(
                 menu_id,
@@ -48,7 +51,7 @@ class TicketRemoteImpl @Inject constructor(
             ).response
         )
 
-    override suspend fun createTicket(category_id: String, auth_token: String?): ShortTicketEntity =
+    override suspend fun createTicket(category_id: Int, auth_token: String?): ShortTicketEntity =
         shortTicketEntityMapper.mapFromModel(
             ticketService.createTicket(
                 category_id,

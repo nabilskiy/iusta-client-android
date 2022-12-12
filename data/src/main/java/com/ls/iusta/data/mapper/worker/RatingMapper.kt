@@ -1,9 +1,7 @@
 package com.ls.iusta.data.mapper.worker
 
 import com.ls.iusta.data.mapper.Mapper
-import com.ls.iusta.data.models.CustomerEntity
-import com.ls.iusta.data.models.RatingEntity
-import com.ls.iusta.domain.models.customer.Customer
+import com.ls.iusta.data.models.worker.RatingEntity
 import com.ls.iusta.domain.models.worker.Rating
 import javax.inject.Inject
 

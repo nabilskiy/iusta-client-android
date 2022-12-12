@@ -99,14 +99,14 @@ interface UserService {
 
     @GET(Endpoints.INFO_FAQ)
     suspend fun faq(
-        @Query("lang") lang: String,
+        @Query("lang") lang: String?,
         @Query("auth_token") auth_token: String,
         @Query("secret_key") secret_key: String = SECRET_KEY
     ): FaqResponseModel
 
     @GET(Endpoints.INFO_TERMS)
     suspend fun terms(
-        @Query("lang") lang: String,
+        @Query("lang") lang: String?,
         @Query("auth_token") auth_token: String,
         @Query("secret_key") secret_key: String = SECRET_KEY
     ): TermsResponseModel

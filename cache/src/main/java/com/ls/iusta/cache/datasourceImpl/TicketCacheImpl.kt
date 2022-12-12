@@ -4,7 +4,7 @@ import com.ls.iusta.cache.dao.TicketDao
 import com.ls.iusta.cache.mapper.TicketCacheMapper
 import com.ls.iusta.cache.utils.CachePreferencesHelper
 import com.ls.iusta.data.repository.TicketCache
-import com.ls.iusta.data.models.TicketEntity
+import com.ls.iusta.data.models.ticket.TicketEntity
 import javax.inject.Inject
 
 class TicketCacheImpl @Inject constructor(

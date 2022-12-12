@@ -14,7 +14,6 @@ import com.ls.iusta.databinding.ActivityRegisterBinding
 import com.ls.iusta.domain.models.auth.LoginUiModel
 import com.ls.iusta.domain.models.auth.RegUiModel
 import com.ls.iusta.domain.models.customer.Customer
-import com.ls.iusta.domain.models.customer.CustomerUiModel
 import com.ls.iusta.extension.*
 import com.ls.iusta.presentation.viewmodel.LoginViewModel
 import com.ls.iusta.presentation.viewmodel.RegisterViewModel
@@ -35,7 +34,6 @@ class RegActivity : BaseActivity<ActivityRegisterBinding>() {
     override fun getViewBinding() = ActivityRegisterBinding.inflate(layoutInflater)
 
     override fun initViewModel() {
-        observe(viewModel.customersData, ::onSearch)
         observe(viewModel.regData, ::onReg)
     }
 
@@ -88,29 +86,6 @@ class RegActivity : BaseActivity<ActivityRegisterBinding>() {
         }
     }
 
-    private fun onSearch(event: CustomerUiModel) {
-        if (event.isRedelivered) return
-        when (event) {
-            is CustomerUiModel.Loading -> {
-                handleLoading(true)
-            }
-            is CustomerUiModel.Success -> {
-                handleLoading(false)
-                customers = event.data
-                results = event.data.map { it.name }
-                adapter = ArrayAdapter<String>(
-                    this@RegActivity,
-                    R.layout.item_search, results
-                )
-                binding.schoolTextInputEditText.setAdapter(adapter)
-                adapter.notifyDataSetChanged()
-                binding.schoolTextInputEditText.showDropDown()
-            }
-            is CustomerUiModel.Error -> {
-                handleErrorMessage(event.error)
-            }
-        }
-    }
 
     private fun onReg(event: RegUiModel) {
         if (event.isRedelivered) return
@@ -121,10 +96,20 @@ class RegActivity : BaseActivity<ActivityRegisterBinding>() {
             is RegUiModel.Success -> {
                 handleLoading(false)
                 if (event.result) {
-                    binding.messageDialog.apply {
-                        makeVisible()
-                    }
+                    binding.messageDialog.makeVisible()
                 }
+            }
+            is RegUiModel.SuccessSearch ->{
+                handleLoading(false)
+                customers = event.data
+                results = event.data.map { it.name }
+                adapter = ArrayAdapter<String>(
+                    this@RegActivity,
+                    R.layout.item_search, results
+                )
+                binding.schoolTextInputEditText.setAdapter(adapter)
+                adapter.notifyDataSetChanged()
+                binding.schoolTextInputEditText.showDropDown()
             }
             is RegUiModel.Error -> {
                 handleErrorMessage(event.error)

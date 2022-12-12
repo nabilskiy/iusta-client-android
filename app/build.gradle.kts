@@ -79,6 +79,12 @@ dependencies {
     // Glide
     implementation(UiDep.glide)
     kapt(UiDep.glideKapt)
+    //Image Picker
+ //   implementation(UiDep.imagePicker)
+    //QR scanner
+    implementation(UiDep.zxing)
+    coreLibraryDesugaring(UiDep.desugar)
+
     // Timber
     implementation(UiDep.timber)
 }

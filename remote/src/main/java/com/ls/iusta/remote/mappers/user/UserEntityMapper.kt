@@ -1,6 +1,6 @@
 package com.ls.iusta.remote.mappers.user
 
-import com.ls.iusta.data.models.UserEntity
+import com.ls.iusta.data.models.user.UserEntity
 import com.ls.iusta.remote.mappers.EntityMapper
 import com.ls.iusta.remote.models.user.UserModel
 import javax.inject.Inject

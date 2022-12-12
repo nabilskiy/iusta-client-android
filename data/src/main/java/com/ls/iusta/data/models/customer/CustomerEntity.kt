@@ -1,4 +1,4 @@
-package com.ls.iusta.data.models
+package com.ls.iusta.data.models.customer
 
 data class CustomerEntity(
     val id: Int?,

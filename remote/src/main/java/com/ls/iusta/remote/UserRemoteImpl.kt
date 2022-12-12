@@ -1,11 +1,17 @@
 package com.ls.iusta.remote
 
-import com.ls.iusta.data.models.CustomerEntity
-import com.ls.iusta.data.models.LoginEntity
-import com.ls.iusta.data.models.UserEntity
+import com.ls.iusta.data.models.customer.CustomerEntity
+import com.ls.iusta.data.models.info.AboutEntity
+import com.ls.iusta.data.models.info.FaqEntity
+import com.ls.iusta.data.models.info.TermsEntity
+import com.ls.iusta.data.models.user.LoginEntity
+import com.ls.iusta.data.models.user.UserEntity
 import com.ls.iusta.data.repository.UserRemote
 import com.ls.iusta.remote.api.UserService
 import com.ls.iusta.remote.mappers.customer.CustomerEntityMapper
+import com.ls.iusta.remote.mappers.info.AboutEntityMapper
+import com.ls.iusta.remote.mappers.info.FaqEntityMapper
+import com.ls.iusta.remote.mappers.info.TermsEntityMapper
 import com.ls.iusta.remote.mappers.user.LoginEntityMapper
 import com.ls.iusta.remote.mappers.user.UserEntityMapper
 import javax.inject.Inject
@@ -14,7 +20,10 @@ class UserRemoteImpl @Inject constructor(
     private val userService: UserService,
     private val loginEntityMapper: LoginEntityMapper,
     private val userEntityMapper: UserEntityMapper,
-    private val customerEntityMapper: CustomerEntityMapper
+    private val customerEntityMapper: CustomerEntityMapper,
+    private val aboutEntityMapper: AboutEntityMapper,
+    private val faqEntityMapper: FaqEntityMapper,
+    private val termsEntityMapper: TermsEntityMapper
 ) : UserRemote {
 
     override suspend fun login(email: String, password: String): LoginEntity =
@@ -95,15 +104,21 @@ class UserRemoteImpl @Inject constructor(
     override suspend fun logout(auth_token: String): Boolean =
         userService.logout(auth_token).success
 
-    override suspend fun about(auth_token: String): Boolean {
-        TODO("Not yet implemented")
-    }
+    override suspend fun about(auth_token: String): List<AboutEntity> =
+        userService.about(auth_token).response.map {
+            aboutEntityMapper.mapFromModel(it)
+        }
 
-    override suspend fun faq(lang: String, auth_token: String): Boolean {
-        TODO("Not yet implemented")
-    }
 
-    override suspend fun terms(lang: String, auth_token: String): Boolean {
-        TODO("Not yet implemented")
-    }
+    override suspend fun faq(lang: String?, auth_token: String): List<FaqEntity> =
+        userService.faq(lang, auth_token).response.map {
+            faqEntityMapper.mapFromModel(it)
+        }
+
+
+    override suspend fun terms(lang: String?, auth_token: String): List<TermsEntity> =
+        userService.terms(lang, auth_token).response.map {
+            termsEntityMapper.mapFromModel(it)
+        }
+
 }

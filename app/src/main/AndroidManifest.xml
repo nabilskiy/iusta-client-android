@@ -35,7 +35,12 @@
             android:name="com.ls.iusta.ui.auth.ResetPassActivity"
             android:exported="true" />
         <activity
+            android:theme="@style/Theme.IUsta"
             android:name="com.ls.iusta.ui.MainActivity"
+            android:exported="true" />
+        <activity
+            android:theme="@style/Theme.IUsta"
+            android:name="com.ls.iusta.ui.qrscanner.ScannerActivity"
             android:exported="true" />
     </application>
 

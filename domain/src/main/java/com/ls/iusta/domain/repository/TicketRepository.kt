@@ -13,8 +13,8 @@ interface TicketRepository {
     suspend fun getTicket(ticket_status: String, auth_token: String?,  ticketId: Long): Flow<Ticket>
 
 
-    suspend fun categories(menu_id: String, auth_token: String?): Flow<CategoryInfo>
-    suspend fun createTicket(category_id: String, auth_token: String?): Flow<ShortTicket>
+    suspend fun categories(menu_id: Int, auth_token: String?): Flow<CategoryInfo>
+    suspend fun createTicket(category_id: Int, auth_token: String?): Flow<ShortTicket>
     suspend fun addNoteTicket(
         ticketId: Long,
         ticketNote: String,

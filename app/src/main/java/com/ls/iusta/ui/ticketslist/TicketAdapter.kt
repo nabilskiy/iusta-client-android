@@ -12,6 +12,7 @@ import com.ls.iusta.domain.models.tickets.Ticket
 import javax.inject.Inject
 
 class TicketAdapter @Inject constructor(
+
 ) : BaseAdapter<Ticket>() {
 
     private val diffCallback = object : DiffUtil.ItemCallback<Ticket>() {
@@ -40,8 +41,8 @@ class TicketAdapter @Inject constructor(
         RecyclerView.ViewHolder(binding.root), Binder<Ticket> {
         override fun bind(item: Ticket) {
             binding.apply {
-                textViewTicketName.text = item.title
-                textViewStatus.text = item.ticket_state_name
+                textViewTicketName.text = item.category_name
+                textViewStatus.text = item.current_event_label
                 textViewDate.text = item.create_time
 
                 root.setOnClickListener {

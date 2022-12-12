@@ -2,13 +2,16 @@ package com.ls.iusta.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.ls.iusta.domain.interactor.auth.TokenUseCase
 import com.ls.iusta.presentation.utils.CoroutineContextProvider
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
-abstract class BaseViewModel(private val contextProvider: CoroutineContextProvider) : ViewModel() {
+abstract class BaseViewModel(
+    private val contextProvider: CoroutineContextProvider
+) : ViewModel() {
 
     private val job: Job = Job()
 

@@ -8,4 +8,12 @@ object AppConstants {
         const val OPENED = "opened"
         const val CLOSED = "closed"
     }
+
+    object StatusTickets {
+        const val NEW = "New"
+        const val ACCEPT = "Accept"
+        const val ARRIVED = "I have arrived"
+        const val COMPLETE = "Completed"
+        const val REJECT = "Reject"
+    }
 }

@@ -1,12 +1,9 @@
 package com.ls.iusta.presentation.viewmodel
 
 import androidx.lifecycle.LiveData
-import com.ls.iusta.domain.interactor.auth.AuthUseCase
-import com.ls.iusta.domain.interactor.auth.LoginUseCase
 import com.ls.iusta.domain.interactor.auth.RegUseCase
 import com.ls.iusta.domain.interactor.customer.GetCustomersListUseCase
 import com.ls.iusta.domain.models.auth.*
-import com.ls.iusta.domain.models.customer.CustomerUiModel
 import com.ls.iusta.presentation.utils.CoroutineContextProvider
 import com.ls.iusta.presentation.utils.UiAwareLiveData
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -21,9 +18,6 @@ class RegisterViewModel @Inject constructor(
     private val regUseCase: RegUseCase
 ) : BaseViewModel(contextProvider) {
 
-    private val _customersData = UiAwareLiveData<CustomerUiModel>()
-    val customersData: LiveData<CustomerUiModel> = _customersData
-
     private val _regData = UiAwareLiveData<RegUiModel>()
     val regData: LiveData<RegUiModel> = _regData
 
@@ -33,7 +27,7 @@ class RegisterViewModel @Inject constructor(
         }
 
     fun searchCustomer(query: String) {
-        _customersData.postValue(CustomerUiModel.Loading)
+        _regData.postValue(RegUiModel.Loading)
         launchCoroutineIO {
             customers(query)
         }
@@ -41,7 +35,7 @@ class RegisterViewModel @Inject constructor(
 
     private suspend fun customers(query: String) {
         getCustomersListUseCase(query).collect {
-            _customersData.postValue(CustomerUiModel.Success(it))
+            _regData.postValue(RegUiModel.SuccessSearch(it))
         }
     }
 

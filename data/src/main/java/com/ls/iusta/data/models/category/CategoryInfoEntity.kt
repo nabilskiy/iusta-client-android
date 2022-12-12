@@ -1,4 +1,4 @@
-package com.ls.iusta.data.models
+package com.ls.iusta.data.models.category
 
 data class CategoryInfoEntity(
     val id: Int?,

@@ -1,12 +1,14 @@
 package com.ls.iusta.presentation.viewmodel
 
 import androidx.lifecycle.LiveData
+import com.ls.iusta.domain.interactor.auth.TokenUseCase
 import com.ls.iusta.domain.interactor.ticket.GetTicketByIdUseCase
 import com.ls.iusta.domain.interactor.ticket.SetTicketBookmarkUseCase
 import com.ls.iusta.domain.interactor.ticket.SetTicketUnBookmarkUseCase
-import com.ls.iusta.domain.models.tickets.Bookmark
+import com.ls.iusta.domain.interactor.worker.GetWorkerInfoUseCase
 import com.ls.iusta.domain.models.tickets.GetTicketByIdRequest
 import com.ls.iusta.domain.models.tickets.TicketDetailUIModel
+import com.ls.iusta.domain.models.worker.WorkerRequest
 import com.ls.iusta.presentation.utils.AppConstants
 import com.ls.iusta.presentation.utils.CoroutineContextProvider
 import com.ls.iusta.presentation.utils.UiAwareLiveData
@@ -19,6 +21,8 @@ import javax.inject.Inject
 class TicketDetailViewModel @Inject constructor(
     contextProvider: CoroutineContextProvider,
     private val ticketByIdUseCase: GetTicketByIdUseCase,
+    private val getWorkerInfoUseCase: GetWorkerInfoUseCase,
+    private val tokenUseCase: TokenUseCase,
     private val setTicketBookmarkUseCase: SetTicketBookmarkUseCase,
     private val setTicketUnBookmarkUseCase: SetTicketUnBookmarkUseCase
 ) : BaseViewModel(contextProvider) {
@@ -32,17 +36,26 @@ class TicketDetailViewModel @Inject constructor(
 
     fun getTicketDetail(ticketId: Long) {
         launchCoroutineIO {
-            loadTicketDetail(ticketId)
+            tokenUseCase(Unit).collect {
+                loadTicketDetail(ticketId, it)
+            }
         }
     }
 
-    private suspend fun loadTicketDetail(ticketId: Long) {
+    fun getWorkerDetail(workerId: Int) {
+        launchCoroutineIO {
+            tokenUseCase(Unit).collect {
+                loadWorkerDetail(workerId, it)
+            }
+        }
+    }
+
+    private suspend fun loadTicketDetail(ticketId: Long, token: String?) {
         _ticketDetail.postValue(TicketDetailUIModel.Loading)
         ticketByIdUseCase(
             GetTicketByIdRequest(
                 AppConstants.Status.OPENED,
-                //todo move to pref - for test
-                "8sPdHYouyEm1xhYlzGZM2uN5fmz3hOPm8s1XdkfVaGtO0jzqd49vYhGdskZcIdzd0pqTGMriFc4FMEuP",
+                token,
                 ticketId
             )
         ).collect {
@@ -50,47 +63,17 @@ class TicketDetailViewModel @Inject constructor(
         }
     }
 
-    fun setBookmarkTicket(ticketId: Long) {
-        launchCoroutineIO {
-            setTicketBookmarkUseCase(ticketId).collect {
-                if (it == 1) {
-                    _ticketDetail.postValue(
-                        TicketDetailUIModel.BookmarkStatus(
-                            Bookmark.BOOKMARK,
-                            true
-                        )
-                    )
-                } else {
-                    _ticketDetail.postValue(
-                        TicketDetailUIModel.BookmarkStatus(
-                            Bookmark.BOOKMARK,
-                            false
-                        )
-                    )
-                }
-            }
+    private suspend fun loadWorkerDetail(workerId: Int, token: String?) {
+     //  _ticketDetail.postValue(TicketDetailUIModel.Loading)
+        getWorkerInfoUseCase(
+            WorkerRequest(
+                workerId,
+                token
+            )
+        ).collect {
+            _ticketDetail.postValue(TicketDetailUIModel.WorkerInfo(it))
         }
     }
 
-    fun setUnBookmarkTicket(ticketId: Long) {
-        launchCoroutineIO {
-            setTicketUnBookmarkUseCase(ticketId).collect {
-                if (it == 1) {
-                    _ticketDetail.postValue(
-                        TicketDetailUIModel.BookmarkStatus(
-                            Bookmark.UN_BOOKMARK,
-                            true
-                        )
-                    )
-                } else {
-                    _ticketDetail.postValue(
-                        TicketDetailUIModel.BookmarkStatus(
-                            Bookmark.UN_BOOKMARK,
-                            false
-                        )
-                    )
-                }
-            }
-        }
-    }
+
 }

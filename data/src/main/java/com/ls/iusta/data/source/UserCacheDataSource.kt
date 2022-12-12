@@ -1,11 +1,11 @@
 package com.ls.iusta.data.source
 
-import com.ls.iusta.data.models.CustomerEntity
-import com.ls.iusta.data.models.LoginEntity
-import com.ls.iusta.data.models.TicketEntity
-import com.ls.iusta.data.models.UserEntity
-import com.ls.iusta.data.repository.TicketCache
-import com.ls.iusta.data.repository.TicketDataSource
+import com.ls.iusta.data.models.customer.CustomerEntity
+import com.ls.iusta.data.models.info.AboutEntity
+import com.ls.iusta.data.models.info.FaqEntity
+import com.ls.iusta.data.models.info.TermsEntity
+import com.ls.iusta.data.models.user.LoginEntity
+import com.ls.iusta.data.models.user.UserEntity
 import com.ls.iusta.data.repository.UserCache
 import com.ls.iusta.data.repository.UserDataSource
 import javax.inject.Inject
@@ -70,15 +70,15 @@ class UserCacheDataSource @Inject constructor(
         TODO("Not yet implemented")
     }
 
-    override suspend fun about(auth_token: String): Boolean {
+    override suspend fun about(auth_token: String): List<AboutEntity> {
         TODO("Not yet implemented")
     }
 
-    override suspend fun faq(lang: String, auth_token: String): Boolean {
+    override suspend fun faq(lang: String?, auth_token: String): List<FaqEntity> {
         TODO("Not yet implemented")
     }
 
-    override suspend fun terms(lang: String, auth_token: String): Boolean {
+    override suspend fun terms(lang: String?, auth_token: String): List<TermsEntity> {
         TODO("Not yet implemented")
     }
 

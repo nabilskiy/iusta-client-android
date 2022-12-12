@@ -1,8 +1,11 @@
 package com.ls.iusta.data.repository
 
-import com.ls.iusta.data.models.CustomerEntity
-import com.ls.iusta.data.models.LoginEntity
-import com.ls.iusta.data.models.UserEntity
+import com.ls.iusta.data.models.customer.CustomerEntity
+import com.ls.iusta.data.models.info.AboutEntity
+import com.ls.iusta.data.models.info.FaqEntity
+import com.ls.iusta.data.models.info.TermsEntity
+import com.ls.iusta.data.models.user.LoginEntity
+import com.ls.iusta.data.models.user.UserEntity
 
 interface UserDataSource {
     // Remote and cache
@@ -41,8 +44,8 @@ interface UserDataSource {
     suspend fun logout(auth_token: String): Boolean
 
 
-    suspend fun about(auth_token: String): Boolean
-    suspend fun faq(lang: String, auth_token: String): Boolean
-    suspend fun terms(lang: String, auth_token: String): Boolean
+    suspend fun about(auth_token: String): List<AboutEntity>
+    suspend fun faq(lang: String?, auth_token: String): List<FaqEntity>
+    suspend fun terms(lang: String?, auth_token: String): List<TermsEntity>
 
 }

@@ -55,13 +55,13 @@ class TicketRepositoryImpl @Inject constructor(
         emit(ticketMapper.mapFromEntity(ticket))
     }
 
-    override suspend fun categories(menu_id: String, auth_token: String?): Flow<CategoryInfo> =
+    override suspend fun categories(menu_id: Int, auth_token: String?): Flow<CategoryInfo> =
         flow {
             val categoryInfo = ticketDataSourceFactory.getRemoteDataSource().categories(menu_id, auth_token)
             emit(categoryInfoMapper.mapFromEntity(categoryInfo))
         }
 
-    override suspend fun createTicket(category_id: String, auth_token: String?): Flow<ShortTicket> =
+    override suspend fun createTicket(category_id: Int, auth_token: String?): Flow<ShortTicket> =
         flow {
             val ticket =
                 ticketDataSourceFactory.getRemoteDataSource().createTicket(category_id, auth_token)

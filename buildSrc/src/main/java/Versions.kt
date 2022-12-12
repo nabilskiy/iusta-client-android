@@ -34,6 +34,13 @@ object Versions {
     //Glide dependencies
     const val glideVersion = "4.12.0"
 
+    //Qr dependencies
+    const val zxingVersion = "4.3.0"
+    const val desugarVersion = "1.1.5"
+
+    //Image Picker dependencies
+    const val imagePickerVersion = "2.0"
+
     // Dagger - Hilt dependencies
     const val hiltAndroidVersion = "2.38.1"
 

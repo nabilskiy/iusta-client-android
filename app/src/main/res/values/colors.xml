@@ -2,6 +2,7 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="whiteTr">#80FFFFFF</color>
 
     <color name="orange">#FF9800</color>
     <color name="orange_dark">#BD7406</color>
@@ -10,15 +11,17 @@
     <color name="dark_grey">#636262</color>
     <color name="grey">#C1C0C0</color>
 
+    <color name="colorBg">#B9EEEEF1</color>
+
     <color name="colorGradientStart">#F5F5FC</color>
     <color name="colorGradientEnd">#D9E7F2</color>
-    <color name="blue_200">#6ccef2</color>
-    <color name="blue_500">#009feb</color>
-    <color name="blue_700">#007fca</color>
+    <color name="blue_200">#99FF9800</color>
+    <color name="blue_500">#CBFF9800</color>
+    <color name="blue_700">#FF9800</color>
 
-    <color name="green_200">#9bdc9a</color>
-    <color name="green_500">#04b925</color>
-    <color name="green_700">#009708</color>
+    <color name="green_200">#99FF9800</color>
+    <color name="green_500">#CBFF9800</color>
+    <color name="green_700">#FF9800</color>
 
     <color name="white_100">#f4f4f4</color>
     <color name="black_900">#1e1e1e</color>

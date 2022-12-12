@@ -5,14 +5,16 @@
     android:id="@+id/card_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:padding="16dp"
     android:layout_marginStart="16dp"
     android:layout_marginTop="8dp"
     android:layout_marginEnd="16dp"
-    android:elevation="6dp"
-    app:cardElevation="6dp"
+    android:elevation="8dp"
+    app:cardElevation="8dp"
     app:cardCornerRadius="@dimen/card_view_radius">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:padding="4dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -24,7 +26,12 @@
             android:text="See order"
             android:paddingEnd="10dp"
             android:gravity="center"
+            android:drawablePadding="6dp"
+            android:includeFontPadding="false"
+            android:drawableTint="@color/orange"
+            android:drawableEnd="@drawable/ic_arrow_forward"
             android:textColor="@color/orange"
+            android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -38,7 +45,7 @@
             android:layout_marginTop="5dp"
             android:layout_marginRight="10dp"
             android:scrollHorizontally="true"
-            android:textAppearance="?attr/textAppearanceBody2"
+            style="@style/TextView.Ticket.Title"
             app:layout_constraintEnd_toStartOf="@+id/imageViewTicket"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -53,11 +60,11 @@
             android:ellipsize="end"
             android:gravity="center|start"
             android:maxLines="1"
-            android:textAppearance="?attr/textAppearanceHeadline6"
+            style="@style/TextView.Ticket.Value"
             app:layout_constraintEnd_toStartOf="@+id/imageViewTicket"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textViewCategoryLabel"
-            tools:text="Alive - Human" />
+            tools:text="Internet Issue" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/textViewStatusLabel"
@@ -67,7 +74,7 @@
             android:layout_marginTop="5dp"
             android:layout_marginEnd="10dp"
             android:text="@string/order_status"
-            android:textAppearance="?attr/textAppearanceBody2"
+            style="@style/TextView.Ticket.Title"
             app:layout_constraintEnd_toStartOf="@+id/imageViewTicket"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textViewTicketName"
@@ -79,11 +86,12 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
-            android:textAppearance="?attr/textAppearanceHeadline6"
+            style="@style/TextView.Ticket.Value"
+            android:inputType="textCapSentences"
             app:layout_constraintEnd_toStartOf="@+id/imageViewTicket"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textViewStatusLabel"
-            tools:text="Planet Earth" />
+            tools:text="Open" />
 
 
         <com.google.android.material.textview.MaterialTextView
@@ -94,7 +102,7 @@
             android:layout_marginTop="5dp"
             android:layout_marginEnd="10dp"
             android:text="@string/order_date"
-            android:textAppearance="?attr/textAppearanceBody2"
+            style="@style/TextView.Ticket.Title"
             app:layout_constraintEnd_toStartOf="@+id/imageViewTicket"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textViewStatus"
@@ -106,11 +114,11 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
-            android:textAppearance="?attr/textAppearanceHeadline6"
+            style="@style/TextView.Ticket.Value"
             app:layout_constraintEnd_toStartOf="@+id/imageViewTicket"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textViewDateLabel"
-            tools:text="Planet Earth" />
+            tools:text="02.03.2022" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

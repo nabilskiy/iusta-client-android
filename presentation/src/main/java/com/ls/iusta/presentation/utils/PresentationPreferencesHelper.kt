@@ -8,6 +8,7 @@ class PresentationPreferencesHelper @Inject constructor (context: Context) {
     companion object {
         private const val PREF_PACKAGE_NAME = "com.ls.iusta.presentation.preferences"
         private const val PREF_KEY_NIGHT_MODE = "night_mode"
+        private const val PREF_KEY_LOCALE= "locale"
     }
 
     private val preferences: SharedPreferences =
@@ -16,4 +17,9 @@ class PresentationPreferencesHelper @Inject constructor (context: Context) {
     var isNightMode: Boolean
         get() = preferences.getBoolean(PREF_KEY_NIGHT_MODE, false)
         set(isDarkMode) = preferences.edit().putBoolean(PREF_KEY_NIGHT_MODE, isDarkMode).apply()
+
+
+    var locale: String?
+        get() = preferences.getString(PREF_KEY_LOCALE, "en")
+        set(loc) = preferences.edit().putString(PREF_KEY_LOCALE, loc).apply()
 }

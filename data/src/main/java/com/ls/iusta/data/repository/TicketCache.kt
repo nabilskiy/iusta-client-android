@@ -1,6 +1,6 @@
 package com.ls.iusta.data.repository
 
-import com.ls.iusta.data.models.TicketEntity
+import com.ls.iusta.data.models.ticket.TicketEntity
 
 interface TicketCache {
     suspend fun getTickets(): List<TicketEntity>

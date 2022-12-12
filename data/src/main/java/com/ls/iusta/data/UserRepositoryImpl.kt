@@ -1,11 +1,17 @@
 package com.ls.iusta.data
 
 import com.ls.iusta.data.mapper.customer.CustomerMapper
+import com.ls.iusta.data.mapper.info.AboutMapper
+import com.ls.iusta.data.mapper.info.FaqMapper
+import com.ls.iusta.data.mapper.info.TermsMapper
 import com.ls.iusta.data.mapper.user.LoginMapper
 import com.ls.iusta.data.mapper.user.UserMapper
 import com.ls.iusta.data.source.UserDataSourceFactory
 import com.ls.iusta.domain.models.auth.Login
 import com.ls.iusta.domain.models.customer.Customer
+import com.ls.iusta.domain.models.info.About
+import com.ls.iusta.domain.models.info.Faq
+import com.ls.iusta.domain.models.info.Terms
 import com.ls.iusta.domain.models.user.User
 import com.ls.iusta.domain.repository.UserRepository
 import kotlinx.coroutines.flow.Flow
@@ -16,7 +22,10 @@ class UserRepositoryImpl @Inject constructor(
     private val userDataSourceFactory: UserDataSourceFactory,
     private val loginMapper: LoginMapper,
     private val userMapper: UserMapper,
-    private val customerMapper: CustomerMapper
+    private val customerMapper: CustomerMapper,
+    private val aboutMapper: AboutMapper,
+    private val faqMapper: FaqMapper,
+    private val termsMapper: TermsMapper
 ) : UserRepository {
 
     override suspend fun login(email: String, password: String): Flow<Login> = flow {
@@ -124,15 +133,27 @@ class UserRepositoryImpl @Inject constructor(
         emit(logout)
     }
 
-    override suspend fun about(auth_token: String): Flow<Boolean> {
-        TODO("Not yet implemented")
+    override suspend fun about(auth_token: String): Flow<List<About>> = flow {
+        val aboutList = userDataSourceFactory.getRemoteDataSource().about(auth_token)
+            .map { aboutEntity ->
+                aboutMapper.mapFromEntity(aboutEntity)
+            }
+        emit(aboutList)
     }
 
-    override suspend fun faq(lang: String, auth_token: String): Flow<Boolean> {
-        TODO("Not yet implemented")
+    override suspend fun faq(lang: String?, auth_token: String): Flow<List<Faq>> = flow {
+        val faqList = userDataSourceFactory.getRemoteDataSource().faq(lang, auth_token)
+            .map { faqEntity ->
+                faqMapper.mapFromEntity(faqEntity)
+            }
+        emit(faqList)
     }
 
-    override suspend fun terms(lang: String, auth_token: String): Flow<Boolean> {
-        TODO("Not yet implemented")
+    override suspend fun terms(lang: String?, auth_token: String): Flow<List<Terms>> = flow {
+        val termsList = userDataSourceFactory.getRemoteDataSource().terms(lang, auth_token)
+            .map { termsEntity ->
+                termsMapper.mapFromEntity(termsEntity)
+            }
+        emit(termsList)
     }
 }

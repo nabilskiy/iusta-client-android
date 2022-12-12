@@ -1,9 +1,9 @@
 package com.ls.iusta.domain.models.category
 
 data class Category(
-    val id: Int?,
+    val id: Int,
     val name: String?,
     val description: String?,
     val icon: String?,
-    val menu: Boolean
+    var menu: Boolean = false
 )

@@ -1,6 +1,10 @@
 package com.ls.iusta.data.source
 
-import com.ls.iusta.data.models.*
+import com.ls.iusta.data.models.category.CategoryInfoEntity
+import com.ls.iusta.data.models.ticket.ShortTicketEntity
+import com.ls.iusta.data.models.ticket.TicketEntity
+import com.ls.iusta.data.models.worker.RatingEntity
+import com.ls.iusta.data.models.worker.WorkerEntity
 import com.ls.iusta.data.repository.TicketDataSource
 import com.ls.iusta.data.repository.TicketRemote
 import javax.inject.Inject
@@ -15,10 +19,10 @@ class TicketRemoteDataSource @Inject constructor(
         ticketRemote.getTicket(ticket_status, auth_token, ticketId)
 
 
-    override suspend fun categories(menu_id: String, auth_token: String?): CategoryInfoEntity =
+    override suspend fun categories(menu_id: Int, auth_token: String?): CategoryInfoEntity =
         ticketRemote.categories(menu_id, auth_token)
 
-    override suspend fun createTicket(category_id: String, auth_token: String?): ShortTicketEntity =
+    override suspend fun createTicket(category_id: Int, auth_token: String?): ShortTicketEntity =
         ticketRemote.createTicket(category_id, auth_token)
 
     override suspend fun addNoteTicket(

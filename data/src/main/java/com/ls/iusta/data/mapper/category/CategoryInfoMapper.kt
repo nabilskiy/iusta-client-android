@@ -1,11 +1,8 @@
 package com.ls.iusta.data.mapper.category
 
 import com.ls.iusta.data.mapper.Mapper
-import com.ls.iusta.data.models.CategoryInfoEntity
-import com.ls.iusta.data.models.CustomerEntity
-import com.ls.iusta.domain.models.category.Category
+import com.ls.iusta.data.models.category.CategoryInfoEntity
 import com.ls.iusta.domain.models.category.CategoryInfo
-import com.ls.iusta.domain.models.customer.Customer
 import javax.inject.Inject
 
 class CategoryInfoMapper @Inject constructor(

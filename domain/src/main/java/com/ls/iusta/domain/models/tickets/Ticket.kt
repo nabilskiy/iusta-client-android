@@ -19,6 +19,12 @@ data class Ticket(
     val title : String,
     val tn : String,
     val type_id : String,
-    val user_id : String,
-    val category_name : String
+    val user_id : Int,
+    val category_name : String,
+    val ticket_priority_name: String,
+    val ticket_priority_value_en: String,
+    val next_event_label: String,
+    val next_event_id: Int,
+    val next_event_name: String,
+    val current_event_label: String
 )

@@ -43,10 +43,15 @@
     <string name="order_type">Order type: </string>
     <string name="order_date">Created date: </string>
 
-    <string name="ticket_gender_label">Gender:</string>
-    <string name="ticket_species_label">Species:</string>
-    <string name="ticket_location_label">Location:</string>
+    <string name="ticket_category_label">Category:</string>
+    <string name="ticket_date_label">Date:</string>
+    <string name="ticket_num_label">Ticket Number:</string>
     <string name="ticket_status_label">Status:</string>
+
+
+    <!-- Create Ticket Fragment -->
+    <string name="fragment_create_ticket_title_label">Create ticket</string>
+
 
     <!-- Settings Fragment -->
     <string name="fragment_menu_title_label">Menu</string>
@@ -60,7 +65,16 @@
     <string name="bookmark_error">Something went wrong, please try again.</string>
     <string name="bookmark_success">Ticket bookmarked successfully</string>
     <string name="un_bookmark_success">Ticket bookmarked removed successfully</string>
+    <string name="assigned_specialist">Assigned specialist</string>
+    <string name="proceed_to_scan">Proceed to scan</string>
+    <string name="btn_continue">Continue</string>
+    <string name="get_repaired">Choose what you want to get repaired</string>
 
+    <string name="your_specialist_is_not_assigned">Your specialist is not assigned</string>
+    <string name="your_specialist_on_his_way">Your specialist on his way</string>
+    <string name="your_specialist_has_arrived">Your specialist has arrived</string>
+    <string name="your_request_is_completed">Your request has been completed</string>
+    <string name="your_request_was_rejected">Your request has been rejected</string>
 
 
 </resources>

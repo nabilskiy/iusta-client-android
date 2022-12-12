@@ -1,4 +1,4 @@
-package com.ls.iusta.data.models
+package com.ls.iusta.data.models.worker
 
 data class RatingEntity(
     val rating: Int?,

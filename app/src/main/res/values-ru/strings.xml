@@ -1,0 +1,75 @@
+<resources>
+    <string name="app_name">iUSTA</string>
+    <string name="menu_home">Главная</string>
+    <string name="menu_history">История</string>
+    <string name="menu_settings">Меню</string>
+    <string name="app_exit_label">Press BACK again to exit</string>
+
+    <!-- Login Activity -->
+    <string name="login">Log In</string>
+    <string name="signup">Have not registered yet? <b><font color="#FF9800">Sign up</font></b></string>
+    <string name="forgotpass">Forgot password?</string>
+    <string name="next">Next</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="birthday">Birthday</string>
+    <string name="password_confirm">Confirm password</string>
+
+    <!-- Reset Password Activity -->
+    <string name="resetpass">Reset password</string>
+    <string name="send">Send</string>
+    <string name="goback">Go Back</string>
+    <string name="resetpass_message">Please enter your email address. You will receive a link to create a new password via email</string>
+
+    <!-- Registration Activity -->
+    <string name="reg">Sign Up</string>
+    <string name="loginlabel">Already registered? <b><font color="#FF9800">Log In</font></b></string>
+    <string name="privacy">I accept all <b><u><font color="#FF9800">Terms and Conditions</font></u></b></string>
+    <string name="school">School Name</string>
+    <string name="name">Name</string>
+    <string name="surname">Surame</string>
+    <string name="emailaddress">Email Address</string>
+    <string name="phone">Phone number</string>
+    <string name="tx">Thank you!</string>
+    <string name="after_reg">Your request been successfully sent! Please wait for your confirmation. Confirmation letter will be sent to your email</string>
+
+
+    <!-- Tickets Fragment -->
+    <string name="fragment_tickets_title_label">Active orders</string>
+    <string name="fragment_tickets_history_label">Orders history</string>
+    <string name="fragment_ticket_detail_title_label">Ticket Detail</string>
+    <string name="new_ticket">Make another order</string>
+    <string name="order_status">Order status: </string>
+    <string name="order_type">Order type: </string>
+    <string name="order_date">Created date: </string>
+
+    <string name="ticket_category_label">Category:</string>
+    <string name="ticket_date_label">Date:</string>
+    <string name="ticket_num_label">Ticket Number:</string>
+    <string name="ticket_status_label">Status:</string>
+
+    <!-- Settings Fragment -->
+    <string name="fragment_menu_title_label">Menu</string>
+    <string name="fragment_settings_title_label">Settings</string>
+    <string name="fragment_contact_title_label">Contact Us</string>
+    <string name="fragment_about_title_label">About</string>
+
+
+
+    <string name="splash_screen">Splash Screen</string>
+    <string name="bookmark_error">Something went wrong, please try again.</string>
+    <string name="bookmark_success">Ticket bookmarked successfully</string>
+    <string name="un_bookmark_success">Ticket bookmarked removed successfully</string>
+    <string name="assigned_specialist">Assigned specialist</string>
+    <string name="proceed_to_scan">Proceed to scan</string>
+    <string name="fragment_create_ticket_title_label">Create ticket</string>
+    <string name="btn_continue">Continue</string>
+    <string name="get_repaired">Choose what you want to get repaired</string>
+    <string name="your_specialist_is_not_assigned">Your specialist is not assigned</string>
+    <string name="your_specialist_on_his_way">Your specialist on his way</string>
+    <string name="your_specialist_has_arrived">Your specialist has arrived</string>
+    <string name="your_request_is_completed">Your request is completed</string>
+    <string name="your_request_was_rejected">Your request has been rejected</string>
+
+
+</resources>

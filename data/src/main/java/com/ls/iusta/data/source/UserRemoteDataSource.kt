@@ -1,11 +1,11 @@
 package com.ls.iusta.data.source
 
-import com.ls.iusta.data.models.CustomerEntity
-import com.ls.iusta.data.models.LoginEntity
-import com.ls.iusta.data.models.TicketEntity
-import com.ls.iusta.data.models.UserEntity
-import com.ls.iusta.data.repository.TicketDataSource
-import com.ls.iusta.data.repository.TicketRemote
+import com.ls.iusta.data.models.customer.CustomerEntity
+import com.ls.iusta.data.models.info.AboutEntity
+import com.ls.iusta.data.models.info.FaqEntity
+import com.ls.iusta.data.models.info.TermsEntity
+import com.ls.iusta.data.models.user.LoginEntity
+import com.ls.iusta.data.models.user.UserEntity
 import com.ls.iusta.data.repository.UserDataSource
 import com.ls.iusta.data.repository.UserRemote
 import javax.inject.Inject
@@ -89,17 +89,15 @@ class UserRemoteDataSource @Inject constructor(
     override suspend fun logout(auth_token: String): Boolean =
         userRemote.logout(auth_token)
 
-    override suspend fun about(auth_token: String): Boolean {
-        TODO("Not yet implemented")
-    }
+    override suspend fun about(auth_token: String): List<AboutEntity> =
+        userRemote.about(auth_token)
 
-    override suspend fun faq(lang: String, auth_token: String): Boolean {
-        TODO("Not yet implemented")
-    }
 
-    override suspend fun terms(lang: String, auth_token: String): Boolean {
-        TODO("Not yet implemented")
-    }
+    override suspend fun faq(lang: String?, auth_token: String): List<FaqEntity> =
+        userRemote.faq(lang, auth_token)
+
+    override suspend fun terms(lang: String?, auth_token: String): List<TermsEntity> =
+        userRemote.terms(lang, auth_token)
 
     override suspend fun getAuthToken(): String? {
         TODO("Not yet implemented")

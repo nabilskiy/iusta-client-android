@@ -11,6 +11,7 @@ import com.ls.iusta.base.BaseFragment
 import com.ls.iusta.databinding.FragmentTicketsListBinding
 import com.ls.iusta.domain.models.auth.LoginUiModel
 import com.ls.iusta.domain.models.tickets.TicketUIModel
+import com.ls.iusta.extension.makeGone
 import com.ls.iusta.extension.observe
 import com.ls.iusta.presentation.viewmodel.TicketsListViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -57,6 +58,12 @@ class TicketsListFragment : BaseFragment<FragmentTicketsListBinding, TicketsList
                 TicketsListFragmentDirections.actionTicketListFragmentToTicketDetailFragment(
                     ticket.id.toLong()
                 )
+            )
+        }
+
+        binding.nextButton.setOnClickListener {
+            findNavController().navigate(
+               TicketsListFragmentDirections.actionTicketListFragmentToCreateTicketFragment()
             )
         }
     }

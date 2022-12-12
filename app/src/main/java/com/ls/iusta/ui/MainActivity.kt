@@ -68,6 +68,8 @@ class MainActivity : AppCompatActivity() {
         currentNavController = controller
     }
 
+
+
     override fun onSupportNavigateUp(): Boolean {
         return currentNavController?.value?.navigateUp() ?: false
     }
@@ -78,10 +80,8 @@ class MainActivity : AppCompatActivity() {
                 super.onBackPressed()
                 return
             }
-
             backPressedOnce = true
             showSnackBar(binding.root, getString(R.string.app_exit_label))
-
             lifecycleScope.launch {
                 delay(2000)
                 backPressedOnce = false

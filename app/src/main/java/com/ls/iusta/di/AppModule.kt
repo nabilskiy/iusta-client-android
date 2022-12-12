@@ -6,6 +6,8 @@ import com.bumptech.glide.RequestManager
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.ls.iusta.R
+import com.ls.iusta.core.theme.LocaleUtils
+import com.ls.iusta.core.theme.LocaleUtilsImpl
 import com.ls.iusta.core.theme.ThemeUtils
 import com.ls.iusta.core.theme.ThemeUtilsImpl
 import dagger.Module
@@ -25,13 +27,17 @@ object AppModule {
 
     @Singleton
     @Provides
+    fun provideLocaleUtils(localeUtilsImpl: LocaleUtilsImpl): LocaleUtils = localeUtilsImpl
+
+    @Singleton
+    @Provides
     fun provideGlideInstance(
         @ApplicationContext context: Context
     ): RequestManager = Glide.with(context)
         .setDefaultRequestOptions(
             RequestOptions()
-                .placeholder(R.drawable.ic_launcher_background)
-                .error(R.drawable.ic_launcher_background)
+                .placeholder(R.drawable.ic_image)
+                .error(R.drawable.ic_image)
                 .diskCacheStrategy(DiskCacheStrategy.DATA)
         )
 }

@@ -1,9 +1,7 @@
 package com.ls.iusta.cache.mapper
 
 import com.ls.iusta.cache.models.LoginCacheEntity
-import com.ls.iusta.cache.models.TicketCacheEntity
-import com.ls.iusta.data.models.LoginEntity
-import com.ls.iusta.data.models.TicketEntity
+import com.ls.iusta.data.models.user.LoginEntity
 import javax.inject.Inject
 
 class LoginCacheMapper @Inject constructor(

@@ -1,4 +1,4 @@
-package com.ls.iusta.data.models
+package com.ls.iusta.data.models.ticket
 
 data class ShortTicketEntity(
     val ArticleID: String,

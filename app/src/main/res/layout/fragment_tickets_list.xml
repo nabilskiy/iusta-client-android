@@ -3,20 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/rootView"
+    android:background="@color/colorBg"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.ticketslist.TicketsListFragment">
-
-    <ProgressBar
-        android:id="@+id/progressBarTickets"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/refresh"
@@ -24,7 +14,6 @@
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -32,10 +21,11 @@
             android:id="@+id/recyclerViewTickets"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:paddingBottom="72dp"
+            android:clipToPadding="false"
             tools:listitem="@layout/item_ticket_list" />
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-
 
     <Button
         android:id="@+id/nextButton"
@@ -44,7 +34,5 @@
         android:layout_margin="16dp"
         android:text="@string/new_ticket"
         app:layout_constraintBottom_toBottomOf="parent"/>
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

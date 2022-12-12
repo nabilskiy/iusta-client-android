@@ -1,4 +1,4 @@
-package com.ls.iusta.data.models
+package com.ls.iusta.data.models.user
 
 data class UserEntity(
     var success: Boolean?,

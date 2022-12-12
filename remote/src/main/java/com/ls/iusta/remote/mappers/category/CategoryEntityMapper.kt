@@ -1,6 +1,6 @@
 package com.ls.iusta.remote.mappers.category
 
-import com.ls.iusta.data.models.CategoryEntity
+import com.ls.iusta.data.models.category.CategoryEntity
 import com.ls.iusta.remote.mappers.EntityMapper
 import com.ls.iusta.remote.models.category.CategoryModel
 import javax.inject.Inject
