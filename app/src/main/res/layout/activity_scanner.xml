@@ -10,18 +10,28 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <TextView
+    <EditText
         android:id="@+id/ticketIdScanned"
         style="@style/TextView.Title.Normal"
         android:gravity="center"
         android:minWidth="200dp"
+        android:padding="8dp"
+        android:hint="Scan QR code or enter ticket id"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_margin="36dp"
+        app:layout_constraintBottom_toTopOf="@+id/nextButton"
+        android:layout_margin="16dp"
         android:background="@drawable/input_layout_default"
-        android:layout_width="wrap_content"
-        android:layout_height="70dp"
+        android:layout_width="match_parent"
+        android:layout_height="53dp"
         />
+
+    <Button
+        android:id="@+id/nextButton"
+        style="@style/Button.Accent"
+        android:layout_width="match_parent"
+        android:layout_margin="16dp"
+        android:text="@string/btn_continue"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

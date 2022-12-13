@@ -38,7 +38,12 @@ class ScannerActivity : BaseActivity<ActivityScannerBinding>() {
 
     override fun initUI() {
         with(binding) {
-
+            nextButton.setOnClickListener {
+                val intent = Intent()
+                intent.putExtra("ticket_id", ticketIdScanned.text.toString())
+                setResult(RESULT_OK, intent)
+                finish()
+            }
         }
     }
 
@@ -58,12 +63,8 @@ class ScannerActivity : BaseActivity<ActivityScannerBinding>() {
 
     private fun checkTicketId(text: String?) {
         with(binding) {
-            ticketIdScanned.text = text
+            ticketIdScanned.setText(text)
         }
-        val intent = Intent()
-        intent.putExtra("ticket_id", text)
-        setResult(RESULT_OK, intent)
-        finish()
     }
 
     companion object {

@@ -41,21 +41,9 @@
             android:id="@+id/recyclerViewCategories"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingBottom="72dp"
             android:clipToPadding="false"
             tools:listitem="@layout/item_category_list" />
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-
-
-    <Button
-        android:id="@+id/nextButton"
-        style="@style/Button.Accent"
-        android:layout_width="match_parent"
-        android:layout_margin="16dp"
-        android:text="@string/btn_continue"
-        app:layout_constraintBottom_toBottomOf="parent"/>
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

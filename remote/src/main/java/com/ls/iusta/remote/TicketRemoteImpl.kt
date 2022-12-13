@@ -61,7 +61,7 @@ class TicketRemoteImpl @Inject constructor(
 
     override suspend fun addNoteTicket(
         ticketId: Long,
-        ticketNote: String,
+        ticketNote: String?,
         auth_token: String?
     ): ShortTicketEntity =
         shortTicketEntityMapper.mapFromModel(
@@ -74,7 +74,7 @@ class TicketRemoteImpl @Inject constructor(
 
     override suspend fun getNoteTicket(
         ticketId: Long,
-        ticketNote: String,
+        ticketNote: String?,
         auth_token: String?
     ): String =
         ticketService.ticketNoteInfo(ticketId, ticketNote, auth_token).response
@@ -82,7 +82,7 @@ class TicketRemoteImpl @Inject constructor(
     override suspend fun addRating(
         workerRating: Int,
         ticketId: Long,
-        ticketNote: String,
+        ticketNote: String?,
         auth_token: String?
     ): Boolean =
         ticketService.addRating(workerRating, ticketId, ticketNote, auth_token).success

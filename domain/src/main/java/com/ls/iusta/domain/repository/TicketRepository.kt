@@ -17,20 +17,20 @@ interface TicketRepository {
     suspend fun createTicket(category_id: Int, auth_token: String?): Flow<ShortTicket>
     suspend fun addNoteTicket(
         ticketId: Long,
-        ticketNote: String,
+        ticketNote: String?,
         auth_token: String?
     ): Flow<ShortTicket>
 
     suspend fun getNoteTicket(
         ticketId: Long,
-        ticketNote: String,
+        ticketNote: String?,
         auth_token: String?
     ): Flow<String>
 
     suspend fun addRating(
         workerRating: Int,
         ticketId: Long,
-        ticketNote: String,
+        ticketNote: String?,
         auth_token: String?
     ): Flow<Boolean>
 

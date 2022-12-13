@@ -13,6 +13,7 @@ import com.ls.iusta.R
 import com.ls.iusta.base.BaseFragment
 import com.ls.iusta.databinding.FragmentTicketDetailBinding
 import com.ls.iusta.domain.models.tickets.TicketDetailUIModel
+import com.ls.iusta.extension.makeGone
 import com.ls.iusta.extension.makeVisible
 import com.ls.iusta.extension.observe
 import com.ls.iusta.extension.showSnackBar
@@ -40,27 +41,38 @@ class TicketDetailFragment :
     @Inject
     lateinit var permissionManager: PermissionManager
 
+    private var ticketId: Long = 0
+
     val startForResult =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
             if (result.resultCode == Activity.RESULT_OK) {
                 val intent = result.data
-                // Handle the Intent
-                showSnackBar(binding.root, intent?.getStringExtra("ticket_id").toString())
+                checkWorkersTicket(intent?.getStringExtra("ticket_id")?.toLong() ?: 0)
             }
         }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         observe(viewModel.ticketDetail, ::onViewStateChange)
-
         viewModel.getTicketDetail(args.ticketId)
-        binding.refresh.setOnRefreshListener {
-            binding.refresh.isRefreshing = false
-            viewModel.getTicketDetail(args.ticketId)
-        }
-        binding.scanButton.setOnClickListener {
-            requestPermissions()
+        initUi()
+    }
+
+    private fun initUi(){
+        binding.apply {
+            refresh.setOnRefreshListener {
+                binding.refresh.isRefreshing = false
+                viewModel.getTicketDetail(args.ticketId)
+            }
+            scanButton.setOnClickListener {
+                requestPermissions()
+            }
+            nextButton.setOnClickListener {
+                viewModel.sendNoteForTicket(ticketId, "Agent arrived")
+            }
+            cancelButton.setOnClickListener {
+                scanResultsDialog.makeGone()
+            }
         }
     }
 
@@ -86,7 +98,24 @@ class TicketDetailFragment :
 
     private fun startScan() {
         startForResult.launch(Intent(requireContext(), ScannerActivity::class.java))
+    }
 
+    private fun checkWorkersTicket(scannedTicketId: Long) {
+        showScanningResult(ticketId == scannedTicketId)
+    }
+
+    private fun showScanningResult(match: Boolean) {
+        binding.apply {
+            scanResultsDialog.makeVisible()
+            if (match) {
+                txTv.text = getString(R.string.assistant_identified)
+                icon.setImageResource(R.drawable.ic_done)
+            } else {
+                txTv.text = getString(R.string.assistant_not_identified)
+                icon.setImageResource(R.drawable.ic_warning)
+                cancelButton.makeVisible()
+            }
+        }
     }
 
     private fun onViewStateChange(result: TicketDetailUIModel) {
@@ -105,7 +134,7 @@ class TicketDetailFragment :
                             textViewDate.text = ticket.create_time
                             textViewNumber.text = ticket.tn
                             textViewStatus.text = ticket.current_event_label
-
+                            ticketId = ticket.id
                             when (ticket.current_event_label) {
                                 AppConstants.StatusTickets.NEW -> {
                                     workerStatus.text =
@@ -149,6 +178,10 @@ class TicketDetailFragment :
 //                    workerCall
                     }
                 }
+            }
+            is TicketDetailUIModel.AddNote -> {
+                handleLoading(false)
+
             }
             is TicketDetailUIModel.Error -> {
                 handleErrorMessage(result.error)

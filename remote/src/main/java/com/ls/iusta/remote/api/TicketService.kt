@@ -48,7 +48,7 @@ interface TicketService {
     @POST(Endpoints.TICKET_NOTE)
     suspend fun ticketNote(
         @Field("ticket_id") id: Long,
-        @Field("ticket_note") ticket_note: String,
+        @Field("ticket_note") ticket_note: String?,
         @Field("auth_token") query: String?,
         @Field("secret_key") secret_key: String = SECRET_KEY
     ): CreateTicketResponseModel
@@ -57,7 +57,7 @@ interface TicketService {
     @POST(Endpoints.TICKET_NOTE_INFO)
     suspend fun ticketNoteInfo(
         @Field("ticket_id") id: Long,
-        @Field("ticket_note") ticket_note: String,
+        @Field("ticket_note") ticket_note: String?,
         @Field("auth_token") query: String?,
         @Field("secret_key") secret_key: String = SECRET_KEY
     ): TicketNoteResponseModel
@@ -67,7 +67,7 @@ interface TicketService {
     suspend fun addRating(
         @Field("worker_rating") rating: Int,
         @Field("ticket_id") id: Long,
-        @Field("ticket_note") ticket_note: String,
+        @Field("ticket_note") ticket_note: String?,
         @Field("auth_token") query: String?,
         @Field("secret_key") secret_key: String = SECRET_KEY
     ): BaseModel

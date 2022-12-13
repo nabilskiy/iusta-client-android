@@ -16,7 +16,7 @@ data class TicketCacheEntity(
     val dynamic_category_id : String,
     val dynamic_category_name :String,
     @PrimaryKey
-    val id : String,
+    val id : Long,
     val owner_user_name : String,
     val responsible_user_id :String,
     val service_id : String,

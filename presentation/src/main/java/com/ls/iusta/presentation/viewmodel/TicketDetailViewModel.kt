@@ -2,10 +2,12 @@ package com.ls.iusta.presentation.viewmodel
 
 import androidx.lifecycle.LiveData
 import com.ls.iusta.domain.interactor.auth.TokenUseCase
+import com.ls.iusta.domain.interactor.ticket.CreateNoteUseCase
 import com.ls.iusta.domain.interactor.ticket.GetTicketByIdUseCase
 import com.ls.iusta.domain.interactor.ticket.SetTicketBookmarkUseCase
 import com.ls.iusta.domain.interactor.ticket.SetTicketUnBookmarkUseCase
 import com.ls.iusta.domain.interactor.worker.GetWorkerInfoUseCase
+import com.ls.iusta.domain.models.tickets.CreateNoteRequest
 import com.ls.iusta.domain.models.tickets.GetTicketByIdRequest
 import com.ls.iusta.domain.models.tickets.TicketDetailUIModel
 import com.ls.iusta.domain.models.worker.WorkerRequest
@@ -23,8 +25,7 @@ class TicketDetailViewModel @Inject constructor(
     private val ticketByIdUseCase: GetTicketByIdUseCase,
     private val getWorkerInfoUseCase: GetWorkerInfoUseCase,
     private val tokenUseCase: TokenUseCase,
-    private val setTicketBookmarkUseCase: SetTicketBookmarkUseCase,
-    private val setTicketUnBookmarkUseCase: SetTicketUnBookmarkUseCase
+    private val createNoteUseCase: CreateNoteUseCase
 ) : BaseViewModel(contextProvider) {
 
     private val _ticketDetail = UiAwareLiveData<TicketDetailUIModel>()
@@ -64,7 +65,6 @@ class TicketDetailViewModel @Inject constructor(
     }
 
     private suspend fun loadWorkerDetail(workerId: Int, token: String?) {
-     //  _ticketDetail.postValue(TicketDetailUIModel.Loading)
         getWorkerInfoUseCase(
             WorkerRequest(
                 workerId,
@@ -72,6 +72,27 @@ class TicketDetailViewModel @Inject constructor(
             )
         ).collect {
             _ticketDetail.postValue(TicketDetailUIModel.WorkerInfo(it))
+        }
+    }
+
+    fun sendNoteForTicket(ticketId: Long, ticketNote: String?) {
+        launchCoroutineIO {
+            tokenUseCase(Unit).collect {
+                addNote(ticketId, ticketNote, it)
+            }
+        }
+    }
+
+    private suspend fun addNote(ticketId: Long, ticketNote: String?, token: String?) {
+        _ticketDetail.postValue(TicketDetailUIModel.Loading)
+        createNoteUseCase(
+            CreateNoteRequest(
+                ticketId,
+                ticketNote,
+                token
+            )
+        ).collect {
+            _ticketDetail.postValue(TicketDetailUIModel.AddNote(it))
         }
     }
 

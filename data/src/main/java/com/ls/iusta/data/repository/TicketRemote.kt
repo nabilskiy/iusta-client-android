@@ -14,20 +14,20 @@ interface TicketRemote {
     suspend fun createTicket(category_id: Int, auth_token: String?): ShortTicketEntity
     suspend fun addNoteTicket(
         ticketId: Long,
-        ticketNote: String,
+        ticketNote: String?,
         auth_token: String?
     ): ShortTicketEntity
 
     suspend fun getNoteTicket(
         ticketId: Long,
-        ticketNote: String,
+        ticketNote: String?,
         auth_token: String?
     ): String
 
     suspend fun addRating(
         workerRating: Int,
         ticketId: Long,
-        ticketNote: String,
+        ticketNote: String?,
         auth_token: String?
     ): Boolean
 

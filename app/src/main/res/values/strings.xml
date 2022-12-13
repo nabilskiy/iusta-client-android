@@ -75,6 +75,8 @@
     <string name="your_specialist_has_arrived">Your specialist has arrived</string>
     <string name="your_request_is_completed">Your request has been completed</string>
     <string name="your_request_was_rejected">Your request has been rejected</string>
+    <string name="assistant_identified">Assistant identified</string>
+    <string name="assistant_not_identified">Assistant not identified</string>
 
 
 </resources>

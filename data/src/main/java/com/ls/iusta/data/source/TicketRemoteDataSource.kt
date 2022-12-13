@@ -27,14 +27,14 @@ class TicketRemoteDataSource @Inject constructor(
 
     override suspend fun addNoteTicket(
         ticketId: Long,
-        ticketNote: String,
+        ticketNote: String?,
         auth_token: String?
     ): ShortTicketEntity =
         ticketRemote.addNoteTicket(ticketId, ticketNote, auth_token)
 
     override suspend fun getNoteTicket(
         ticketId: Long,
-        ticketNote: String,
+        ticketNote: String?,
         auth_token: String?
     ): String =
         ticketRemote.getNoteTicket(ticketId, ticketNote, auth_token)
@@ -42,7 +42,7 @@ class TicketRemoteDataSource @Inject constructor(
     override suspend fun addRating(
         workerRating: Int,
         ticketId: Long,
-        ticketNote: String,
+        ticketNote: String?,
         auth_token: String?
     ): Boolean =
         ticketRemote.addRating(workerRating, ticketId, ticketNote, auth_token)

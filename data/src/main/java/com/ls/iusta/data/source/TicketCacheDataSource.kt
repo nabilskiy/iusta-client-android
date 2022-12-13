@@ -29,7 +29,7 @@ class TicketCacheDataSource @Inject constructor(
 
     override suspend fun addNoteTicket(
         ticketId: Long,
-        ticketNote: String,
+        ticketNote: String?,
         auth_token: String?
     ): ShortTicketEntity {
         TODO("Not yet implemented")
@@ -37,7 +37,7 @@ class TicketCacheDataSource @Inject constructor(
 
     override suspend fun getNoteTicket(
         ticketId: Long,
-        ticketNote: String,
+        ticketNote: String?,
         auth_token: String?
     ): String {
         TODO("Not yet implemented")
@@ -46,7 +46,7 @@ class TicketCacheDataSource @Inject constructor(
     override suspend fun addRating(
         workerRating: Int,
         ticketId: Long,
-        ticketNote: String,
+        ticketNote: String?,
         auth_token: String?
     ): Boolean {
         TODO("Not yet implemented")

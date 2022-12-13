@@ -70,7 +70,7 @@ class TicketRepositoryImpl @Inject constructor(
 
     override suspend fun addNoteTicket(
         ticketId: Long,
-        ticketNote: String,
+        ticketNote: String?,
         auth_token: String?
     ): Flow<ShortTicket> = flow {
         val ticket = ticketDataSourceFactory.getRemoteDataSource()
@@ -80,7 +80,7 @@ class TicketRepositoryImpl @Inject constructor(
 
     override suspend fun getNoteTicket(
         ticketId: Long,
-        ticketNote: String,
+        ticketNote: String?,
         auth_token: String?
     ): Flow<String> = flow {
         val note = ticketDataSourceFactory.getRemoteDataSource()
@@ -91,7 +91,7 @@ class TicketRepositoryImpl @Inject constructor(
     override suspend fun addRating(
         workerRating: Int,
         ticketId: Long,
-        ticketNote: String,
+        ticketNote: String?,
         auth_token: String?
     ): Flow<Boolean> = flow {
         val rating = ticketDataSourceFactory.getRemoteDataSource()
