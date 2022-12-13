@@ -1,6 +1,6 @@
 package com.ls.iusta.data.models.worker
 
 data class RatingEntity(
-    val rating: Int?,
+    val rating: String?,
     val avg_rating: Double?
 )

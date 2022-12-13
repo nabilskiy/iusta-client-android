@@ -6,4 +6,5 @@ sealed class LoginUiModel : UiAwareModel() {
     object Loading : LoginUiModel()
     data class Error(var error: String = "") : LoginUiModel()
     data class Success(var data: Login) : LoginUiModel()
+    data class CheckLogin(var status: Boolean?) : LoginUiModel()
 }

@@ -11,13 +11,13 @@ import com.ls.iusta.R
 import com.ls.iusta.base.BaseActivity
 import com.ls.iusta.databinding.ActivityScannerBinding
 import com.ls.iusta.extension.startWithAnimation
-import com.ls.iusta.presentation.viewmodel.ScannerViewModel
+import com.ls.iusta.presentation.viewmodel.BaseViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class ScannerActivity : BaseActivity<ActivityScannerBinding>() {
 
-    override val viewModel: ScannerViewModel by viewModels()
+    override val viewModel: BaseViewModel by viewModels()
 
     override fun getViewBinding() = ActivityScannerBinding.inflate(layoutInflater)
 

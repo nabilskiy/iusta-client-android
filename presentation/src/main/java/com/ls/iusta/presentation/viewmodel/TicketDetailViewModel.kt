@@ -7,9 +7,11 @@ import com.ls.iusta.domain.interactor.ticket.GetTicketByIdUseCase
 import com.ls.iusta.domain.interactor.ticket.SetTicketBookmarkUseCase
 import com.ls.iusta.domain.interactor.ticket.SetTicketUnBookmarkUseCase
 import com.ls.iusta.domain.interactor.worker.GetWorkerInfoUseCase
+import com.ls.iusta.domain.interactor.worker.GetWorkerRatingUseCase
 import com.ls.iusta.domain.models.tickets.CreateNoteRequest
 import com.ls.iusta.domain.models.tickets.GetTicketByIdRequest
 import com.ls.iusta.domain.models.tickets.TicketDetailUIModel
+import com.ls.iusta.domain.models.worker.GetRatingRequest
 import com.ls.iusta.domain.models.worker.WorkerRequest
 import com.ls.iusta.presentation.utils.AppConstants
 import com.ls.iusta.presentation.utils.CoroutineContextProvider
@@ -25,7 +27,8 @@ class TicketDetailViewModel @Inject constructor(
     private val ticketByIdUseCase: GetTicketByIdUseCase,
     private val getWorkerInfoUseCase: GetWorkerInfoUseCase,
     private val tokenUseCase: TokenUseCase,
-    private val createNoteUseCase: CreateNoteUseCase
+    private val createNoteUseCase: CreateNoteUseCase,
+    private val getWorkerRatingUseCase: GetWorkerRatingUseCase
 ) : BaseViewModel(contextProvider) {
 
     private val _ticketDetail = UiAwareLiveData<TicketDetailUIModel>()
@@ -96,5 +99,24 @@ class TicketDetailViewModel @Inject constructor(
         }
     }
 
+
+    fun checkRating(ticketId: Long) {
+        launchCoroutineIO {
+            tokenUseCase(Unit).collect {
+                getRating(ticketId, it)
+            }
+        }
+    }
+
+    private suspend fun getRating(ticketId: Long, token: String?) {
+        getWorkerRatingUseCase(
+            GetRatingRequest(
+                ticketId,
+                token
+            )
+        ).collect {
+            _ticketDetail.postValue(TicketDetailUIModel.GetRating(it))
+        }
+    }
 
 }

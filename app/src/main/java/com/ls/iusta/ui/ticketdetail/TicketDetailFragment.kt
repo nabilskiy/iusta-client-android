@@ -3,6 +3,7 @@ package com.ls.iusta.ui.ticketdetail
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -21,6 +22,7 @@ import com.ls.iusta.presentation.managers.PermissionManager
 import com.ls.iusta.presentation.utils.AppConstants
 import com.ls.iusta.presentation.viewmodel.TicketDetailViewModel
 import com.ls.iusta.ui.qrscanner.ScannerActivity
+import com.ls.iusta.ui.rating.AddRatingActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.NonCancellable.isActive
 import javax.inject.Inject
@@ -42,6 +44,8 @@ class TicketDetailFragment :
     lateinit var permissionManager: PermissionManager
 
     private var ticketId: Long = 0
+    private var workerId: Int = 0
+    private var ratingSet: Boolean = false
 
     val startForResult =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
@@ -58,7 +62,7 @@ class TicketDetailFragment :
         initUi()
     }
 
-    private fun initUi(){
+    private fun initUi() {
         binding.apply {
             refresh.setOnRefreshListener {
                 binding.refresh.isRefreshing = false
@@ -72,6 +76,13 @@ class TicketDetailFragment :
             }
             cancelButton.setOnClickListener {
                 scanResultsDialog.makeGone()
+            }
+            workerCallOrRate.setOnClickListener {
+                if (ratingSet) {
+                        //call to worker
+                } else {
+                    AddRatingActivity.startActivity(requireActivity(), ticketId, workerId)
+                }
             }
         }
     }
@@ -135,6 +146,7 @@ class TicketDetailFragment :
                             textViewNumber.text = ticket.tn
                             textViewStatus.text = ticket.current_event_label
                             ticketId = ticket.id
+                            workerId = ticket.user_id
                             when (ticket.current_event_label) {
                                 AppConstants.StatusTickets.NEW -> {
                                     workerStatus.text =
@@ -156,8 +168,10 @@ class TicketDetailFragment :
                                 AppConstants.StatusTickets.COMPLETE -> {
                                     workerStatus.text =
                                         getString(R.string.your_request_is_completed)
+                                    workerCallOrRate.setImageResource(R.drawable.ic_rate)
                                     assignedLabel.makeVisible()
                                     viewModel.getWorkerDetail(ticket.user_id)
+                                    viewModel.checkRating(ticket.id)
                                 }
                                 AppConstants.StatusTickets.REJECT -> {
                                     workerStatus.text =
@@ -173,15 +187,21 @@ class TicketDetailFragment :
                     binding.apply {
                         workerCard.makeVisible()
                         glide.load(it.image).circleCrop().into(workerAvatar)
-                        workerName.text = it.firstname + it.lastname
+                        workerName.text = it.firstname +" "+ it.lastname
                         workerRating.rating = it.avg_rating?.toFloat() ?: 0f
-//                    workerCall
                     }
                 }
             }
             is TicketDetailUIModel.AddNote -> {
                 handleLoading(false)
 
+            }
+            is TicketDetailUIModel.GetRating -> {
+                Log.d("TAG", "onViewStateChange: ")
+                if (!result.data.rating.equals("not_found")) {
+                    ratingSet = true
+                    binding.workerCallOrRate.makeGone()
+                }
             }
             is TicketDetailUIModel.Error -> {
                 handleErrorMessage(result.error)

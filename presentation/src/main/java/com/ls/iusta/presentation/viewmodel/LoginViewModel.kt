@@ -20,9 +20,6 @@ class LoginViewModel @Inject constructor(
     private val authUseCase: AuthUseCase
 ) : BaseViewModel(contextProvider) {
 
-    private val _authData = UiAwareLiveData<AuthUiModel>()
-    val authData: LiveData<AuthUiModel> = _authData
-
     private val _loginData = UiAwareLiveData<LoginUiModel>()
     val loginData: LiveData<LoginUiModel> = _loginData
 
@@ -45,7 +42,7 @@ class LoginViewModel @Inject constructor(
     }
 
     fun isLogged() {
-        _authData.postValue(AuthUiModel.Loading)
+        _loginData.postValue(LoginUiModel.Loading)
         launchCoroutineIO {
             getAuthToken()
         }
@@ -53,7 +50,7 @@ class LoginViewModel @Inject constructor(
 
     private suspend fun getAuthToken() {
         authUseCase(Unit).collect {
-            _authData.postValue(AuthUiModel.Success(it))
+            _loginData.postValue(LoginUiModel.CheckLogin(it))
         }
     }
 }

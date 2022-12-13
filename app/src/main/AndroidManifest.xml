@@ -42,6 +42,10 @@
             android:theme="@style/Theme.IUsta"
             android:name="com.ls.iusta.ui.qrscanner.ScannerActivity"
             android:exported="true" />
+        <activity
+            android:theme="@style/Theme.Login"
+            android:name="com.ls.iusta.ui.rating.AddRatingActivity"
+            android:exported="true" />
     </application>
 
 </manifest>

@@ -30,23 +30,26 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>() {
     }
 
     override fun initViewModel() {
-        observe(viewModel.authData, ::onAuth)
+        observe(viewModel.loginData, ::onAuth)
     }
 
-    private fun onAuth(event: AuthUiModel) {
+    private fun onAuth(event: LoginUiModel) {
         if (event.isRedelivered) return
         when (event) {
-            is AuthUiModel.Loading -> {
+            is LoginUiModel.Loading -> {
                 handleLoading(true)
             }
-            is AuthUiModel.Success -> {
+            is LoginUiModel.Success -> {
+
+            }
+            is LoginUiModel.CheckLogin ->{
                 handleLoading(false)
                 lifecycleScope.launch {
                     delay(1000)
-                    nextActivity(event.isLogged)
+                    nextActivity(event.status)
                 }
             }
-            is AuthUiModel.Error -> {
+            is LoginUiModel.Error -> {
                 handleErrorMessage(event.error)
             }
         }
