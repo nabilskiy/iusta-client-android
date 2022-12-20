@@ -1,4 +1,4 @@
-package com.ls.iusta.presentation.viewmodel
+package com.ls.iusta.presentation.viewmodel.user
 
 import androidx.lifecycle.LiveData
 import com.ls.iusta.domain.interactor.auth.RegUseCase
@@ -6,6 +6,7 @@ import com.ls.iusta.domain.interactor.customer.GetCustomersListUseCase
 import com.ls.iusta.domain.models.auth.*
 import com.ls.iusta.presentation.utils.CoroutineContextProvider
 import com.ls.iusta.presentation.utils.UiAwareLiveData
+import com.ls.iusta.presentation.viewmodel.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.flow.collect

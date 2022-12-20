@@ -70,15 +70,15 @@ class UserCacheDataSource @Inject constructor(
         TODO("Not yet implemented")
     }
 
-    override suspend fun about(auth_token: String): List<AboutEntity> {
+    override suspend fun about(auth_token: String?): List<AboutEntity> {
         TODO("Not yet implemented")
     }
 
-    override suspend fun faq(lang: String?, auth_token: String): List<FaqEntity> {
+    override suspend fun faq(lang: String?, auth_token: String?): List<FaqEntity> {
         TODO("Not yet implemented")
     }
 
-    override suspend fun terms(lang: String?, auth_token: String): List<TermsEntity> {
+    override suspend fun terms(lang: String?): List<TermsEntity> {
         TODO("Not yet implemented")
     }
 

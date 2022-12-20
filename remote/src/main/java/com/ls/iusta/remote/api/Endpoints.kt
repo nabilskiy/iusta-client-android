@@ -26,7 +26,7 @@ class Endpoints {
 
         const val INFO_ABOUT = "mobile/about"
         const val INFO_FAQ = "mobile/faq"
-        const val INFO_TERMS = "mobile/terms"
+        const val INFO_DOCS = "mobile/docs"
 
 
     }

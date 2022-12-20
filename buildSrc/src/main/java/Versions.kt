@@ -39,7 +39,7 @@ object Versions {
     const val desugarVersion = "1.1.5"
 
     //Image Picker dependencies
-    const val imagePickerVersion = "2.0"
+    const val imagePickerVersion = "2.1"
 
     // Dagger - Hilt dependencies
     const val hiltAndroidVersion = "2.38.1"

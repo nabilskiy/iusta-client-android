@@ -11,10 +11,9 @@ import com.ls.iusta.extension.isPassword
 import com.ls.iusta.extension.observe
 import com.ls.iusta.extension.setPasswordState
 import com.ls.iusta.extension.startWithAnimation
-import com.ls.iusta.presentation.viewmodel.LoginViewModel
+import com.ls.iusta.presentation.viewmodel.user.LoginViewModel
 import com.ls.iusta.ui.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
 
 @AndroidEntryPoint
 class LoginActivity : BaseActivity<ActivityLoginBinding>() {

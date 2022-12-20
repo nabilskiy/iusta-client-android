@@ -3,19 +3,14 @@ package com.ls.iusta.ui.auth
 import android.app.Activity
 import android.content.Intent
 import androidx.activity.viewModels
-import com.ls.iusta.R
 import com.ls.iusta.base.BaseActivity
-import com.ls.iusta.databinding.ActivityLoginBinding
 import com.ls.iusta.databinding.ActivityResetpassBinding
 import com.ls.iusta.domain.models.auth.LoginUiModel
-import com.ls.iusta.extension.isPassword
 import com.ls.iusta.extension.observe
-import com.ls.iusta.extension.setPasswordState
 import com.ls.iusta.extension.startWithAnimation
-import com.ls.iusta.presentation.viewmodel.LoginViewModel
+import com.ls.iusta.presentation.viewmodel.user.LoginViewModel
 import com.ls.iusta.ui.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
 
 @AndroidEntryPoint
 class ResetPassActivity : BaseActivity<ActivityResetpassBinding>() {

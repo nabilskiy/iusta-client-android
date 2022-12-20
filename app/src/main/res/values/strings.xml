@@ -1,8 +1,9 @@
 <resources>
-    <string name="app_name">iUSTA</string>
+    <string name="app_name">iUsta</string>
     <string name="menu_home">Home</string>
     <string name="menu_history">History</string>
     <string name="menu_settings">Menu</string>
+    <string name="menu_notifications">Notifications</string>
     <string name="app_exit_label">Press BACK again to exit</string>
 
     <!-- Login Activity -->
@@ -20,6 +21,13 @@
     <string name="send">Send</string>
     <string name="goback">Go Back</string>
     <string name="resetpass_message">Please enter your email address. You will receive a link to create a new password via email</string>
+
+    <!-- Change Password Fragment -->
+    <string name="change_password">Change password</string>
+    <string name="confirm">Confirm</string>
+    <string name="old_password">Old password</string>
+    <string name="new_password">New password</string>
+    <string name="new_password_confirm">Confirm new password</string>
 
     <!-- Registration Activity -->
     <string name="reg">Sign Up</string>
@@ -58,6 +66,11 @@
     <string name="fragment_settings_title_label">Settings</string>
     <string name="fragment_contact_title_label">Contact Us</string>
     <string name="fragment_about_title_label">About</string>
+    <string name="fragment_profile_title_label">Edit profile</string>
+    <string name="fragment_changepass_title_label">Change password</string>
+    <string name="fragment_faq_title_label">FAQ</string>
+    <string name="fragment_privacy_title_label">Privacy Policy</string>
+    <string name="fragment_terms_title_label">Terms and Conditions</string>
 
 
 
@@ -77,6 +90,14 @@
     <string name="your_request_was_rejected">Your request has been rejected</string>
     <string name="assistant_identified">Assistant identified</string>
     <string name="assistant_not_identified">Assistant not identified</string>
+    <string name="assistant_instruction" translatable="false">Lorem ipsum dolor orem ipsum dolor orem ipsum dolor orem ipsum dolor </string>
+    <string name="proceed_anyway">Proceed anyway</string>
+    <string name="save">Save</string>
+    <string name="language">Language</string>
+    <string name="az">AZ</string>
+    <string name="eng">ENG</string>
+    <string name="ru">RU</string>
+
 
 
 </resources>

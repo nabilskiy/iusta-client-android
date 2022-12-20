@@ -40,8 +40,8 @@ interface UserRemote {
     suspend fun userInfo(authToken: String?): UserEntity
     suspend fun customers(query: String): List<CustomerEntity>
 
-    suspend fun about(auth_token: String): List<AboutEntity>
-    suspend fun faq(lang: String?, auth_token: String): List<FaqEntity>
-    suspend fun terms(lang: String?, auth_token: String): List<TermsEntity>
+    suspend fun about(auth_token: String?): List<AboutEntity>
+    suspend fun faq(lang: String?, auth_token: String?): List<FaqEntity>
+    suspend fun terms(lang: String?): List<TermsEntity>
 
 }

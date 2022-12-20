@@ -15,8 +15,7 @@ class TermsMapper @Inject constructor(
             id = type.id,
             name = type.name,
             lang = type.lang,
-            value = type.value,
-            url = type.url
+            value = type.value
         )
     }
 
@@ -25,8 +24,7 @@ class TermsMapper @Inject constructor(
             id = type.id,
             name = type.name,
             lang = type.lang,
-            value = type.value,
-            url = type.url
+            value = type.value
         )
     }
 }

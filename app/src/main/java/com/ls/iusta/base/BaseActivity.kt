@@ -1,5 +1,6 @@
 package com.ls.iusta.base
 
+import android.content.Context
 import android.content.res.Configuration
 import android.os.Bundle
 import android.widget.ArrayAdapter
@@ -29,10 +30,15 @@ abstract class BaseActivity<B : ViewBinding> : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = getViewBinding()
         setContentView(binding.root)
-
         initUI()
         initViewModel()
     }
+
+//    override fun attachBaseContext(newBase: Context) {
+//        oldPrefLocaleCode = Storage(newBase).getPreferredLocale()
+//        applyOverrideConfiguration(LocaleUtil.getLocalizedConfiguration(oldPrefLocaleCode))
+//        super.attachBaseContext(newBase)
+//    }
 
     override fun onBackPressed() {
         super.onBackPressed()

@@ -133,7 +133,7 @@ class UserRepositoryImpl @Inject constructor(
         emit(logout)
     }
 
-    override suspend fun about(auth_token: String): Flow<List<About>> = flow {
+    override suspend fun about(auth_token: String?): Flow<List<About>> = flow {
         val aboutList = userDataSourceFactory.getRemoteDataSource().about(auth_token)
             .map { aboutEntity ->
                 aboutMapper.mapFromEntity(aboutEntity)
@@ -141,7 +141,7 @@ class UserRepositoryImpl @Inject constructor(
         emit(aboutList)
     }
 
-    override suspend fun faq(lang: String?, auth_token: String): Flow<List<Faq>> = flow {
+    override suspend fun faq(lang: String?, auth_token: String?): Flow<List<Faq>> = flow {
         val faqList = userDataSourceFactory.getRemoteDataSource().faq(lang, auth_token)
             .map { faqEntity ->
                 faqMapper.mapFromEntity(faqEntity)
@@ -149,8 +149,8 @@ class UserRepositoryImpl @Inject constructor(
         emit(faqList)
     }
 
-    override suspend fun terms(lang: String?, auth_token: String): Flow<List<Terms>> = flow {
-        val termsList = userDataSourceFactory.getRemoteDataSource().terms(lang, auth_token)
+    override suspend fun terms(lang: String?): Flow<List<Terms>> = flow {
+        val termsList = userDataSourceFactory.getRemoteDataSource().terms(lang)
             .map { termsEntity ->
                 termsMapper.mapFromEntity(termsEntity)
             }

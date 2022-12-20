@@ -1,7 +1,8 @@
 package com.ls.iusta
 
 import android.app.Application
-import com.ls.iusta.core.theme.LocaleUtils
+import android.content.Context
+import com.ls.iusta.core.locale.LocaleUtils
 import com.ls.iusta.core.theme.ThemeUtils
 import com.ls.iusta.presentation.utils.PresentationPreferencesHelper
 import dagger.hilt.android.HiltAndroidApp
@@ -22,6 +23,7 @@ class IUSTAApp : Application() {
     override fun onCreate() {
         super.onCreate()
         initNightMode()
+     //   setLocale()
     }
 
     /**
@@ -32,7 +34,11 @@ class IUSTAApp : Application() {
     }
 
     private fun setLocale(){
-        localeUtils.setLocale(preferencesHelper.locale)
+        localeUtils.setLocale(applicationContext, preferencesHelper.locale.toString())
     }
-    
+
+//    override fun attachBaseContext(base: Context) {
+//        super.attachBaseContext(localeUtils.setLocale(applicationContext, preferencesHelper.locale.toString()))
+//    }
+//
 }

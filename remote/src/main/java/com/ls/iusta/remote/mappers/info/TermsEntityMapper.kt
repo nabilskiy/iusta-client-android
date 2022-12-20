@@ -14,8 +14,7 @@ class TermsEntityMapper @Inject constructor(
             id = model.id,
             lang = model.lang,
             name = model.name,
-            value = model.value,
-            url = model.url
+            value = model.value
         )
     }
 }

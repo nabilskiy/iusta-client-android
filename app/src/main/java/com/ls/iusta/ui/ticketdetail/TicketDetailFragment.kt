@@ -2,6 +2,7 @@ package com.ls.iusta.ui.ticketdetail
 
 import android.app.Activity
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -17,14 +18,12 @@ import com.ls.iusta.domain.models.tickets.TicketDetailUIModel
 import com.ls.iusta.extension.makeGone
 import com.ls.iusta.extension.makeVisible
 import com.ls.iusta.extension.observe
-import com.ls.iusta.extension.showSnackBar
 import com.ls.iusta.presentation.managers.PermissionManager
 import com.ls.iusta.presentation.utils.AppConstants
-import com.ls.iusta.presentation.viewmodel.TicketDetailViewModel
+import com.ls.iusta.presentation.viewmodel.tickets.TicketDetailViewModel
 import com.ls.iusta.ui.qrscanner.ScannerActivity
 import com.ls.iusta.ui.rating.AddRatingActivity
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.NonCancellable.isActive
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -45,7 +44,9 @@ class TicketDetailFragment :
 
     private var ticketId: Long = 0
     private var workerId: Int = 0
+    private lateinit var workerPhone: String
     private var ratingSet: Boolean = false
+    private lateinit var ticketStatus: String
 
     val startForResult =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
@@ -78,9 +79,12 @@ class TicketDetailFragment :
                 scanResultsDialog.makeGone()
             }
             workerCallOrRate.setOnClickListener {
-                if (ratingSet) {
-                        //call to worker
-                } else {
+                if (!ticketStatus.equals(AppConstants.StatusTickets.COMPLETE)) {
+                    val callIntent: Intent = Uri.parse("tel:" + workerPhone).let { number ->
+                        Intent(Intent.ACTION_DIAL, number)
+                    }
+                    startActivity(callIntent)
+                } else if (!ratingSet && ticketStatus.equals(AppConstants.StatusTickets.COMPLETE)) {
                     AddRatingActivity.startActivity(requireActivity(), ticketId, workerId)
                 }
             }
@@ -121,8 +125,10 @@ class TicketDetailFragment :
             if (match) {
                 txTv.text = getString(R.string.assistant_identified)
                 icon.setImageResource(R.drawable.ic_done)
+                cancelButton.makeGone()
             } else {
                 txTv.text = getString(R.string.assistant_not_identified)
+                nextButton.text = getString(R.string.proceed_anyway)
                 icon.setImageResource(R.drawable.ic_warning)
                 cancelButton.makeVisible()
             }
@@ -147,6 +153,7 @@ class TicketDetailFragment :
                             textViewStatus.text = ticket.current_event_label
                             ticketId = ticket.id
                             workerId = ticket.user_id
+                            ticketStatus = ticket.current_event_label
                             when (ticket.current_event_label) {
                                 AppConstants.StatusTickets.NEW -> {
                                     workerStatus.text =
@@ -186,15 +193,16 @@ class TicketDetailFragment :
                 result.data.let {
                     binding.apply {
                         workerCard.makeVisible()
+                        workerPhone = it.phone_number.toString()
                         glide.load(it.image).circleCrop().into(workerAvatar)
-                        workerName.text = it.firstname +" "+ it.lastname
+                        workerName.text = it.firstname + " " + it.lastname
                         workerRating.rating = it.avg_rating?.toFloat() ?: 0f
                     }
                 }
             }
             is TicketDetailUIModel.AddNote -> {
                 handleLoading(false)
-
+                binding.scanResultsDialog.makeGone()
             }
             is TicketDetailUIModel.GetRating -> {
                 Log.d("TAG", "onViewStateChange: ")
@@ -206,25 +214,6 @@ class TicketDetailFragment :
             is TicketDetailUIModel.Error -> {
                 handleErrorMessage(result.error)
             }
-//            is TicketDetailUIModel.BookmarkStatus -> {
-//                when (result.bookmark) {
-//                    Bookmark.BOOKMARK ->
-//                        if (result.status) {
-//                            showSnackBar(binding.rootView, getString(R.string.bookmark_success))
-//                        } else {
-//                            handleErrorMessage(getString(R.string.bookmark_error))
-//                        }
-//                    Bookmark.UN_BOOKMARK ->
-//                        if (result.status) {
-//                            showSnackBar(
-//                                binding.rootView,
-//                                getString(R.string.un_bookmark_success)
-//                            )
-//                        } else {
-//                            handleErrorMessage(getString(R.string.bookmark_error))
-//                        }
-//                }
-//            }
         }
     }
 }

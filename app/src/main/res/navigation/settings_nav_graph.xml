@@ -31,13 +31,13 @@
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.ls.iusta.ui.settings.ProfileFragment"
-        android:label="@string/fragment_settings_title_label"
+        android:label="@string/fragment_profile_title_label"
         tools:layout="@layout/fragment_profile" />
 
     <fragment
         android:id="@+id/changePassFragment"
         android:name="com.ls.iusta.ui.settings.ChangePassFragment"
-        android:label="@string/fragment_contact_title_label"
+        android:label="@string/fragment_changepass_title_label"
         tools:layout="@layout/fragment_changepass" />
 
     <fragment
@@ -50,6 +50,44 @@
         android:id="@+id/aboutFragment"
         android:name="com.ls.iusta.ui.settings.AboutFragment"
         android:label="@string/fragment_about_title_label"
+        tools:layout="@layout/fragment_about">
+        <action
+            android:id="@+id/action_aboutFragment_to_faqFragment"
+            app:destination="@id/faqFragment"
+            app:popUpTo="@+id/aboutFragment" />
+        <action
+            android:id="@+id/action_aboutFragment_to_privacyFragment"
+            app:destination="@id/privacyFragment"
+            app:popUpTo="@+id/aboutFragment" />
+        <action
+            android:id="@+id/action_aboutFragment_to_termsFragment"
+            app:destination="@id/termsFragment"
+            app:popUpTo="@+id/aboutFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/faqFragment"
+        android:name="com.ls.iusta.ui.settings.info.FaqFragment"
+        android:label="@string/fragment_faq_title_label"
         tools:layout="@layout/fragment_about" />
+    <fragment
+        android:id="@+id/privacyFragment"
+        android:name="com.ls.iusta.ui.settings.info.TermsFragment"
+        android:label="@string/fragment_privacy_title_label"
+        tools:layout="@layout/fragment_terms" >
+        <argument
+            android:name="url_type"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/termsFragment"
+        android:name="com.ls.iusta.ui.settings.info.TermsFragment"
+        android:label="@string/fragment_terms_title_label"
+        tools:layout="@layout/fragment_terms" >
+        <argument
+            android:name="url_type"
+            app:argType="string" />
+    </fragment>
+
 
 </navigation>

@@ -1,20 +1,15 @@
-package com.ls.iusta.presentation.viewmodel
+package com.ls.iusta.presentation.viewmodel.worker
 
 import androidx.lifecycle.LiveData
-import com.ls.iusta.domain.interactor.auth.AuthUseCase
-import com.ls.iusta.domain.interactor.auth.LoginUseCase
 import com.ls.iusta.domain.interactor.auth.TokenUseCase
 import com.ls.iusta.domain.interactor.worker.GetWorkerInfoUseCase
 import com.ls.iusta.domain.interactor.worker.SetWorkerRatingUseCase
-import com.ls.iusta.domain.models.auth.AuthUiModel
-import com.ls.iusta.domain.models.auth.LoginRequest
-import com.ls.iusta.domain.models.auth.LoginUiModel
-import com.ls.iusta.domain.models.tickets.TicketDetailUIModel
 import com.ls.iusta.domain.models.worker.AddRatingUiModel
 import com.ls.iusta.domain.models.worker.SetRatingRequest
 import com.ls.iusta.domain.models.worker.WorkerRequest
 import com.ls.iusta.presentation.utils.CoroutineContextProvider
 import com.ls.iusta.presentation.utils.UiAwareLiveData
+import com.ls.iusta.presentation.viewmodel.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.flow.collect

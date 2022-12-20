@@ -16,5 +16,5 @@ class GetTermsUseCase @Inject constructor(
     private val userRepository: UserRepository
 ) : BaseUseCase<GetInfoRequest, Flow<List<Terms>>> {
     override suspend fun invoke(data: GetInfoRequest): Flow<List<Terms>> =
-        userRepository.terms(data.lang, data.auth_token)
+        userRepository.terms(data.lang)
 }

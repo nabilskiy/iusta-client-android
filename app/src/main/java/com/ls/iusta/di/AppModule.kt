@@ -6,8 +6,8 @@ import com.bumptech.glide.RequestManager
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.ls.iusta.R
-import com.ls.iusta.core.theme.LocaleUtils
-import com.ls.iusta.core.theme.LocaleUtilsImpl
+import com.ls.iusta.core.locale.LocaleUtils
+import com.ls.iusta.core.locale.LocaleUtilsImpl
 import com.ls.iusta.core.theme.ThemeUtils
 import com.ls.iusta.core.theme.ThemeUtilsImpl
 import dagger.Module

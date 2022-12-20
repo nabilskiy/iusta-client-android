@@ -93,21 +93,20 @@ interface UserService {
 
     @GET(Endpoints.INFO_ABOUT)
     suspend fun about(
-        @Query("auth_token") auth_token: String,
+        @Query("auth_token") auth_token: String?,
         @Query("secret_key") secret_key: String = SECRET_KEY
     ): AboutResponseModel
 
     @GET(Endpoints.INFO_FAQ)
     suspend fun faq(
         @Query("lang") lang: String?,
-        @Query("auth_token") auth_token: String,
+        @Query("auth_token") auth_token: String?,
         @Query("secret_key") secret_key: String = SECRET_KEY
     ): FaqResponseModel
 
-    @GET(Endpoints.INFO_TERMS)
-    suspend fun terms(
+    @GET(Endpoints.INFO_DOCS)
+    suspend fun docs(
         @Query("lang") lang: String?,
-        @Query("auth_token") auth_token: String,
         @Query("secret_key") secret_key: String = SECRET_KEY
     ): TermsResponseModel
 

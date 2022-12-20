@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">iUSTA</string>
+    <string name="app_name">iUsta</string>
     <string name="menu_home">Главная</string>
     <string name="menu_history">История</string>
     <string name="menu_settings">Меню</string>
@@ -12,7 +12,7 @@
     <string name="next">Next</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
-    <string name="birthday">Birthday</string>
+    <string name="birthday">Дата рождения</string>
     <string name="password_confirm">Confirm password</string>
 
     <!-- Reset Password Activity -->
@@ -25,11 +25,11 @@
     <string name="reg">Sign Up</string>
     <string name="loginlabel">Already registered? <b><font color="#FF9800">Log In</font></b></string>
     <string name="privacy">I accept all <b><u><font color="#FF9800">Terms and Conditions</font></u></b></string>
-    <string name="school">School Name</string>
-    <string name="name">Name</string>
-    <string name="surname">Surame</string>
-    <string name="emailaddress">Email Address</string>
-    <string name="phone">Phone number</string>
+    <string name="school">Название школы</string>
+    <string name="name">Имя</string>
+    <string name="surname">Фамилия</string>
+    <string name="emailaddress">Емейл адрес</string>
+    <string name="phone">Номер телефона</string>
     <string name="tx">Thank you!</string>
     <string name="after_reg">Your request been successfully sent! Please wait for your confirmation. Confirmation letter will be sent to your email</string>
 
@@ -72,6 +72,23 @@
     <string name="your_request_was_rejected">Your request has been rejected</string>
     <string name="assistant_identified">Assistant identified</string>
     <string name="assistant_not_identified">Assistant not identified</string>
+    <string name="save">Save</string>
+    <string name="language">Язык</string>
+    <string name="az">AZ</string>
+    <string name="eng">ENG</string>
+    <string name="ru">RU</string>
+    <string name="change_password">Change password</string>
+    <string name="confirm">Confirm</string>
+    <string name="old_password">Old password</string>
+    <string name="new_password">New password</string>
+    <string name="new_password_confirm">Confirm new password</string>
+    <string name="fragment_faq_title_label">FAQ</string>
+    <string name="fragment_privacy_title_label">Privacy Policy</string>
+    <string name="fragment_terms_title_label">Terms and Conditions</string>
+    <string name="fragment_profile_title_label">Edit profile</string>
+    <string name="fragment_changepass_title_label">Change password</string>
+    <string name="menu_notifications">Notifications</string>
+    <string name="proceed_anyway">Proceed anyway</string>
 
 
 </resources>

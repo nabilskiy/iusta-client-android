@@ -1,18 +1,12 @@
 package com.ls.iusta.ui
 
-import android.annotation.SuppressLint
-import android.content.Intent
-import android.os.Bundle
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.ls.iusta.base.BaseActivity
-import com.ls.iusta.databinding.ActivityLoginBinding
 import com.ls.iusta.databinding.ActivitySplashBinding
-import com.ls.iusta.domain.models.auth.AuthUiModel
 import com.ls.iusta.domain.models.auth.LoginUiModel
 import com.ls.iusta.extension.observe
-import com.ls.iusta.presentation.viewmodel.LoginViewModel
+import com.ls.iusta.presentation.viewmodel.user.LoginViewModel
 import com.ls.iusta.ui.auth.LoginActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay

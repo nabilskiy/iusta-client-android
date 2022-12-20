@@ -4,6 +4,5 @@ data class Terms(
     val id: Int?,
     val lang: String?,
     val name: String?,
-    val value: String?,
-    val url: String?
+    val value: String?
 )

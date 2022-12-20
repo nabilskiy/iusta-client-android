@@ -104,20 +104,20 @@ class UserRemoteImpl @Inject constructor(
     override suspend fun logout(auth_token: String): Boolean =
         userService.logout(auth_token).success
 
-    override suspend fun about(auth_token: String): List<AboutEntity> =
+    override suspend fun about(auth_token: String?): List<AboutEntity> =
         userService.about(auth_token).response.map {
             aboutEntityMapper.mapFromModel(it)
         }
 
 
-    override suspend fun faq(lang: String?, auth_token: String): List<FaqEntity> =
+    override suspend fun faq(lang: String?, auth_token: String?): List<FaqEntity> =
         userService.faq(lang, auth_token).response.map {
             faqEntityMapper.mapFromModel(it)
         }
 
 
-    override suspend fun terms(lang: String?, auth_token: String): List<TermsEntity> =
-        userService.terms(lang, auth_token).response.map {
+    override suspend fun terms(lang: String?): List<TermsEntity> =
+        userService.docs(lang).response.map {
             termsEntityMapper.mapFromModel(it)
         }
 

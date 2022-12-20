@@ -5,19 +5,13 @@ import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.ls.iusta.BuildConfig
 import com.ls.iusta.R
 import com.ls.iusta.base.BaseFragment
 import com.ls.iusta.databinding.FragmentTicketsListBinding
-import com.ls.iusta.domain.models.auth.LoginUiModel
 import com.ls.iusta.domain.models.tickets.TicketUIModel
-import com.ls.iusta.extension.makeGone
 import com.ls.iusta.extension.observe
-import com.ls.iusta.presentation.viewmodel.TicketsListViewModel
+import com.ls.iusta.presentation.viewmodel.tickets.TicketsListViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.NonCancellable.isActive
-import timber.log.Timber
-import javax.crypto.Cipher.SECRET_KEY
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -56,7 +50,7 @@ class TicketsListFragment : BaseFragment<FragmentTicketsListBinding, TicketsList
         ticketAdapter.setItemClickListener { ticket ->
             findNavController().navigate(
                 TicketsListFragmentDirections.actionTicketListFragmentToTicketDetailFragment(
-                    ticket.id.toLong()
+                    ticket.id
                 )
             )
         }

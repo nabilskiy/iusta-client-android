@@ -44,9 +44,9 @@ interface UserRepository {
 
     suspend fun logout(auth_token: String): Flow<Boolean>
 
-    suspend fun about(auth_token: String): Flow<List<About>>
-    suspend fun faq(lang: String?, auth_token: String): Flow<List<Faq>>
-    suspend fun terms(lang: String?, auth_token: String): Flow<List<Terms>>
+    suspend fun about(auth_token: String?): Flow<List<About>>
+    suspend fun faq(lang: String?, auth_token: String?): Flow<List<Faq>>
+    suspend fun terms(lang: String?): Flow<List<Terms>>
 
     // Cache
 }

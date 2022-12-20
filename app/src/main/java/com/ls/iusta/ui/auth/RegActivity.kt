@@ -6,20 +6,14 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.widget.ArrayAdapter
 import androidx.activity.viewModels
-import com.google.android.material.textfield.MaterialAutoCompleteTextView
 import com.ls.iusta.R
 import com.ls.iusta.base.BaseActivity
-import com.ls.iusta.databinding.ActivityLoginBinding
 import com.ls.iusta.databinding.ActivityRegisterBinding
-import com.ls.iusta.domain.models.auth.LoginUiModel
 import com.ls.iusta.domain.models.auth.RegUiModel
 import com.ls.iusta.domain.models.customer.Customer
 import com.ls.iusta.extension.*
-import com.ls.iusta.presentation.viewmodel.LoginViewModel
-import com.ls.iusta.presentation.viewmodel.RegisterViewModel
-import com.ls.iusta.ui.MainActivity
+import com.ls.iusta.presentation.viewmodel.user.RegisterViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
 
 @AndroidEntryPoint
 class RegActivity : BaseActivity<ActivityRegisterBinding>() {

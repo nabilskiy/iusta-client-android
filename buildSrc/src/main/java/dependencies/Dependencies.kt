@@ -63,8 +63,9 @@ object Dependencies {
     }
 
     object ImagePickerDep {
-        const val imagePicker = "com.github.SimformSolutionsPvtLtd:SSImagePicker:${Versions.imagePickerVersion}"
+      const val imagePicker = "com.github.dhaval2404:imagepicker:${Versions.imagePickerVersion}"
     }
+
 
 
     object TimberDep {

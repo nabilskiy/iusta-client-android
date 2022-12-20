@@ -3,21 +3,13 @@ package com.ls.iusta.ui.rating
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.viewModels
 import com.bumptech.glide.RequestManager
-import com.google.zxing.ResultPoint
-import com.journeyapps.barcodescanner.BarcodeCallback
-import com.journeyapps.barcodescanner.BarcodeResult
-import com.ls.iusta.R
 import com.ls.iusta.base.BaseActivity
 import com.ls.iusta.databinding.ActivityAddRatingBinding
-import com.ls.iusta.databinding.ActivityScannerBinding
-import com.ls.iusta.domain.models.tickets.TicketDetailUIModel
 import com.ls.iusta.domain.models.worker.AddRatingUiModel
 import com.ls.iusta.extension.*
-import com.ls.iusta.presentation.utils.AppConstants
-import com.ls.iusta.presentation.viewmodel.AddRatingViewModel
+import com.ls.iusta.presentation.viewmodel.worker.AddRatingViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 

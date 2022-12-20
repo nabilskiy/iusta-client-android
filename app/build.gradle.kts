@@ -80,7 +80,7 @@ dependencies {
     implementation(UiDep.glide)
     kapt(UiDep.glideKapt)
     //Image Picker
- //   implementation(UiDep.imagePicker)
+    implementation(UiDep.imagePicker)
     //QR scanner
     implementation(UiDep.zxing)
     coreLibraryDesugaring(UiDep.desugar)

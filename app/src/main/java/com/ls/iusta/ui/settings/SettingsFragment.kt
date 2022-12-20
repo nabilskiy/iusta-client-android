@@ -10,8 +10,7 @@ import com.ls.iusta.core.theme.ThemeUtils
 import com.ls.iusta.databinding.FragmentSettingsBinding
 import com.ls.iusta.domain.models.settings.SettingUiModel
 import com.ls.iusta.extension.observe
-import com.ls.iusta.presentation.viewmodel.SettingsViewModel
-import com.ls.iusta.ui.ticketslist.TicketsListFragmentDirections
+import com.ls.iusta.presentation.viewmodel.info.SettingsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -60,12 +59,12 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding, SettingsViewModel
                 }
                 4 -> {
                     findNavController().navigate(
-                        SettingsFragmentDirections.actionSettingsFragmentToContactFragment()
+                        SettingsFragmentDirections.actionSettingsFragmentToAboutFragment()
                     )
                 }
                 5 -> {
                     findNavController().navigate(
-                        SettingsFragmentDirections.actionSettingsFragmentToAboutFragment()
+                        SettingsFragmentDirections.actionSettingsFragmentToContactFragment()
                     )
                 }
                 6 -> {

@@ -1,12 +1,14 @@
-package com.ls.iusta.presentation.viewmodel
+package com.ls.iusta.presentation.viewmodel.info
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.ls.iusta.domain.interactor.settings.GetSettingsUseCase
 import com.ls.iusta.domain.models.settings.SettingUiModel
 import com.ls.iusta.domain.models.settings.Settings
+import com.ls.iusta.domain.models.settings.SettingsRequest
 import com.ls.iusta.presentation.utils.CoroutineContextProvider
 import com.ls.iusta.presentation.utils.PresentationPreferencesHelper
+import com.ls.iusta.presentation.viewmodel.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.flow.collect
@@ -35,7 +37,12 @@ class SettingsViewModel @Inject constructor(
     }
 
     private suspend fun loadSettings() {
-        getSettingsUseCase(presentationPreferencesHelper.isNightMode).collect {
+        getSettingsUseCase(
+            SettingsRequest(
+                presentationPreferencesHelper.isNightMode,
+                "main"
+            )
+        ).collect {
             _settings.postValue(SettingUiModel.Success(it))
         }
     }
