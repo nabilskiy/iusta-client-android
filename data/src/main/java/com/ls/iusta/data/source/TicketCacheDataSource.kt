@@ -1,12 +1,14 @@
 package com.ls.iusta.data.source
 
 import com.ls.iusta.data.models.category.CategoryInfoEntity
+import com.ls.iusta.data.models.ticket.AttachmentFileEntity
 import com.ls.iusta.data.models.ticket.ShortTicketEntity
 import com.ls.iusta.data.models.ticket.TicketEntity
 import com.ls.iusta.data.models.worker.RatingEntity
 import com.ls.iusta.data.models.worker.WorkerEntity
 import com.ls.iusta.data.repository.TicketCache
 import com.ls.iusta.data.repository.TicketDataSource
+import com.ls.iusta.domain.models.tickets.AttachmentFile
 import javax.inject.Inject
 
 class TicketCacheDataSource @Inject constructor(
@@ -23,7 +25,10 @@ class TicketCacheDataSource @Inject constructor(
         TODO("Not yet implemented")
     }
 
-    override suspend fun createTicket(category_id: Int, auth_token: String?): ShortTicketEntity {
+    override suspend fun createTicket(attachments: List<AttachmentFileEntity>,
+                                      category_id: Int,
+                                      note: String?,
+                                      auth_token: String?): ShortTicketEntity {
         TODO("Not yet implemented")
     }
 

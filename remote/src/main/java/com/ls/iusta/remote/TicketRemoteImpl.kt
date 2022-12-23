@@ -1,6 +1,7 @@
 package com.ls.iusta.remote
 
 import com.ls.iusta.data.models.category.CategoryInfoEntity
+import com.ls.iusta.data.models.ticket.AttachmentFileEntity
 import com.ls.iusta.data.models.ticket.ShortTicketEntity
 import com.ls.iusta.data.models.ticket.TicketEntity
 import com.ls.iusta.data.models.worker.RatingEntity
@@ -8,10 +9,12 @@ import com.ls.iusta.data.models.worker.WorkerEntity
 import com.ls.iusta.data.repository.TicketRemote
 import com.ls.iusta.remote.api.TicketService
 import com.ls.iusta.remote.mappers.category.CategoryInfoEntityMapper
+import com.ls.iusta.remote.mappers.ticket.AttachmentFileEntityMapper
 import com.ls.iusta.remote.mappers.ticket.ShortTicketEntityMapper
 import com.ls.iusta.remote.mappers.ticket.TicketEntityMapper
 import com.ls.iusta.remote.mappers.worker.RatingEntityMapper
 import com.ls.iusta.remote.mappers.worker.WorkerEntityMapper
+import okhttp3.MultipartBody
 import javax.inject.Inject
 
 class TicketRemoteImpl @Inject constructor(
@@ -20,7 +23,8 @@ class TicketRemoteImpl @Inject constructor(
     private val categoryInfoEntityMapper: CategoryInfoEntityMapper,
     private val shortTicketEntityMapper: ShortTicketEntityMapper,
     private val workerEntityMapper: WorkerEntityMapper,
-    private val ratingEntityMapper: RatingEntityMapper
+    private val ratingEntityMapper: RatingEntityMapper,
+    private val attachmentFileEntityMapper: AttachmentFileEntityMapper
 ) : TicketRemote {
     override suspend fun getTickets(
         ticket_status: String,
@@ -51,10 +55,14 @@ class TicketRemoteImpl @Inject constructor(
             ).response
         )
 
-    override suspend fun createTicket(category_id: Int, auth_token: String?): ShortTicketEntity =
+    override suspend fun createTicket(attachments: List<AttachmentFileEntity>, category_id: Int,  note: String?, auth_token: String?): ShortTicketEntity =
         shortTicketEntityMapper.mapFromModel(
             ticketService.createTicket(
+                attachments.map {
+                    attachmentFileEntityMapper.mapFromModel(it)
+                },
                 category_id,
+                note,
                 auth_token
             ).response
         )

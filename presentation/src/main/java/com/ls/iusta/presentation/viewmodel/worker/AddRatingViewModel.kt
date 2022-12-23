@@ -1,7 +1,6 @@
 package com.ls.iusta.presentation.viewmodel.worker
 
 import androidx.lifecycle.LiveData
-import com.ls.iusta.domain.interactor.auth.TokenUseCase
 import com.ls.iusta.domain.interactor.worker.GetWorkerInfoUseCase
 import com.ls.iusta.domain.interactor.worker.SetWorkerRatingUseCase
 import com.ls.iusta.domain.models.worker.AddRatingUiModel
@@ -18,7 +17,6 @@ import javax.inject.Inject
 @HiltViewModel
 class AddRatingViewModel @Inject constructor(
     contextProvider: CoroutineContextProvider,
-    private val tokenUseCase: TokenUseCase,
     private val getWorkerInfoUseCase: GetWorkerInfoUseCase,
     private val setWorkerRatingUseCase: SetWorkerRatingUseCase
 ) : BaseViewModel(contextProvider) {
@@ -34,9 +32,8 @@ class AddRatingViewModel @Inject constructor(
     fun addRating(rating: Int, ticketId: Long, note: String?) {
         _ratingData.postValue(AddRatingUiModel.Loading)
         launchCoroutineIO {
-            tokenUseCase(Unit).collect {
-                rating(SetRatingRequest(rating, ticketId, note, it))
-            }
+                rating(SetRatingRequest(rating, ticketId, note))
+
         }
     }
 
@@ -48,17 +45,14 @@ class AddRatingViewModel @Inject constructor(
 
     fun getWorkerDetail(workerId: Int) {
         launchCoroutineIO {
-            tokenUseCase(Unit).collect {
-                loadWorkerDetail(workerId, it)
-            }
+                loadWorkerDetail(workerId)
         }
     }
 
-    private suspend fun loadWorkerDetail(workerId: Int, token: String?) {
+    private suspend fun loadWorkerDetail(workerId: Int) {
         getWorkerInfoUseCase(
             WorkerRequest(
-                workerId,
-                token
+                workerId
             )
         ).collect {
             _ratingData.postValue(AddRatingUiModel.WorkerInfo(it))

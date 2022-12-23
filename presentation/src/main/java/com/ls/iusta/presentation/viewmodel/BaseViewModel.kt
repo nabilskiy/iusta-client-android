@@ -2,7 +2,6 @@ package com.ls.iusta.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.ls.iusta.domain.interactor.auth.TokenUseCase
 import com.ls.iusta.presentation.utils.CoroutineContextProvider
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope

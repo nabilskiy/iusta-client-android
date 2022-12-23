@@ -13,5 +13,9 @@ class CreateTicketUseCase @Inject constructor(
     private val ticketRepository: TicketRepository
 ) : BaseUseCase<CreateTicketRequest, Flow<ShortTicket>> {
     override suspend fun invoke(data: CreateTicketRequest): Flow<ShortTicket> =
-        ticketRepository.createTicket(data.category_id, data.auth_token)
+        ticketRepository.createTicket(
+            data.attachments,
+            data.category_id,
+            data.note
+        )
 }

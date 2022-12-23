@@ -14,6 +14,6 @@ class CreateNoteUseCase @Inject constructor(
     private val ticketRepository: TicketRepository
 ) : BaseUseCase<CreateNoteRequest, Flow<ShortTicket>> {
     override suspend fun invoke(data: CreateNoteRequest): Flow<ShortTicket> =
-        ticketRepository.addNoteTicket(data.ticketId, data.ticketNote, data.auth_token)
+        ticketRepository.addNoteTicket(data.ticketId, data.ticketNote)
 }
 

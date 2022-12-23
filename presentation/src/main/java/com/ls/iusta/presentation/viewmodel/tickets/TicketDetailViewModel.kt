@@ -1,7 +1,6 @@
 package com.ls.iusta.presentation.viewmodel.tickets
 
 import androidx.lifecycle.LiveData
-import com.ls.iusta.domain.interactor.auth.TokenUseCase
 import com.ls.iusta.domain.interactor.ticket.CreateNoteUseCase
 import com.ls.iusta.domain.interactor.ticket.GetTicketByIdUseCase
 import com.ls.iusta.domain.interactor.worker.GetWorkerInfoUseCase
@@ -25,7 +24,6 @@ class TicketDetailViewModel @Inject constructor(
     contextProvider: CoroutineContextProvider,
     private val ticketByIdUseCase: GetTicketByIdUseCase,
     private val getWorkerInfoUseCase: GetWorkerInfoUseCase,
-    private val tokenUseCase: TokenUseCase,
     private val createNoteUseCase: CreateNoteUseCase,
     private val getWorkerRatingUseCase: GetWorkerRatingUseCase
 ) : BaseViewModel(contextProvider) {
@@ -39,26 +37,21 @@ class TicketDetailViewModel @Inject constructor(
 
     fun getTicketDetail(ticketId: Long) {
         launchCoroutineIO {
-            tokenUseCase(Unit).collect {
-                loadTicketDetail(ticketId, it)
-            }
+            loadTicketDetail(ticketId)
         }
     }
 
     fun getWorkerDetail(workerId: Int) {
         launchCoroutineIO {
-            tokenUseCase(Unit).collect {
-                loadWorkerDetail(workerId, it)
-            }
+            loadWorkerDetail(workerId)
         }
     }
 
-    private suspend fun loadTicketDetail(ticketId: Long, token: String?) {
+    private suspend fun loadTicketDetail(ticketId: Long) {
         _ticketDetail.postValue(TicketDetailUIModel.Loading)
         ticketByIdUseCase(
             GetTicketByIdRequest(
                 AppConstants.Status.OPENED,
-                token,
                 ticketId
             )
         ).collect {
@@ -66,11 +59,10 @@ class TicketDetailViewModel @Inject constructor(
         }
     }
 
-    private suspend fun loadWorkerDetail(workerId: Int, token: String?) {
+    private suspend fun loadWorkerDetail(workerId: Int) {
         getWorkerInfoUseCase(
             WorkerRequest(
-                workerId,
-                token
+                workerId
             )
         ).collect {
             _ticketDetail.postValue(TicketDetailUIModel.WorkerInfo(it))
@@ -79,19 +71,17 @@ class TicketDetailViewModel @Inject constructor(
 
     fun sendNoteForTicket(ticketId: Long, ticketNote: String?) {
         launchCoroutineIO {
-            tokenUseCase(Unit).collect {
-                addNote(ticketId, ticketNote, it)
-            }
+            addNote(ticketId, ticketNote)
+
         }
     }
 
-    private suspend fun addNote(ticketId: Long, ticketNote: String?, token: String?) {
+    private suspend fun addNote(ticketId: Long, ticketNote: String?) {
         _ticketDetail.postValue(TicketDetailUIModel.Loading)
         createNoteUseCase(
             CreateNoteRequest(
                 ticketId,
-                ticketNote,
-                token
+                ticketNote
             )
         ).collect {
             _ticketDetail.postValue(TicketDetailUIModel.AddNote(it))
@@ -101,17 +91,14 @@ class TicketDetailViewModel @Inject constructor(
 
     fun checkRating(ticketId: Long) {
         launchCoroutineIO {
-            tokenUseCase(Unit).collect {
-                getRating(ticketId, it)
-            }
+                getRating(ticketId)
         }
     }
 
-    private suspend fun getRating(ticketId: Long, token: String?) {
+    private suspend fun getRating(ticketId: Long) {
         getWorkerRatingUseCase(
             GetRatingRequest(
-                ticketId,
-                token
+                ticketId
             )
         ).collect {
             _ticketDetail.postValue(TicketDetailUIModel.GetRating(it))

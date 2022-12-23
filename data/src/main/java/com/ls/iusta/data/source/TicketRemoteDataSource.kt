@@ -1,6 +1,7 @@
 package com.ls.iusta.data.source
 
 import com.ls.iusta.data.models.category.CategoryInfoEntity
+import com.ls.iusta.data.models.ticket.AttachmentFileEntity
 import com.ls.iusta.data.models.ticket.ShortTicketEntity
 import com.ls.iusta.data.models.ticket.TicketEntity
 import com.ls.iusta.data.models.worker.RatingEntity
@@ -22,8 +23,8 @@ class TicketRemoteDataSource @Inject constructor(
     override suspend fun categories(menu_id: Int, auth_token: String?): CategoryInfoEntity =
         ticketRemote.categories(menu_id, auth_token)
 
-    override suspend fun createTicket(category_id: Int, auth_token: String?): ShortTicketEntity =
-        ticketRemote.createTicket(category_id, auth_token)
+    override suspend fun createTicket(attachments: List<AttachmentFileEntity>, category_id: Int, note: String?, auth_token: String?): ShortTicketEntity =
+        ticketRemote.createTicket(attachments, category_id, note, auth_token)
 
     override suspend fun addNoteTicket(
         ticketId: Long,

@@ -2,7 +2,6 @@ package com.ls.iusta.presentation.viewmodel.info
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.ls.iusta.domain.interactor.auth.TokenUseCase
 import com.ls.iusta.domain.interactor.info.GetAboutUseCase
 import com.ls.iusta.domain.models.info.AboutUiModel
 import com.ls.iusta.domain.models.info.GetInfoRequest
@@ -18,7 +17,6 @@ import javax.inject.Inject
 class ContactUsViewModel @Inject constructor(
     contextProvider: CoroutineContextProvider,
     private val getAboutUseCase: GetAboutUseCase,
-    private val tokenUseCase: TokenUseCase,
     private val presentationPreferencesHelper: PresentationPreferencesHelper
 ) : BaseViewModel(contextProvider) {
 
@@ -33,16 +31,13 @@ class ContactUsViewModel @Inject constructor(
     fun getContacts() {
         _contacts.postValue(AboutUiModel.Loading)
         launchCoroutineIO {
-            tokenUseCase(Unit).collect{
-                loadContacts(GetInfoRequest(null, it))
-            }
-
+                loadContacts()
         }
     }
 
-    private suspend fun loadContacts(data: GetInfoRequest) {
+    private suspend fun loadContacts() {
         getAboutUseCase(
-           data
+           Unit
         ).collect {
             _contacts.postValue(AboutUiModel.Success(it))
         }

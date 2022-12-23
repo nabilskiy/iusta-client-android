@@ -11,6 +11,7 @@ import com.ls.iusta.databinding.FragmentSettingsBinding
 import com.ls.iusta.domain.models.settings.SettingUiModel
 import com.ls.iusta.extension.observe
 import com.ls.iusta.presentation.viewmodel.info.SettingsViewModel
+import com.ls.iusta.ui.auth.LoginActivity
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -68,7 +69,7 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding, SettingsViewModel
                     )
                 }
                 6 -> {
-                    //todo logout
+                   viewModel.logout()
                 }
             }
 
@@ -91,6 +92,9 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding, SettingsViewModel
             }
             is SettingUiModel.NightMode -> {
                 themeUtils.setNightMode(result.nightMode)
+            }
+            is SettingUiModel.Logout -> {
+                LoginActivity.startActivity(requireActivity())
             }
         }
     }

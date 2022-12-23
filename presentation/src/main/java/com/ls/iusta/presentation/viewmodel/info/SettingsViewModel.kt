@@ -2,6 +2,7 @@ package com.ls.iusta.presentation.viewmodel.info
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.ls.iusta.domain.interactor.auth.LogoutUseCase
 import com.ls.iusta.domain.interactor.settings.GetSettingsUseCase
 import com.ls.iusta.domain.models.settings.SettingUiModel
 import com.ls.iusta.domain.models.settings.Settings
@@ -18,6 +19,7 @@ import javax.inject.Inject
 class SettingsViewModel @Inject constructor(
     contextProvider: CoroutineContextProvider,
     private val getSettingsUseCase: GetSettingsUseCase,
+    private val logoutUseCase: LogoutUseCase,
     private val presentationPreferencesHelper: PresentationPreferencesHelper
 ) : BaseViewModel(contextProvider) {
 
@@ -53,4 +55,14 @@ class SettingsViewModel @Inject constructor(
             _settings.postValue(SettingUiModel.NightMode(selectedValue))
         }
     }
+
+    fun logout() {
+        _settings.postValue(SettingUiModel.Loading)
+        launchCoroutineIO {
+                logoutUseCase(Unit).collect {
+                    _settings.postValue(SettingUiModel.Logout(it))
+                }
+        }
+    }
+
 }

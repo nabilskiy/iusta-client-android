@@ -2,9 +2,11 @@ package com.ls.iusta.presentation.viewmodel.user
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.ls.iusta.domain.interactor.user.SaveUserInfoUseCase
 import com.ls.iusta.domain.interactor.user.UserInfoUseCase
 import com.ls.iusta.domain.models.settings.SettingUiModel
 import com.ls.iusta.domain.models.settings.Settings
+import com.ls.iusta.domain.models.user.SaveUserRequest
 import com.ls.iusta.domain.models.user.UserUiModel
 import com.ls.iusta.presentation.utils.CoroutineContextProvider
 import com.ls.iusta.presentation.utils.PresentationPreferencesHelper
@@ -18,6 +20,7 @@ import javax.inject.Inject
 class ProfileViewModel @Inject constructor(
     contextProvider: CoroutineContextProvider,
     private val userInfoUseCase: UserInfoUseCase,
+    private val saveUserInfoUseCase: SaveUserInfoUseCase,
     private val presentationPreferencesHelper: PresentationPreferencesHelper
 ) : BaseViewModel(contextProvider) {
 
@@ -37,25 +40,47 @@ class ProfileViewModel @Inject constructor(
         }
     }
 
-    fun updateUser() {
+    fun updateUser(
+        firstname: String,
+        lastname: String,
+        middlename: String?,
+        phone_number: String,
+        birthday: String,
+        email: String,
+        il_customer_id: String
+    ) {
         _userInfo.postValue(UserUiModel.Loading)
         launchCoroutineIO {
-            saveUserInfo()
+            saveUserInfo(
+                SaveUserRequest(
+                    firstname,
+                    lastname,
+                    middlename,
+                    phone_number,
+                    birthday,
+                    email,
+                    il_customer_id,
+                    presentationPreferencesHelper.locale.toString()
+                )
+            )
         }
     }
 
     private suspend fun loadUserInfo() {
-        userInfoUseCase(Unit).collect{
+        userInfoUseCase(Unit).collect {
             _userInfo.postValue(UserUiModel.Success(it))
         }
     }
 
-    private suspend fun saveUserInfo() {
+    private suspend fun saveUserInfo(data: SaveUserRequest) {
+        saveUserInfoUseCase(data).collect {
+            _userInfo.postValue(UserUiModel.Updated(it))
+        }
         //_userInfo.postValue(UserUiModel.SuccessUpdate(it))
     }
 
 
-    private fun getLocale(){
+    private fun getLocale() {
         _userInfo.postValue(UserUiModel.GetLocale(presentationPreferencesHelper.locale.toString()))
     }
 

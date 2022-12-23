@@ -56,13 +56,13 @@ class UserRemoteDataSource @Inject constructor(
     override suspend fun editUserInfo(
         firstname: String,
         lastname: String,
-        middlename: String,
+        middlename: String?,
         phone_number: String,
         birthday: String,
         email: String,
         il_customer_id: String,
         language: String,
-        auth_token: String
+        auth_token: String?
     ): Boolean = userRemote.editUserInfo(
         firstname,
         lastname,
@@ -82,11 +82,11 @@ class UserRemoteDataSource @Inject constructor(
         old_password: String,
         new_password: String,
         new_password_confirmation: String,
-        auth_token: String
+        auth_token: String?
     ): Boolean =
         userRemote.updatePassword(old_password, new_password, new_password_confirmation, auth_token)
 
-    override suspend fun logout(auth_token: String): Boolean =
+    override suspend fun logout(auth_token: String?): Boolean =
         userRemote.logout(auth_token)
 
     override suspend fun about(auth_token: String?): List<AboutEntity> =

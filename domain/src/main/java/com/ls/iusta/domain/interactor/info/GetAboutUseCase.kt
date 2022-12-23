@@ -13,7 +13,7 @@ import javax.inject.Inject
 
 class GetAboutUseCase @Inject constructor(
     private val userRepository: UserRepository
-) : BaseUseCase<GetInfoRequest, Flow<List<About>>> {
-    override suspend fun invoke(data: GetInfoRequest): Flow<List<About>> =
-        userRepository.about(data.auth_token)
+) : BaseUseCase<Unit, Flow<List<About>>> {
+    override suspend fun invoke(params: Unit): Flow<List<About>> =
+        userRepository.about()
 }

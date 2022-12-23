@@ -33,7 +33,6 @@ class UserRepositoryImpl @Inject constructor(
         userDataSourceFactory.getCacheDataSource().setAuthToken(login.auth_token)
         emit(loginMapper.mapFromEntity(login))
     }
-
     override suspend fun register(
         username: String,
         password: String,
@@ -90,13 +89,12 @@ class UserRepositoryImpl @Inject constructor(
     override suspend fun editUserInfo(
         firstname: String,
         lastname: String,
-        middlename: String,
+        middlename: String?,
         phone_number: String,
         birthday: String,
         email: String,
         il_customer_id: String,
-        language: String,
-        auth_token: String
+        language: String
     ): Flow<Boolean> = flow {
         val edited = userDataSourceFactory.getRemoteDataSource().editUserInfo(
             firstname,
@@ -107,7 +105,7 @@ class UserRepositoryImpl @Inject constructor(
             email,
             il_customer_id,
             language,
-            auth_token
+            userDataSourceFactory.getAuthToken()
         )
         emit(edited)
     }
@@ -120,29 +118,29 @@ class UserRepositoryImpl @Inject constructor(
     override suspend fun updatePassword(
         old_password: String,
         new_password: String,
-        new_password_confirmation: String,
-        auth_token: String
+        new_password_confirmation: String
     ): Flow<Boolean> = flow {
         val updated = userDataSourceFactory.getRemoteDataSource()
-            .updatePassword(old_password, new_password, new_password_confirmation, auth_token)
+            .updatePassword(old_password, new_password, new_password_confirmation, userDataSourceFactory.getAuthToken())
         emit(updated)
     }
 
-    override suspend fun logout(auth_token: String): Flow<Boolean> = flow {
-        val logout = userDataSourceFactory.getRemoteDataSource().logout(auth_token)
+    override suspend fun logout(): Flow<Boolean> = flow {
+        val logout = userDataSourceFactory.getRemoteDataSource().logout(userDataSourceFactory.getAuthToken())
+        userDataSourceFactory.getCacheDataSource().setAuthToken("")
         emit(logout)
     }
 
-    override suspend fun about(auth_token: String?): Flow<List<About>> = flow {
-        val aboutList = userDataSourceFactory.getRemoteDataSource().about(auth_token)
+    override suspend fun about(): Flow<List<About>> = flow {
+        val aboutList = userDataSourceFactory.getRemoteDataSource().about(userDataSourceFactory.getAuthToken())
             .map { aboutEntity ->
                 aboutMapper.mapFromEntity(aboutEntity)
             }
         emit(aboutList)
     }
 
-    override suspend fun faq(lang: String?, auth_token: String?): Flow<List<Faq>> = flow {
-        val faqList = userDataSourceFactory.getRemoteDataSource().faq(lang, auth_token)
+    override suspend fun faq(lang: String?): Flow<List<Faq>> = flow {
+        val faqList = userDataSourceFactory.getRemoteDataSource().faq(lang, userDataSourceFactory.getAuthToken())
             .map { faqEntity ->
                 faqMapper.mapFromEntity(faqEntity)
             }

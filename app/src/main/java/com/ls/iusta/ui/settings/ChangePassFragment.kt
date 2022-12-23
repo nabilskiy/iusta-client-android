@@ -6,6 +6,7 @@ import androidx.fragment.app.viewModels
 import com.ls.iusta.base.BaseFragment
 import com.ls.iusta.databinding.FragmentChangepassBinding
 import com.ls.iusta.domain.models.settings.SettingUiModel
+import com.ls.iusta.domain.models.user.ChangePassUiModel
 import com.ls.iusta.extension.observe
 import com.ls.iusta.presentation.viewmodel.user.ChangePassViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -21,31 +22,34 @@ class ChangePassFragment : BaseFragment<FragmentChangepassBinding, ChangePassVie
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         observe(viewModel.settings, ::onViewStateChange)
         setupViews()
-      
     }
 
     private fun setupViews() {
-
+        binding.apply {
+            nextButton.setOnClickListener {
+                viewModel.changePass(
+                    oldPassTextInputEditText.text.toString(),
+                    newPassTextInputEditText.text.toString(),
+                    newPassConfirmTextInputEditText.text.toString()
+                )
+            }
+        }
     }
 
-    private fun onViewStateChange(result: SettingUiModel) {
+    private fun onViewStateChange(result: ChangePassUiModel) {
         if (result.isRedelivered) return
         when (result) {
-            is SettingUiModel.Loading -> {
+            is ChangePassUiModel.Loading -> {
                 handleLoading(true)
             }
-            is SettingUiModel.Success -> {
+            is ChangePassUiModel.Success -> {
                 handleLoading(false)
 
             }
-            is SettingUiModel.Error -> {
+            is ChangePassUiModel.Error -> {
                 handleErrorMessage(result.error)
-            }
-            is SettingUiModel.NightMode -> {
-
             }
         }
     }

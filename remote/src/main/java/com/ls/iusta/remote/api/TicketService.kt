@@ -7,6 +7,7 @@ import com.ls.iusta.remote.models.ticket.TicketNoteResponseModel
 import com.ls.iusta.remote.models.ticket.TicketResponseModel
 import com.ls.iusta.remote.models.worker.RatingResponseModel
 import com.ls.iusta.remote.models.worker.WorkerResponseModel
+import okhttp3.MultipartBody
 import retrofit2.http.*
 
 interface TicketService {
@@ -19,12 +20,14 @@ interface TicketService {
         @Field("secret_key") secret_key: String = SECRET_KEY
     ): CategoryResponseModel
 
-    @FormUrlEncoded
+    @Multipart
     @POST(Endpoints.TICKET_CREATE)
     suspend fun createTicket(
-        @Field("category_id") category_id: Int,
-        @Field("auth_token") auth_token: String?,
-        @Field("secret_key") secret_key: String = SECRET_KEY
+        @Part attachments: List<MultipartBody.Part> = emptyList(),
+        @Query("category_id") category_id: Int,
+        @Query("note") note: String?,
+        @Query("auth_token") auth_token: String?,
+        @Query("secret_key") secret_key: String = SECRET_KEY
     ): CreateTicketResponseModel
 
     @FormUrlEncoded

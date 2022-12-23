@@ -32,14 +32,14 @@ interface UserService {
         @Field("old_password") old_password: String,
         @Field("new_password") new_password: String,
         @Field("new_password_confirmation") new_password_confirmation: String,
-        @Field("auth_token") auth_token: String,
+        @Field("auth_token") auth_token: String?,
         @Field("secret_key") secret_key: String = SECRET_KEY
     ): BaseModel
 
     @FormUrlEncoded
     @POST(Endpoints.USER_LOGOUT)
     suspend fun logout(
-        @Field("auth_token") auth_token: String,
+        @Field("auth_token") auth_token: String?,
         @Field("secret_key") secret_key: String = SECRET_KEY
     ): BaseModel
 
@@ -72,13 +72,13 @@ interface UserService {
     suspend fun userInfoEdit(
         @Field("firstname") firstname: String,
         @Field("lastname") lastname: String,
-        @Field("middlename") middlename: String,
+        @Field("middlename") middlename: String?,
         @Field("phone_number") phone_number: String,
         @Field("birthday") birthday: String,
         @Field("email") email: String,
         @Field("Il_customer_id") Il_customer_id: String,
         @Field("language") language: String,
-        @Field("auth_token") auth_token: String,
+        @Field("auth_token") auth_token: String?,
         @Field("secret_key") secret_key: String = SECRET_KEY
     ): BaseModel
 

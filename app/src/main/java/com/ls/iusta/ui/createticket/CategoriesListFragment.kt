@@ -1,10 +1,12 @@
 package com.ls.iusta.ui.createticket
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.database.Cursor
 import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.provider.OpenableColumns
 import android.view.View
 import android.widget.ImageView
@@ -12,6 +14,7 @@ import android.widget.ProgressBar
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.net.toFile
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.dhaval2404.imagepicker.ImagePicker
@@ -23,13 +26,16 @@ import com.ls.iusta.databinding.FragmentCategoriesListBinding
 import com.ls.iusta.domain.models.category.Category
 import com.ls.iusta.domain.models.category.CategoryInfo
 import com.ls.iusta.domain.models.category.CategoryUiModel
+import com.ls.iusta.domain.models.tickets.AttachmentFile
 import com.ls.iusta.extension.makeGone
 import com.ls.iusta.extension.makeVisible
 import com.ls.iusta.extension.observe
 import com.ls.iusta.extension.showSnackBar
 import com.ls.iusta.presentation.viewmodel.tickets.CategoriesListViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import java.io.File
 import java.lang.NullPointerException
+import java.net.URI
 import javax.inject.Inject
 
 
@@ -50,12 +56,14 @@ class CategoriesListFragment :
     private lateinit var attachIv: ImageView
     private lateinit var attachIvRemove: ImageView
 
+    private val attachmentFilesList = mutableListOf<AttachmentFile>()
+
     override fun getViewBinding(): FragmentCategoriesListBinding =
         FragmentCategoriesListBinding.inflate(layoutInflater)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.sendRequest(menuId, false)
+        viewModel.getCategories(menuId)
         observe(viewModel.category, ::onViewStateChange)
         setupRecyclerView()
     }
@@ -66,7 +74,7 @@ class CategoriesListFragment :
             override fun handleOnBackPressed() {
                 if (menuId != 0) {
                     menuId = backMenuId
-                    viewModel.sendRequest(menuId, false)
+                    viewModel.getCategories(menuId)
                 } else {
                     isEnabled = false
                     activity?.onBackPressed()
@@ -78,7 +86,7 @@ class CategoriesListFragment :
     private fun setupRecyclerView() {
         binding.refresh.setOnRefreshListener {
             binding.refresh.isRefreshing = false
-            viewModel.sendRequest(menuId, false)
+            viewModel.getCategories(menuId)
         }
 
         binding.recyclerViewCategories.apply {
@@ -89,7 +97,7 @@ class CategoriesListFragment :
         categoriesAdapter.setItemClickListener { category ->
             menuId = category.id
             if (category.menu) {
-                viewModel.sendRequest(menuId, false)
+                viewModel.getCategories(menuId)
             } else {
                 showCreateDialog()
             }
@@ -131,7 +139,7 @@ class CategoriesListFragment :
             dialog.dismiss()
         }
         dialogBindig.idBtnCreate.setOnClickListener {
-            viewModel.sendRequest(menuId, true)
+            viewModel.sendTicket(emptyList(), menuId, dialogBindig.note.text.toString())
         }
         dialog.setCancelable(false)
         dialog.setContentView(dialogBindig.root)
@@ -158,6 +166,7 @@ class CategoriesListFragment :
                 } else {
                     attachIv.setImageURI(fileUri)
                 }
+                handleSelectImage(fileUri)
                 loader.makeGone()
                 attachIvRemove.makeVisible()
             } else if (resultCode == ImagePicker.RESULT_ERROR) {
@@ -166,6 +175,24 @@ class CategoriesListFragment :
                 showSnackBar(binding.root, "Task Cancelled")
             }
         }
+
+    @SuppressLint("Range")
+    private fun handleSelectImage(uri: Uri?) {
+        if (uri != null) {
+            val cursor = context?.contentResolver?.query(uri, null, null, null, null)
+            cursor?.moveToFirst()
+            val name =
+                cursor?.getString(cursor.getColumnIndex(MediaStore.Images.Media.DISPLAY_NAME))
+            val size = cursor?.getLong(cursor.getColumnIndex(MediaStore.Images.Media.SIZE))
+            attachmentFilesList.add(AttachmentFile(name, size, URI.create(uri.toString()), uri.toFile()))
+            if (size != null) {
+                viewModel.orderNoteAttachmentResize(size)
+            }
+            if (name != null) {
+              //  addChip(name)
+            }
+        }
+    }
 
 
     private fun isPdf(uri: Uri): Boolean? {

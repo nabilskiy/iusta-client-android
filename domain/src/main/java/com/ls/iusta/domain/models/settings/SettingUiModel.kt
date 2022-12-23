@@ -7,4 +7,5 @@ sealed class SettingUiModel : UiAwareModel() {
     data class Error(var error: String = "") : SettingUiModel()
     data class Success(var data: List<Settings> = emptyList()) : SettingUiModel()
     data class NightMode(val nightMode: Boolean) : SettingUiModel()
+    data class Logout(val logout: Boolean) : SettingUiModel()
 }

@@ -7,6 +7,7 @@ sealed class UserUiModel : UiAwareModel() {
     object Loading : UserUiModel()
     data class Error(var error: String = "") : UserUiModel()
     data class Success(var data: User) : UserUiModel()
+    data class Updated(var result: Boolean) : UserUiModel()
     data class ChangeLocale(var lang: String) : UserUiModel()
     data class GetLocale(var lang: String) : UserUiModel()
    // data class SuccessUpdate() : UserUiModel()

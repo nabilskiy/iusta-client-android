@@ -15,5 +15,5 @@ class GetWorkerInfoUseCase @Inject constructor(
     private val ticketRepository: TicketRepository
 ) : BaseUseCase<WorkerRequest, Flow<Worker>> {
     override suspend fun invoke(data: WorkerRequest): Flow<Worker> =
-        ticketRepository.worker(data.id, data.auth_token)
+        ticketRepository.worker(data.id)
 }

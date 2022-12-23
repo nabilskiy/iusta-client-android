@@ -11,5 +11,5 @@ class GetCategoryListUseCase @Inject constructor(
     private val ticketRepository: TicketRepository
 ) : BaseUseCase<GetCategoryRequest, Flow<CategoryInfo>> {
     override suspend fun invoke(data: GetCategoryRequest): Flow<CategoryInfo> =
-        ticketRepository.categories(data.menu_id, data.auth_token)
+        ticketRepository.categories(data.menu_id)
 }

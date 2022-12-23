@@ -17,7 +17,6 @@ class SetWorkerRatingUseCase @Inject constructor(
         ticketRepository.addRating(
             data.worker_rating,
             data.ticket_id,
-            data.ticket_note,
-            data.auth_token
+            data.ticket_note
         )
 }

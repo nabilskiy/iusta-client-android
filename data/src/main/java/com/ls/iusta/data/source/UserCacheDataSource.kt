@@ -42,13 +42,13 @@ class UserCacheDataSource @Inject constructor(
     override suspend fun editUserInfo(
         firstname: String,
         lastname: String,
-        middlename: String,
+        middlename: String?,
         phone_number: String,
         birthday: String,
         email: String,
         il_customer_id: String,
         language: String,
-        auth_token: String
+        auth_token: String?
     ): Boolean {
         TODO("Not yet implemented")
     }
@@ -61,12 +61,12 @@ class UserCacheDataSource @Inject constructor(
         old_password: String,
         new_password: String,
         new_password_confirmation: String,
-        auth_token: String
+        auth_token: String?
     ): Boolean {
         TODO("Not yet implemented")
     }
 
-    override suspend fun logout(auth_token: String): Boolean {
+    override suspend fun logout(auth_token: String?): Boolean {
         TODO("Not yet implemented")
     }
 

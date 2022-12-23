@@ -2,12 +2,15 @@ package com.ls.iusta.data
 
 import com.ls.iusta.data.mapper.category.CategoryInfoMapper
 import com.ls.iusta.data.mapper.category.CategoryMapper
+import com.ls.iusta.data.mapper.ticket.AttachmentFileMapper
 import com.ls.iusta.data.mapper.ticket.ShortTicketMapper
 import com.ls.iusta.data.mapper.ticket.TicketMapper
 import com.ls.iusta.data.mapper.worker.RatingMapper
 import com.ls.iusta.data.mapper.worker.WorkerMapper
+import com.ls.iusta.data.models.ticket.AttachmentFileEntity
 import com.ls.iusta.data.source.TicketDataSourceFactory
 import com.ls.iusta.domain.models.category.CategoryInfo
+import com.ls.iusta.domain.models.tickets.AttachmentFile
 import com.ls.iusta.domain.models.tickets.ShortTicket
 import com.ls.iusta.domain.models.tickets.Ticket
 import com.ls.iusta.domain.models.worker.Rating
@@ -23,115 +26,95 @@ class TicketRepositoryImpl @Inject constructor(
     private val shortTicketMapper: ShortTicketMapper,
     private val categoryInfoMapper: CategoryInfoMapper,
     private val workerMapper: WorkerMapper,
-    private val ratingMapper: RatingMapper
+    private val ratingMapper: RatingMapper,
+    private val attachmentFileMapper: AttachmentFileMapper
 ) : TicketRepository {
     override suspend fun getTickets(
-        ticket_status: String,
-        auth_token: String?
+        ticket_status: String
     ): Flow<List<Ticket>> =
         flow {
-            val isCached = ticketDataSourceFactory.getCacheDataSource().isCached()
+            //val isCached = ticketDataSourceFactory.getCacheDataSource().isCached()
             val ticketList =
-                ticketDataSourceFactory.getDataStore(isCached).getTickets(ticket_status, auth_token)
+                ticketDataSourceFactory.getDataStore(false).getTickets(ticket_status, ticketDataSourceFactory.getAuthToken())
                     .map { ticketEntity ->
                         ticketMapper.mapFromEntity(ticketEntity)
                     }
-            saveTickets(ticketList)
+            // saveTickets(ticketList)
             emit(ticketList)
         }
 
     override suspend fun getTicket(
         ticket_status: String,
-        auth_token: String?,
         ticketId: Long
     ): Flow<Ticket> = flow {
-        var ticket = ticketDataSourceFactory.getCacheDataSource()
-            .getTicket(ticket_status, auth_token, ticketId)
-        if (ticket.title.isEmpty()) {
-            ticket = ticketDataSourceFactory.getRemoteDataSource()
-                .getTicket(ticket_status, auth_token, ticketId)
-        }
-
+        //   var ticket = ticketDataSourceFactory.getCacheDataSource().getTicket(ticket_status, auth_token, ticketId)
+        //   if (ticket.title.isEmpty()) {
+        var ticket = ticketDataSourceFactory.getRemoteDataSource()
+            .getTicket(ticket_status, ticketDataSourceFactory.getAuthToken(), ticketId)
+        //   }
         emit(ticketMapper.mapFromEntity(ticket))
     }
 
-    override suspend fun categories(menu_id: Int, auth_token: String?): Flow<CategoryInfo> =
+    override suspend fun categories(menu_id: Int): Flow<CategoryInfo> =
         flow {
-            val categoryInfo = ticketDataSourceFactory.getRemoteDataSource().categories(menu_id, auth_token)
+            val categoryInfo =
+                ticketDataSourceFactory.getRemoteDataSource().categories(menu_id, ticketDataSourceFactory.getAuthToken())
             emit(categoryInfoMapper.mapFromEntity(categoryInfo))
         }
 
-    override suspend fun createTicket(category_id: Int, auth_token: String?): Flow<ShortTicket> =
+    override suspend fun createTicket(
+        attachments: List<AttachmentFile>,
+        category_id: Int,
+        note: String?
+    ): Flow<ShortTicket> =
         flow {
             val ticket =
-                ticketDataSourceFactory.getRemoteDataSource().createTicket(category_id, auth_token)
+                ticketDataSourceFactory.getRemoteDataSource()
+                    .createTicket(
+                        attachments.map { attachmentFileMapper.mapToEntity(it) },
+                        category_id, note, ticketDataSourceFactory.getAuthToken()
+                    )
             emit(shortTicketMapper.mapFromEntity(ticket))
         }
 
     override suspend fun addNoteTicket(
         ticketId: Long,
-        ticketNote: String?,
-        auth_token: String?
+        ticketNote: String?
     ): Flow<ShortTicket> = flow {
         val ticket = ticketDataSourceFactory.getRemoteDataSource()
-            .addNoteTicket(ticketId, ticketNote, auth_token)
+            .addNoteTicket(ticketId, ticketNote, ticketDataSourceFactory.getAuthToken())
         emit(shortTicketMapper.mapFromEntity(ticket))
     }
 
     override suspend fun getNoteTicket(
         ticketId: Long,
-        ticketNote: String?,
-        auth_token: String?
+        ticketNote: String?
     ): Flow<String> = flow {
         val note = ticketDataSourceFactory.getRemoteDataSource()
-            .getNoteTicket(ticketId, ticketNote, auth_token)
+            .getNoteTicket(ticketId, ticketNote, ticketDataSourceFactory.getAuthToken())
         emit(note)
     }
 
     override suspend fun addRating(
         workerRating: Int,
         ticketId: Long,
-        ticketNote: String?,
-        auth_token: String?
+        ticketNote: String?
     ): Flow<Boolean> = flow {
         val rating = ticketDataSourceFactory.getRemoteDataSource()
-            .addRating(workerRating, ticketId, ticketNote, auth_token)
+            .addRating(workerRating, ticketId, ticketNote, ticketDataSourceFactory.getAuthToken())
         emit(rating)
     }
 
-    override suspend fun getRating(ticketId: Long, auth_token: String?): Flow<Rating> = flow {
-        val rating = ticketDataSourceFactory.getRemoteDataSource().getRating(ticketId, auth_token)
+    override suspend fun getRating(ticketId: Long): Flow<Rating> = flow {
+        val rating = ticketDataSourceFactory.getRemoteDataSource()
+            .getRating(ticketId, ticketDataSourceFactory.getAuthToken())
         emit(ratingMapper.mapFromEntity(rating))
     }
 
-    override suspend fun worker(id: Int, auth_token: String?): Flow<Worker> = flow {
-        val worker = ticketDataSourceFactory.getRemoteDataSource().worker(id, auth_token)
+    override suspend fun worker(id: Int): Flow<Worker> = flow {
+        val worker = ticketDataSourceFactory.getRemoteDataSource()
+            .worker(id, ticketDataSourceFactory.getAuthToken())
         emit(workerMapper.mapFromEntity(worker))
     }
 
-    override suspend fun saveTickets(listTickets: List<Ticket>) {
-        val ticketEntities = listTickets.map { ticket ->
-            ticketMapper.mapToEntity(ticket)
-        }
-        ticketDataSourceFactory.getCacheDataSource()
-            .saveTicket(ticketEntities)
-    }
-
-    override suspend fun getBookMarkedTickets(): Flow<List<Ticket>> = flow {
-        val bookMarkedTicket =
-            ticketDataSourceFactory.getCacheDataSource().getBookMarkedTickets()
-                .map { ticketEntity ->
-                    ticketMapper.mapFromEntity(ticketEntity)
-                }
-
-        emit(bookMarkedTicket)
-    }
-
-    override suspend fun setTicketBookmarked(ticketId: Long): Flow<Int> = flow {
-        emit(ticketDataSourceFactory.getCacheDataSource().setTicketBookmarked(ticketId))
-    }
-
-    override suspend fun setTicketUnBookMarked(ticketId: Long): Flow<Int> = flow {
-        emit(ticketDataSourceFactory.getCacheDataSource().setTicketUnBookMarked(ticketId))
-    }
 }

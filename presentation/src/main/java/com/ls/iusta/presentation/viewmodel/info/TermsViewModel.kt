@@ -2,10 +2,7 @@ package com.ls.iusta.presentation.viewmodel.info
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.ls.iusta.domain.interactor.auth.TokenUseCase
-import com.ls.iusta.domain.interactor.info.GetFaqUseCase
 import com.ls.iusta.domain.interactor.info.GetTermsUseCase
-import com.ls.iusta.domain.models.info.FaqUiModel
 import com.ls.iusta.domain.models.info.GetInfoRequest
 import com.ls.iusta.domain.models.info.TermsUiModel
 import com.ls.iusta.presentation.utils.CoroutineContextProvider
@@ -36,7 +33,7 @@ class TermsViewModel @Inject constructor(
         launchCoroutineIO {
             loadTerms(
                 GetInfoRequest(
-                    presentationPreferencesHelper.locale, null
+                    presentationPreferencesHelper.locale
                 )
             )
         }

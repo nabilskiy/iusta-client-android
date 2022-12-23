@@ -25,27 +25,25 @@ interface UserRepository {
     suspend fun editUserInfo(
         firstname: String,
         lastname: String,
-        middlename: String,
+        middlename: String?,
         phone_number: String,
         birthday: String,
         email: String,
         il_customer_id: String,
-        language: String,
-        auth_token: String
+        language: String
     ): Flow<Boolean>
 
     suspend fun resetPassword(email: String): Flow<Boolean>
     suspend fun updatePassword(
         old_password: String,
         new_password: String,
-        new_password_confirmation: String,
-        auth_token: String
+        new_password_confirmation: String
     ): Flow<Boolean>
 
-    suspend fun logout(auth_token: String): Flow<Boolean>
+    suspend fun logout(): Flow<Boolean>
 
-    suspend fun about(auth_token: String?): Flow<List<About>>
-    suspend fun faq(lang: String?, auth_token: String?): Flow<List<Faq>>
+    suspend fun about(): Flow<List<About>>
+    suspend fun faq(lang: String?): Flow<List<Faq>>
     suspend fun terms(lang: String?): Flow<List<Terms>>
 
     // Cache

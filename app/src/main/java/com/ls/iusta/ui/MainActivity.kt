@@ -88,7 +88,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>()  {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId){
-            R.id.navigationGraphNotifications -> showSnackBar(binding.root, "Notifications")
+            R.id.navigationGraphNotifications -> {
+                currentNavController?.value?.navigate(R.id.notificationsFragment)
+            }
         }
         return super.onOptionsItemSelected(item)
     }

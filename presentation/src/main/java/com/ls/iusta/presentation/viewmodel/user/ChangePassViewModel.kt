@@ -2,12 +2,10 @@ package com.ls.iusta.presentation.viewmodel.user
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.ls.iusta.domain.interactor.settings.GetSettingsUseCase
-import com.ls.iusta.domain.models.settings.SettingUiModel
-import com.ls.iusta.domain.models.settings.Settings
-import com.ls.iusta.domain.models.settings.SettingsRequest
+import com.ls.iusta.domain.interactor.user.ChangePassUseCase
+import com.ls.iusta.domain.models.user.ChangePassUiModel
+import com.ls.iusta.domain.models.user.UpdatePassRequest
 import com.ls.iusta.presentation.utils.CoroutineContextProvider
-import com.ls.iusta.presentation.utils.PresentationPreferencesHelper
 import com.ls.iusta.presentation.viewmodel.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineExceptionHandler
@@ -17,40 +15,40 @@ import javax.inject.Inject
 @HiltViewModel
 class ChangePassViewModel @Inject constructor(
     contextProvider: CoroutineContextProvider,
-    private val getSettingsUseCase: GetSettingsUseCase,
-    private val presentationPreferencesHelper: PresentationPreferencesHelper
+    private val changePassUseCase: ChangePassUseCase
 ) : BaseViewModel(contextProvider) {
 
-    private val _settings: MutableLiveData<SettingUiModel> = MutableLiveData()
-    val settings: LiveData<SettingUiModel> = _settings
+    private val _settings: MutableLiveData<ChangePassUiModel> = MutableLiveData()
+    val settings: LiveData<ChangePassUiModel> = _settings
 
     override val coroutineExceptionHandler = CoroutineExceptionHandler { _, exception ->
         /*val message = ExceptionHandler.parse(exception)*/
-        _settings.postValue(SettingUiModel.Error(exception.message ?: "Error"))
+        _settings.postValue(ChangePassUiModel.Error(exception.message ?: "Error"))
     }
 
-    fun getSettings() {
-        _settings.postValue(SettingUiModel.Loading)
+    fun changePass(
+        old_password: String,
+        new_password: String,
+        new_password_confirmation: String
+    ) {
+        _settings.postValue(ChangePassUiModel.Loading)
         launchCoroutineIO {
-            loadSettings()
+            savePass(old_password, new_password, new_password_confirmation)
         }
     }
 
-    private suspend fun loadSettings() {
-        getSettingsUseCase(
-            SettingsRequest(
-                presentationPreferencesHelper.isNightMode,
-                "main"
+    private suspend fun savePass(
+        old_password: String,
+        new_password: String,
+        new_password_confirmation: String
+    ) {
+        changePassUseCase(
+            UpdatePassRequest(
+                old_password, new_password, new_password_confirmation
             )
         ).collect {
-            _settings.postValue(SettingUiModel.Success(it))
+            _settings.postValue(ChangePassUiModel.Success(it))
         }
     }
 
-    fun setSettings(selectedSetting: Settings) {
-        selectedSetting.run {
-            presentationPreferencesHelper.isNightMode = selectedValue
-            _settings.postValue(SettingUiModel.NightMode(selectedValue))
-        }
-    }
 }

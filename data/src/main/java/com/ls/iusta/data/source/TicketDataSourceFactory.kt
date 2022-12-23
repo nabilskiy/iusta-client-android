@@ -2,10 +2,12 @@ package com.ls.iusta.data.source
 
 import com.ls.iusta.data.repository.TicketCache
 import com.ls.iusta.data.repository.TicketDataSource
+import com.ls.iusta.data.repository.UserCache
 import javax.inject.Inject
 
 class TicketDataSourceFactory @Inject constructor(
     private val ticketCache: TicketCache,
+    private val userCache: UserCache,
     private val ticketCacheDataSource: TicketCacheDataSource,
     private val ticketRemoteDataSource: TicketRemoteDataSource
 ) {
@@ -23,5 +25,9 @@ class TicketDataSourceFactory @Inject constructor(
 
     fun getCacheDataSource(): TicketDataSource {
         return ticketCacheDataSource
+    }
+
+    open suspend fun getAuthToken(): String? {
+        return userCache.getAuthToken()
     }
 }

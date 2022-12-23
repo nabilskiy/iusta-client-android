@@ -17,5 +17,5 @@ class GetWorkerRatingUseCase @Inject constructor(
     private val ticketRepository: TicketRepository
 ) : BaseUseCase<GetRatingRequest, Flow<Rating>> {
     override suspend fun invoke(data: GetRatingRequest): Flow<Rating> =
-        ticketRepository.getRating(data.ticket_id, data.auth_token)
+        ticketRepository.getRating(data.ticket_id)
 }

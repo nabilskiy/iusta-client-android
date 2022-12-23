@@ -82,7 +82,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
     companion object {
         fun startActivity(activity: Activity?) {
             val intent = Intent(activity, LoginActivity::class.java)
-            activity?.startWithAnimation(intent, false)
+            activity?.startWithAnimation(intent, true)
         }
     }
 }

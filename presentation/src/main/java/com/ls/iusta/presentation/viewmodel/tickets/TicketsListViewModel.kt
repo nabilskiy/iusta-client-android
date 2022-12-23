@@ -1,7 +1,6 @@
 package com.ls.iusta.presentation.viewmodel.tickets
 
 import androidx.lifecycle.LiveData
-import com.ls.iusta.domain.interactor.auth.TokenUseCase
 import com.ls.iusta.domain.interactor.ticket.GetTicketListUseCase
 import com.ls.iusta.domain.interactor.user.UserInfoUseCase
 import com.ls.iusta.domain.models.tickets.GetTicketsRequest
@@ -19,8 +18,7 @@ import javax.inject.Inject
 class TicketsListViewModel @Inject constructor(
     contextProvider: CoroutineContextProvider,
     private val ticketListUseCase: GetTicketListUseCase,
-    private val userInfoUseCase: UserInfoUseCase,
-    private val tokenUseCase: TokenUseCase
+    private val userInfoUseCase: UserInfoUseCase
 ) : BaseViewModel(contextProvider) {
 
     private val _ticketList = UiAwareLiveData<TicketUIModel>()
@@ -33,27 +31,14 @@ class TicketsListViewModel @Inject constructor(
 
     fun getTickets(active: Boolean) {
         _ticketList.postValue(TicketUIModel.Loading)
+        var status = AppConstants.Status.OPENED
         launchCoroutineIO {
-            if (active) {
-                tokenUseCase(Unit).collect {
-                    loadTickets(
-                        GetTicketsRequest(
-                            AppConstants.Status.OPENED,
-                            it
-                        )
-                    )
-                }
-            } else {
-                tokenUseCase(Unit).collect {
-                    loadTickets(
-                        GetTicketsRequest(
-                            AppConstants.Status.CLOSED,
-                            it
-                        )
-                    )
-                }
-
-            }
+            if (!active) status = AppConstants.Status.CLOSED
+            loadTickets(
+                GetTicketsRequest(
+                    status
+                )
+            )
         }
     }
 

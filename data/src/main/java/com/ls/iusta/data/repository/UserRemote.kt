@@ -18,13 +18,13 @@ interface UserRemote {
     suspend fun editUserInfo(
         firstname: String,
         lastname: String,
-        middlename: String,
+        middlename: String?,
         phone_number: String,
         birthday: String,
         email: String,
         il_customer_id: String,
         language: String,
-        auth_token: String
+        auth_token: String?
     ): Boolean
 
     suspend fun resetPassword(email: String): Boolean
@@ -32,10 +32,10 @@ interface UserRemote {
         old_password: String,
         new_password: String,
         new_password_confirmation: String,
-        auth_token: String
+        auth_token: String?
     ): Boolean
 
-    suspend fun logout(auth_token: String): Boolean
+    suspend fun logout(auth_token: String?): Boolean
     suspend fun setAuthToken(authToken: String?)
     suspend fun userInfo(authToken: String?): UserEntity
     suspend fun customers(query: String): List<CustomerEntity>

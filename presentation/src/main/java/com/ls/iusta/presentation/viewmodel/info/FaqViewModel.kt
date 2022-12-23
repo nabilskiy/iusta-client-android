@@ -2,7 +2,6 @@ package com.ls.iusta.presentation.viewmodel.info
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.ls.iusta.domain.interactor.auth.TokenUseCase
 import com.ls.iusta.domain.interactor.info.GetFaqUseCase
 import com.ls.iusta.domain.models.info.FaqUiModel
 import com.ls.iusta.domain.models.info.GetInfoRequest
@@ -18,7 +17,6 @@ import javax.inject.Inject
 class FaqViewModel @Inject constructor(
     contextProvider: CoroutineContextProvider,
     private val getFaqUseCase: GetFaqUseCase,
-    private val tokenUseCase: TokenUseCase,
     private val presentationPreferencesHelper: PresentationPreferencesHelper
 ) : BaseViewModel(contextProvider) {
 
@@ -33,13 +31,9 @@ class FaqViewModel @Inject constructor(
     fun getFaq() {
         _faq.postValue(FaqUiModel.Loading)
         launchCoroutineIO {
-            tokenUseCase(Unit).collect{
                 loadFaq(GetInfoRequest(
-                    presentationPreferencesHelper.locale,
-                    it
+                    presentationPreferencesHelper.locale
                 ))
-            }
-
         }
     }
 

@@ -38,7 +38,11 @@ class ProfileFragment :
     private fun setupViews() {
         binding.apply {
             nextButton.setOnClickListener {
-                viewModel.updateUser()
+                viewModel.updateUser(nameTextInputEditText.text.toString(),
+                    surnameTextInputEditText.text.toString(),
+                "", phoneTextInputEditText.text.toString(),
+                birthdayTextInputEditText.text.toString(), emailTextInputEditText.text.toString(),
+                "1081")
             }
             azButton.setOnClickListener {
                 changeLocale("az")
