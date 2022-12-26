@@ -11,5 +11,5 @@ class GetSettingsUseCase @Inject constructor(
     private val settingsRepository: SettingsRepository
 ) : BaseUseCase<SettingsRequest, Flow<List<Settings>>> {
     override suspend fun invoke(params: SettingsRequest): Flow<List<Settings>> =
-        settingsRepository.getSettings(params.isNightMode, params.type)
+        settingsRepository.getSettings(params.isNightMode, params.type, params.lang)
 }

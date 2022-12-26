@@ -39,7 +39,10 @@ object UiDep {
     const val timber = Dependencies.TimberDep.timber
     const val lottie = Dependencies.LottieDep.lottie
 
+    //QR scanner
     const val zxing = Dependencies.QrDep.zxing
     const val desugar = Dependencies.QrDep.desugar
 
+    //app locale
+    const val locale = Dependencies.LocaleDep.locale
 }

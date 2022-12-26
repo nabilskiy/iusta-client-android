@@ -62,11 +62,13 @@ object Dependencies {
         const val desugar = "com.android.tools:desugar_jdk_libs:${Versions.desugarVersion}"
     }
 
+    object LocaleDep {
+        const val locale = "com.zeugmasolutions.localehelper:locale-helper-android:${Versions.localeVersion}"
+    }
+
     object ImagePickerDep {
       const val imagePicker = "com.github.dhaval2404:imagepicker:${Versions.imagePickerVersion}"
     }
-
-
 
     object TimberDep {
         const val timber = "com.jakewharton.timber:timber:${Versions.timberVersion}"

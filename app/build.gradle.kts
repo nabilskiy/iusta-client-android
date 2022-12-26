@@ -85,6 +85,9 @@ dependencies {
     implementation(UiDep.zxing)
     coreLibraryDesugaring(UiDep.desugar)
 
+    //Locale
+    implementation(UiDep.locale)
+
     // Timber
     implementation(UiDep.timber)
 }

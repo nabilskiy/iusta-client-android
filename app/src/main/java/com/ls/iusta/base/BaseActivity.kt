@@ -1,20 +1,29 @@
 package com.ls.iusta.base
 
+import android.app.Activity
 import android.content.Context
-import android.content.res.Configuration
+import android.content.Intent
 import android.os.Bundle
-import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.DialogFragment
 import androidx.viewbinding.ViewBinding
+import com.ls.iusta.IUSTAApp
 import com.ls.iusta.R
 import com.ls.iusta.core.dialog.dismissLoadingDialog
 import com.ls.iusta.core.dialog.showLoadingDialog
 import com.ls.iusta.extension.showSnackBar
+import com.ls.iusta.extension.startWithAnimation
+import com.ls.iusta.presentation.utils.PresentationPreferencesHelper
 import com.ls.iusta.presentation.viewmodel.BaseViewModel
+import com.ls.iusta.ui.MainActivity
+import com.zeugmasolutions.localehelper.LocaleAwareCompatActivity
+import dagger.hilt.EntryPoint
+import dagger.hilt.EntryPoints
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 import timber.log.Timber
+import javax.inject.Inject
 
-abstract class BaseActivity<B : ViewBinding> : AppCompatActivity() {
+abstract class BaseActivity<B : ViewBinding> : LocaleAwareCompatActivity() {
 
     protected lateinit var binding: B
 
@@ -26,6 +35,7 @@ abstract class BaseActivity<B : ViewBinding> : AppCompatActivity() {
 
     protected abstract fun initViewModel()
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = getViewBinding()
@@ -33,12 +43,6 @@ abstract class BaseActivity<B : ViewBinding> : AppCompatActivity() {
         initUI()
         initViewModel()
     }
-
-//    override fun attachBaseContext(newBase: Context) {
-//        oldPrefLocaleCode = Storage(newBase).getPreferredLocale()
-//        applyOverrideConfiguration(LocaleUtil.getLocalizedConfiguration(oldPrefLocaleCode))
-//        super.attachBaseContext(newBase)
-//    }
 
     override fun onBackPressed() {
         super.onBackPressed()
@@ -55,5 +59,6 @@ abstract class BaseActivity<B : ViewBinding> : AppCompatActivity() {
         Timber.e(message)
         showSnackBar(binding.root, message)
     }
+
 
 }

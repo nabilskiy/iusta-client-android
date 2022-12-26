@@ -3,26 +3,26 @@
     <string name="menu_home">Главная</string>
     <string name="menu_history">История</string>
     <string name="menu_settings">Меню</string>
-    <string name="app_exit_label">Press BACK again to exit</string>
+    <string name="app_exit_label">Нажмите Назад еще раз для выхода</string>
 
     <!-- Login Activity -->
-    <string name="login">Log In</string>
+    <string name="login">Войти</string>
     <string name="signup">Have not registered yet? <b><font color="#FF9800">Sign up</font></b></string>
-    <string name="forgotpass">Forgot password?</string>
-    <string name="next">Next</string>
-    <string name="email">Email</string>
-    <string name="password">Password</string>
+    <string name="forgotpass">Забыли пароль?</string>
+    <string name="next">Далее</string>
+    <string name="email">Емейл</string>
+    <string name="password">Пароль</string>
     <string name="birthday">Дата рождения</string>
-    <string name="password_confirm">Confirm password</string>
+    <string name="password_confirm">Подтвердите пароль</string>
 
     <!-- Reset Password Activity -->
-    <string name="resetpass">Reset password</string>
-    <string name="send">Send</string>
-    <string name="goback">Go Back</string>
+    <string name="resetpass">Сбросить пароль</string>
+    <string name="send">Отправить</string>
+    <string name="goback">Назад</string>
     <string name="resetpass_message">Please enter your email address. You will receive a link to create a new password via email</string>
 
     <!-- Registration Activity -->
-    <string name="reg">Sign Up</string>
+    <string name="reg">Зарегистрироваться</string>
     <string name="loginlabel">Already registered? <b><font color="#FF9800">Log In</font></b></string>
     <string name="privacy">I accept all <b><u><font color="#FF9800">Terms and Conditions</font></u></b></string>
     <string name="school">Название школы</string>
@@ -30,29 +30,29 @@
     <string name="surname">Фамилия</string>
     <string name="emailaddress">Емейл адрес</string>
     <string name="phone">Номер телефона</string>
-    <string name="tx">Thank you!</string>
+    <string name="tx">Спасибо!</string>
     <string name="after_reg">Your request been successfully sent! Please wait for your confirmation. Confirmation letter will be sent to your email</string>
 
 
     <!-- Tickets Fragment -->
-    <string name="fragment_tickets_title_label">Active orders</string>
-    <string name="fragment_tickets_history_label">Orders history</string>
-    <string name="fragment_ticket_detail_title_label">Ticket Detail</string>
-    <string name="new_ticket">Make another order</string>
-    <string name="order_status">Order status: </string>
-    <string name="order_type">Order type: </string>
-    <string name="order_date">Created date: </string>
+    <string name="fragment_tickets_title_label">Активные обращения</string>
+    <string name="fragment_tickets_history_label">История обращений</string>
+    <string name="fragment_ticket_detail_title_label">Детали обращения</string>
+    <string name="new_ticket">Создать запрос</string>
+    <string name="order_status">"Статус заказа: "</string>
+    <string name="order_type">"Тип заказа: "</string>
+    <string name="order_date">"Дата создания: "</string>
 
-    <string name="ticket_category_label">Category:</string>
-    <string name="ticket_date_label">Date:</string>
-    <string name="ticket_num_label">Ticket Number:</string>
-    <string name="ticket_status_label">Status:</string>
+    <string name="ticket_category_label">Категория:</string>
+    <string name="ticket_date_label">Дата:</string>
+    <string name="ticket_num_label">Номер заказа:</string>
+    <string name="ticket_status_label">Статус:</string>
 
     <!-- Settings Fragment -->
-    <string name="fragment_menu_title_label">Menu</string>
-    <string name="fragment_settings_title_label">Settings</string>
-    <string name="fragment_contact_title_label">Contact Us</string>
-    <string name="fragment_about_title_label">About</string>
+    <string name="fragment_menu_title_label">Меню</string>
+    <string name="fragment_settings_title_label">Настройки</string>
+    <string name="fragment_contact_title_label">Контакты</string>
+    <string name="fragment_about_title_label">О нас</string>
 
 
 
@@ -62,7 +62,7 @@
     <string name="un_bookmark_success">Ticket bookmarked removed successfully</string>
     <string name="assigned_specialist">Assigned specialist</string>
     <string name="proceed_to_scan">Proceed to scan</string>
-    <string name="fragment_create_ticket_title_label">Create ticket</string>
+    <string name="fragment_create_ticket_title_label">Создать заказ</string>
     <string name="btn_continue">Continue</string>
     <string name="get_repaired">Choose what you want to get repaired</string>
     <string name="your_specialist_is_not_assigned">Your specialist is not assigned</string>
@@ -77,17 +77,17 @@
     <string name="az">AZ</string>
     <string name="eng">ENG</string>
     <string name="ru">RU</string>
-    <string name="change_password">Change password</string>
-    <string name="confirm">Confirm</string>
-    <string name="old_password">Old password</string>
-    <string name="new_password">New password</string>
-    <string name="new_password_confirm">Confirm new password</string>
-    <string name="fragment_faq_title_label">FAQ</string>
+    <string name="change_password">Изменить пароль</string>
+    <string name="confirm">Подтвердить</string>
+    <string name="old_password">Старый пароль</string>
+    <string name="new_password">Новый пароль</string>
+    <string name="new_password_confirm">Подтвердите новый пароль</string>
+    <string name="fragment_faq_title_label">ЧаВо</string>
     <string name="fragment_privacy_title_label">Privacy Policy</string>
     <string name="fragment_terms_title_label">Terms and Conditions</string>
-    <string name="fragment_profile_title_label">Edit profile</string>
-    <string name="fragment_changepass_title_label">Change password</string>
-    <string name="menu_notifications">Notifications</string>
+    <string name="fragment_profile_title_label">Редактировать профиль</string>
+    <string name="fragment_changepass_title_label">Изменить пароль</string>
+    <string name="menu_notifications">Уведомления</string>
     <string name="proceed_anyway">Proceed anyway</string>
 
 

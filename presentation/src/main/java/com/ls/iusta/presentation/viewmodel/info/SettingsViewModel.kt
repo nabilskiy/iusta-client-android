@@ -42,7 +42,8 @@ class SettingsViewModel @Inject constructor(
         getSettingsUseCase(
             SettingsRequest(
                 presentationPreferencesHelper.isNightMode,
-                "main"
+                "main",
+                presentationPreferencesHelper.locale.toString()
             )
         ).collect {
             _settings.postValue(SettingUiModel.Success(it))

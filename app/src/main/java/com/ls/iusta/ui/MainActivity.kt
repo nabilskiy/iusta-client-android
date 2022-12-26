@@ -2,34 +2,24 @@ package com.ls.iusta.ui
 
 import android.app.Activity
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.ui.setupActionBarWithNavController
-import com.github.dhaval2404.imagepicker.ImagePicker
-import com.github.dhaval2404.imagepicker.util.FileUriUtils
 import com.ls.iusta.R
 import com.ls.iusta.base.BaseActivity
 import com.ls.iusta.databinding.ActivityMainBinding
-import com.ls.iusta.databinding.ActivitySplashBinding
 import com.ls.iusta.extension.setupWithNavController
 import com.ls.iusta.extension.showSnackBar
 import com.ls.iusta.extension.startWithAnimation
 import com.ls.iusta.presentation.viewmodel.BaseViewModel
-import com.ls.iusta.presentation.viewmodel.user.LoginViewModel
-import com.ls.iusta.ui.auth.LoginActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import java.lang.System.exit
 
 @AndroidEntryPoint
 class MainActivity : BaseActivity<ActivityMainBinding>()  {

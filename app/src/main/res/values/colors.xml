@@ -12,6 +12,7 @@
     <color name="grey">#C1C0C0</color>
 
     <color name="colorBg">#B9EEEEF1</color>
+    <color name="cardBg">#80EEEEF1</color>
 
     <color name="colorGradientStart">#F5F5FC</color>
     <color name="colorGradientEnd">#D9E7F2</color>

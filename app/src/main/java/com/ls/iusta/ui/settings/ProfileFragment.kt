@@ -6,27 +6,25 @@ import androidx.appcompat.content.res.AppCompatResources
 import androidx.fragment.app.viewModels
 import com.ls.iusta.R
 import com.ls.iusta.base.BaseFragment
-import com.ls.iusta.core.locale.LocaleUtils
-import com.ls.iusta.core.theme.ThemeUtils
 import com.ls.iusta.databinding.FragmentProfileBinding
 import com.ls.iusta.domain.models.user.User
 import com.ls.iusta.domain.models.user.UserUiModel
 import com.ls.iusta.extension.observe
 import com.ls.iusta.presentation.viewmodel.user.ProfileViewModel
+import com.ls.iusta.ui.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class ProfileFragment :
-    BaseFragment<com.ls.iusta.databinding.FragmentProfileBinding, ProfileViewModel>() {
+    BaseFragment<FragmentProfileBinding, ProfileViewModel>() {
 
     override fun getViewBinding(): FragmentProfileBinding =
         FragmentProfileBinding.inflate(layoutInflater)
 
     override val viewModel: ProfileViewModel by viewModels()
 
-    @Inject
-    lateinit var localeUtils: LocaleUtils
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -46,12 +44,15 @@ class ProfileFragment :
             }
             azButton.setOnClickListener {
                 changeLocale("az")
+                viewModel.setLocale("az")
             }
             engButton.setOnClickListener {
                 changeLocale("en")
+                viewModel.setLocale("en")
             }
             ruButton.setOnClickListener {
                 changeLocale("ru")
+                viewModel.setLocale("ru")
             }
         }
     }
@@ -95,7 +96,6 @@ class ProfileFragment :
                     AppCompatResources.getDrawable(requireContext(), R.drawable.btn_accent_default)
             }
         }
-        viewModel.setLocale(lang)
     }
 
     private fun bindData(user: User) {
@@ -123,8 +123,9 @@ class ProfileFragment :
             is UserUiModel.Error -> {
                 handleErrorMessage(result.error)
             }
-            is UserUiModel.ChangeLocale -> {
-                localeUtils.setLocale(requireContext(), result.lang)
+            is UserUiModel.ChangeLocale ->{
+                handleLoading(false)
+                (requireActivity() as MainActivity).updateLocale(Locale(result.lang))
             }
             is UserUiModel.GetLocale -> {
                 handleLoading(false)

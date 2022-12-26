@@ -38,6 +38,9 @@ object Versions {
     const val zxingVersion = "4.3.0"
     const val desugarVersion = "1.1.5"
 
+    //Locale dependencies
+    const val localeVersion = "1.5.1"
+
     //Image Picker dependencies
     const val imagePickerVersion = "2.1"
 

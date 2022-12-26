@@ -39,9 +39,10 @@ class AboutViewModel @Inject constructor(
     private suspend fun loadSettings() {
         getSettingsUseCase(
             SettingsRequest(
-            presentationPreferencesHelper.isNightMode,
-            "about"
-        )
+                presentationPreferencesHelper.isNightMode,
+                "about",
+                presentationPreferencesHelper.locale.toString()
+            )
         ).collect {
             _settings.postValue(SettingUiModel.Success(it))
         }

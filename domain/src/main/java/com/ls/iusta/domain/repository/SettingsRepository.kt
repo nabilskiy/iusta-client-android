@@ -4,5 +4,5 @@ import com.ls.iusta.domain.models.settings.Settings
 import kotlinx.coroutines.flow.Flow
 
 interface SettingsRepository {
-    suspend fun getSettings(isNightMode: Boolean, type: String): Flow<List<Settings>>
+    suspend fun getSettings(isNightMode: Boolean, type: String, lang: String): Flow<List<Settings>>
 }

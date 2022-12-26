@@ -25,8 +25,6 @@ class AboutFragment : BaseFragment<FragmentAboutBinding, AboutViewModel>() {
     @Inject
     lateinit var settingAdapter: SettingsAdapter
 
-    @Inject
-    lateinit var themeUtils: ThemeUtils
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -74,9 +72,6 @@ class AboutFragment : BaseFragment<FragmentAboutBinding, AboutViewModel>() {
             }
             is SettingUiModel.Error -> {
                 handleErrorMessage(result.error)
-            }
-            is SettingUiModel.NightMode -> {
-                themeUtils.setNightMode(result.nightMode)
             }
         }
     }
