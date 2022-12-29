@@ -45,4 +45,12 @@ object UiDep {
 
     //app locale
     const val locale = Dependencies.LocaleDep.locale
+
+    //FCM
+    const val firebaseBom = Dependencies.FirebaseDep.firebaseBom
+    val Firebase = listOf(
+        Dependencies.FirebaseDep.fcm,
+        Dependencies.FirebaseDep.analytics
+    )
+
 }

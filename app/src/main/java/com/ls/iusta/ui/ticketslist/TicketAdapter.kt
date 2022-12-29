@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.RequestManager
 import com.ls.iusta.base.BaseAdapter
-import com.ls.iusta.databinding.ItemTicketList2Binding
 import com.ls.iusta.databinding.ItemTicketListBinding
 import com.ls.iusta.domain.models.tickets.Ticket
 import javax.inject.Inject
@@ -30,7 +29,7 @@ class TicketAdapter @Inject constructor(
     override
     fun getViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val binding =
-            ItemTicketList2Binding.inflate(
+            com.ls.iusta.databinding.ItemTicketListBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
@@ -38,14 +37,15 @@ class TicketAdapter @Inject constructor(
         return TicketViewHolder(binding)
     }
 
-    inner class TicketViewHolder(private val binding: ItemTicketList2Binding) :
+    inner class TicketViewHolder(private val binding: ItemTicketListBinding) :
         RecyclerView.ViewHolder(binding.root), Binder<Ticket> {
         override fun bind(item: Ticket) {
             binding.apply {
                 textViewTicketName.text = item.category_name
                 textViewStatus.text = item.current_event_label
                 textViewDate.text = item.create_time
-                glide.load("https://i-usta.com/storage/categories/projector.png").circleCrop()
+                glide.load(item.category_icon)
+                    .circleCrop()
                     .into(icon)
                 root.setOnClickListener {
                     onItemClickListener?.let { itemClick ->

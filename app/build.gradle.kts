@@ -3,6 +3,7 @@ import dependencies.UiDep
 plugins {
     id(Config.Plugins.android)
     id(Config.Plugins.kotlinAndroid)
+    id(Config.Plugins.googleServices)
     id(Config.Plugins.kotlinKapt)
     id(Config.Plugins.dagger)
     id(Config.Plugins.navigationSafArgs)
@@ -84,10 +85,13 @@ dependencies {
     //QR scanner
     implementation(UiDep.zxing)
     coreLibraryDesugaring(UiDep.desugar)
-
     //Locale
     implementation(UiDep.locale)
-
+    //Firebase
+    implementation(platform(UiDep.firebaseBom))
+    UiDep.Firebase.forEach {
+        implementation(it)
+    }
     // Timber
     implementation(UiDep.timber)
 }

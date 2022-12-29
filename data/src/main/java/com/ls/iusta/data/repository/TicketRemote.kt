@@ -1,6 +1,7 @@
 package com.ls.iusta.data.repository
 
 import com.ls.iusta.data.models.category.CategoryInfoEntity
+import com.ls.iusta.data.models.push.PushEntity
 import com.ls.iusta.data.models.ticket.AttachmentFileEntity
 import com.ls.iusta.data.models.ticket.ShortTicketEntity
 import com.ls.iusta.data.models.ticket.TicketEntity
@@ -9,11 +10,22 @@ import com.ls.iusta.data.models.worker.WorkerEntity
 
 
 interface TicketRemote {
-    suspend fun getTickets(ticket_status: String, auth_token: String?): List<TicketEntity>
+    suspend fun getTickets(
+        ticket_status: String,
+        auth_token: String?,
+        pageNumber: Int?
+    ): List<TicketEntity>
+
     suspend fun getTicket(ticket_status: String, auth_token: String?, ticketId: Long): TicketEntity
 
     suspend fun categories(menu_id: Int, auth_token: String?): CategoryInfoEntity
-    suspend fun createTicket(attachments: List<AttachmentFileEntity>, category_id: Int,  note: String?, auth_token: String?): ShortTicketEntity
+    suspend fun createTicket(
+        attachments: List<AttachmentFileEntity>,
+        category_id: Int,
+        note: String?,
+        auth_token: String?
+    ): ShortTicketEntity
+
     suspend fun addNoteTicket(
         ticketId: Long,
         ticketNote: String?,

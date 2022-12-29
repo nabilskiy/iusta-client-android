@@ -8,12 +8,23 @@ import com.ls.iusta.data.models.worker.RatingEntity
 import com.ls.iusta.data.models.worker.WorkerEntity
 
 interface TicketDataSource {
-    // Remote and cache
-    suspend fun getTickets(ticket_status: String, auth_token: String?): List<TicketEntity>
+
+    suspend fun getTickets(
+        ticket_status: String,
+        auth_token: String?,
+        pageNumber: Int?
+    ): List<TicketEntity>
+
     suspend fun getTicket(ticket_status: String, auth_token: String?, ticketId: Long): TicketEntity
 
     suspend fun categories(menu_id: Int, auth_token: String?): CategoryInfoEntity
-    suspend fun createTicket(attachments: List<AttachmentFileEntity>, category_id: Int, note: String?, auth_token: String?): ShortTicketEntity
+    suspend fun createTicket(
+        attachments: List<AttachmentFileEntity>,
+        category_id: Int,
+        note: String?,
+        auth_token: String?
+    ): ShortTicketEntity
+
     suspend fun addNoteTicket(
         ticketId: Long,
         ticketNote: String?,

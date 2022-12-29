@@ -4,6 +4,7 @@ import com.ls.iusta.remote.models.*
 import com.ls.iusta.remote.models.about.AboutResponseModel
 import com.ls.iusta.remote.models.customer.CustomerResponseModel
 import com.ls.iusta.remote.models.faq.FaqResponseModel
+import com.ls.iusta.remote.models.push.PushResponseModel
 import com.ls.iusta.remote.models.terms.TermsResponseModel
 import com.ls.iusta.remote.models.user.LoginModel
 import com.ls.iusta.remote.models.user.UserModel
@@ -109,6 +110,38 @@ interface UserService {
         @Query("lang") lang: String?,
         @Query("secret_key") secret_key: String = SECRET_KEY
     ): TermsResponseModel
+
+    @FormUrlEncoded
+    @POST(Endpoints.PUSH_TOKEN_SAVE)
+    suspend fun savePushToken(
+        @Field("push_token") push_token: String,
+        @Field("auth_token") auth_token: String?,
+        @Field("secret_key") secret_key: String = SECRET_KEY
+    ): BaseModel
+
+    @FormUrlEncoded
+    @POST(Endpoints.PUSH_MESSAGES)
+    suspend fun notifications(
+        @Field("auth_token") auth_token: String?,
+        @Field("secret_key") secret_key: String = SECRET_KEY
+    ): PushResponseModel
+
+    @FormUrlEncoded
+    @POST(Endpoints.PUSH_READ)
+    suspend fun readPush(
+        @Field("ids") ids: String,
+        @Field("auth_token") auth_token: String?,
+        @Field("secret_key") secret_key: String = SECRET_KEY
+    ): BaseModel
+
+
+    @FormUrlEncoded
+    @POST(Endpoints.PUSH_DELETE)
+    suspend fun deletePush(
+        @Field("ids") ids: String,
+        @Field("auth_token") auth_token: String?,
+        @Field("secret_key") secret_key: String = SECRET_KEY
+    ): BaseModel
 
     companion object {
         private const val SECRET_KEY = "oLOk6x4FC1YCBctFTtEzhkHhkZFYJeW5xFlPZccC4mSmI5Ji"

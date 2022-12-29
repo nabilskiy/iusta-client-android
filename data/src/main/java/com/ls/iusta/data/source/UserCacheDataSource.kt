@@ -4,6 +4,7 @@ import com.ls.iusta.data.models.customer.CustomerEntity
 import com.ls.iusta.data.models.info.AboutEntity
 import com.ls.iusta.data.models.info.FaqEntity
 import com.ls.iusta.data.models.info.TermsEntity
+import com.ls.iusta.data.models.push.PushEntity
 import com.ls.iusta.data.models.user.LoginEntity
 import com.ls.iusta.data.models.user.UserEntity
 import com.ls.iusta.data.repository.UserCache
@@ -87,6 +88,22 @@ class UserCacheDataSource @Inject constructor(
     }
 
     override suspend fun getAuthToken(): String? {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun savePushToken(push_token: String, auth_token: String?): Boolean {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun notifications(auth_token: String?): List<PushEntity> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun readPush(ids: String, auth_token: String?): Boolean {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun deletePush(ids: String, auth_token: String?): Boolean {
         TODO("Not yet implemented")
     }
 }

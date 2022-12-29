@@ -1,6 +1,7 @@
 package com.ls.iusta.remote
 
 import com.ls.iusta.data.models.category.CategoryInfoEntity
+import com.ls.iusta.data.models.push.PushEntity
 import com.ls.iusta.data.models.ticket.AttachmentFileEntity
 import com.ls.iusta.data.models.ticket.ShortTicketEntity
 import com.ls.iusta.data.models.ticket.TicketEntity
@@ -28,9 +29,10 @@ class TicketRemoteImpl @Inject constructor(
 ) : TicketRemote {
     override suspend fun getTickets(
         ticket_status: String,
-        auth_token: String?
+        auth_token: String?,
+        pageNumber: Int?
     ): List<TicketEntity> =
-        ticketService.getTickets(ticket_status, auth_token).response.map {
+        ticketService.getTickets(ticket_status, auth_token, pageNumber).response.map {
             ticketEntityMapper.mapFromModel(it)
         }
 
@@ -100,4 +102,5 @@ class TicketRemoteImpl @Inject constructor(
 
     override suspend fun worker(id: Int, auth_token: String?): WorkerEntity =
         workerEntityMapper.mapFromModel(ticketService.worker(id, auth_token).response)
+
 }

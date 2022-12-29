@@ -14,10 +14,18 @@ import javax.inject.Inject
 class TicketCacheDataSource @Inject constructor(
     private val ticketCache: TicketCache
 ) : TicketDataSource {
-    override suspend fun getTickets(ticket_status: String, auth_token: String?): List<TicketEntity> =
+    override suspend fun getTickets(
+        ticket_status: String,
+        auth_token: String?,
+        pageNumber: Int?
+    ): List<TicketEntity> =
         ticketCache.getTickets()
 
-    override suspend fun getTicket(ticket_status: String, auth_token: String?, ticketId: Long): TicketEntity =
+    override suspend fun getTicket(
+        ticket_status: String,
+        auth_token: String?,
+        ticketId: Long
+    ): TicketEntity =
         ticketCache.getTicket(ticketId)
 
 
@@ -25,10 +33,12 @@ class TicketCacheDataSource @Inject constructor(
         TODO("Not yet implemented")
     }
 
-    override suspend fun createTicket(attachments: List<AttachmentFileEntity>,
-                                      category_id: Int,
-                                      note: String?,
-                                      auth_token: String?): ShortTicketEntity {
+    override suspend fun createTicket(
+        attachments: List<AttachmentFileEntity>,
+        category_id: Int,
+        note: String?,
+        auth_token: String?
+    ): ShortTicketEntity {
         TODO("Not yet implemented")
     }
 

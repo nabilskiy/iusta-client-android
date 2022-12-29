@@ -24,6 +24,11 @@ class Endpoints {
         const val WORKER_RATING_INFO = "mobile/worker_rating_info"
         const val WORKER_INFO = "mobile/worker_info"
 
+        const val PUSH_TOKEN_SAVE = "mobile/push_token_save"
+        const val PUSH_MESSAGES = "mobile/push_notification_messages"
+        const val PUSH_READ = "mobile/push_notification_update"
+        const val PUSH_DELETE = "mobile/push_notification_delete"
+
         const val INFO_ABOUT = "mobile/about"
         const val INFO_FAQ = "mobile/faq"
         const val INFO_DOCS = "mobile/docs"

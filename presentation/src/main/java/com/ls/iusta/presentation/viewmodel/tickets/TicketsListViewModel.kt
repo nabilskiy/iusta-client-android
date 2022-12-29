@@ -17,8 +17,7 @@ import javax.inject.Inject
 @HiltViewModel
 class TicketsListViewModel @Inject constructor(
     contextProvider: CoroutineContextProvider,
-    private val ticketListUseCase: GetTicketListUseCase,
-    private val userInfoUseCase: UserInfoUseCase
+    private val ticketListUseCase: GetTicketListUseCase
 ) : BaseViewModel(contextProvider) {
 
     private val _ticketList = UiAwareLiveData<TicketUIModel>()
@@ -36,7 +35,7 @@ class TicketsListViewModel @Inject constructor(
             if (!active) status = AppConstants.Status.CLOSED
             loadTickets(
                 GetTicketsRequest(
-                    status
+                    status, 1
                 )
             )
         }

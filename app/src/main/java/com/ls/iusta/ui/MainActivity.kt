@@ -1,7 +1,9 @@
 package com.ls.iusta.ui
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -10,26 +12,32 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.ui.setupActionBarWithNavController
+import com.google.firebase.messaging.FirebaseMessaging
 import com.ls.iusta.R
 import com.ls.iusta.base.BaseActivity
+import com.ls.iusta.core.components.TextDrawable.Companion.builder
 import com.ls.iusta.databinding.ActivityMainBinding
+import com.ls.iusta.domain.models.push.MainScreenUIModel
+import com.ls.iusta.extension.observe
 import com.ls.iusta.extension.setupWithNavController
 import com.ls.iusta.extension.showSnackBar
 import com.ls.iusta.extension.startWithAnimation
-import com.ls.iusta.presentation.viewmodel.BaseViewModel
+import com.ls.iusta.presentation.viewmodel.user.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
+
 @AndroidEntryPoint
-class MainActivity : BaseActivity<ActivityMainBinding>()  {
+class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     override fun getViewBinding() = ActivityMainBinding.inflate(layoutInflater)
 
-    override val viewModel: BaseViewModel by viewModels()
+    override val viewModel: MainViewModel by viewModels()
 
     private var currentNavController: LiveData<NavController>? = null
     private var backPressedOnce = false
+    private var viewNotifications: MenuItem? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,7 +63,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>()  {
             R.navigation.history_nav_graph,
             R.navigation.settings_nav_graph
         )
-
         // Setup the bottom navigation view with a list of navigation graphs
         val controller = binding.bottomNavigationView.setupWithNavController(
             navGraphIds = navGraphIds,
@@ -63,7 +70,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>()  {
             containerId = R.id.navigationHostFragment,
             intent = intent
         )
-
         // Whenever the selected controller changes, setup the action bar.
         controller.observe(this, { navController ->
             setupActionBarWithNavController(navController)
@@ -73,11 +79,13 @@ class MainActivity : BaseActivity<ActivityMainBinding>()  {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_top_main, menu)
+        viewNotifications = menu?.findItem(R.id.navigationGraphNotifications)
+        viewModel.getUserInfo()
         return super.onCreateOptionsMenu(menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId){
+        when (item.itemId) {
             R.id.navigationGraphNotifications -> {
                 currentNavController?.value?.navigate(R.id.notificationsFragment)
             }
@@ -101,7 +109,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>()  {
                 delay(2000)
                 backPressedOnce = false
             }
-        }else {
+        } else {
             super.onBackPressed()
         }
     }
@@ -114,9 +122,53 @@ class MainActivity : BaseActivity<ActivityMainBinding>()  {
     }
 
     override fun initUI() {
+        FirebaseMessaging.getInstance().token
+            .addOnSuccessListener { token ->
+                viewModel.saveToken(token)
+            }
+            .addOnFailureListener {
+                viewModel.saveToken(null, it.message.toString())
+            }
+            .addOnCanceledListener {
+                viewModel.saveToken(null)
+            }
     }
 
     override fun initViewModel() {
+        observe(viewModel.mainData, ::onTokenSaved)
     }
+
+    @SuppressLint("UnsafeOptInUsageError")
+    private fun onTokenSaved(event: MainScreenUIModel) {
+        if (event.isRedelivered) return
+        when (event) {
+            is MainScreenUIModel.Loading -> {
+                //    handleLoading(true)
+            }
+            is MainScreenUIModel.Token -> {
+                //     handleLoading(false)
+            }
+            is MainScreenUIModel.User -> {
+                //     handleLoading(false)
+                val count = event.data.unread_messages
+                if (count > 0)
+                    binding.apply {
+                        val badge = builder()
+                            .beginConfig()
+                            .width(68) // width in px
+                            .height(68)
+                            .withBorder(4, Color.YELLOW)
+                            .bold()
+                            .endConfig()
+                            .buildRound(count.toString(), Color.RED)
+                        viewNotifications?.icon = badge
+                    }
+            }
+            is MainScreenUIModel.Error -> {
+                handleErrorMessage(event.error)
+            }
+        }
+    }
+
 
 }

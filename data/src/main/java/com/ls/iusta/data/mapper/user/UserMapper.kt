@@ -23,7 +23,8 @@ class UserMapper @Inject constructor(
             birthday = type.birthday,
             language = type.language,
             phone_number = type.phone_number,
-            customer_name = type.customer_name
+            customer_name = type.customer_name,
+            unread_messages = type.unread_messages
         )
     }
 
@@ -42,7 +43,8 @@ class UserMapper @Inject constructor(
             birthday = type.birthday,
             language = type.language,
             phone_number = type.phone_number,
-            customer_name = type.customer_name
+            customer_name = type.customer_name,
+            unread_messages = type.unread_messages
         )
     }
 }

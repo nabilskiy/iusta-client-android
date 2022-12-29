@@ -23,6 +23,7 @@ data class TicketModel(
     val type_id: String,
     val user_id: Int,
     val category_name: String,
+    val category_icon: String,
     val ticket_priority_name: String,
     val ticket_priority_value_en: String,
     val next_event_label: String,

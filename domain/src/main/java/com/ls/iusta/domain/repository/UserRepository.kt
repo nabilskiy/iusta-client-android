@@ -5,6 +5,7 @@ import com.ls.iusta.domain.models.customer.Customer
 import com.ls.iusta.domain.models.info.About
 import com.ls.iusta.domain.models.info.Faq
 import com.ls.iusta.domain.models.info.Terms
+import com.ls.iusta.domain.models.push.Push
 import com.ls.iusta.domain.models.user.User
 import kotlinx.coroutines.flow.Flow
 
@@ -46,5 +47,8 @@ interface UserRepository {
     suspend fun faq(lang: String?): Flow<List<Faq>>
     suspend fun terms(lang: String?): Flow<List<Terms>>
 
-    // Cache
+    suspend fun savePushToken(push_token: String): Flow<Boolean>
+    suspend fun notifications(): Flow<List<Push>>
+    suspend fun readPush(ids: String): Flow<Boolean>
+    suspend fun deletePush(ids: String): Flow<Boolean>
 }

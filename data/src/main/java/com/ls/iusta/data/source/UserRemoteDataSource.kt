@@ -4,6 +4,7 @@ import com.ls.iusta.data.models.customer.CustomerEntity
 import com.ls.iusta.data.models.info.AboutEntity
 import com.ls.iusta.data.models.info.FaqEntity
 import com.ls.iusta.data.models.info.TermsEntity
+import com.ls.iusta.data.models.push.PushEntity
 import com.ls.iusta.data.models.user.LoginEntity
 import com.ls.iusta.data.models.user.UserEntity
 import com.ls.iusta.data.repository.UserDataSource
@@ -98,6 +99,19 @@ class UserRemoteDataSource @Inject constructor(
 
     override suspend fun terms(lang: String?): List<TermsEntity> =
         userRemote.terms(lang)
+
+
+    override suspend fun savePushToken(push_token: String, auth_token: String?): Boolean =
+        userRemote.savePushToken(push_token, auth_token)
+
+    override suspend fun notifications(auth_token: String?): List<PushEntity> =
+        userRemote.notifications(auth_token)
+
+    override suspend fun readPush(ids: String, auth_token: String?): Boolean =
+        userRemote.readPush(ids, auth_token)
+
+    override suspend fun deletePush(ids: String, auth_token: String?): Boolean =
+        userRemote.deletePush(ids, auth_token)
 
     override suspend fun getAuthToken(): String? {
         TODO("Not yet implemented")

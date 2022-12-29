@@ -16,5 +16,7 @@ data class UserModel (
     val birthday: String?,
     val language: String?,
     val phone_number: String?,
-    val customer_name: String?
+    val customer_name: String?,
+    val unread_messages: Int
+
 )

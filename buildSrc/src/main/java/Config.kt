@@ -10,12 +10,14 @@ object Config {
 
     object ClassPaths {
         const val androidGradle = "com.android.tools.build:gradle:${Versions.gradleVersion}"
+        const val googleGradle = "com.google.gms:google-services:${Versions.googleVersion}"
         const val kotlinGradle =
             "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlinVersion}"
         const val daggerHiltGradle =
             "com.google.dagger:hilt-android-gradle-plugin:${Versions.hiltAndroidVersion}"
         const val navigationSafArgsGradle =
             "androidx.navigation:navigation-safe-args-gradle-plugin:${Versions.gradleNavigationArgVersion}"
+
         const val ktLint ="org.jlleitschuh.gradle:ktlint-gradle:${Versions.ktLintVersion}"
 
         const val jitPackUrl = "https://jitpack.io"
@@ -29,6 +31,7 @@ object Config {
         const val javaLibrary = "java-library"
         const val android = "com.android.application"
         const val kotlinAndroid = "kotlin-android"
+        const val googleServices = "com.google.gms.google-services"
         const val navigationSafArgs = "androidx.navigation.safeargs.kotlin"
         const val kotlinKapt = "kotlin-kapt"
         const val dagger = "dagger.hilt.android.plugin"

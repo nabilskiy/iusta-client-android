@@ -20,6 +20,7 @@
     <string name="resetpass">Reset password</string>
     <string name="send">Send</string>
     <string name="goback">Go Back</string>
+    <string name="resetpass_error_empty" translatable="false">Please enter your email address</string>
     <string name="resetpass_message">Please enter your email address. You will receive a link to create a new password via email</string>
 
     <!-- Change Password Fragment -->

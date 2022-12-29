@@ -29,6 +29,7 @@ class TicketEntityMapper @Inject constructor(
             type_id = model.type_id,
             user_id = model.user_id,
             category_name = model.category_name,
+            category_icon = model.category_icon,
             ticket_priority_name = model.ticket_priority_name,
             ticket_priority_value_en = model.ticket_priority_value_en,
             next_event_label = model.next_event_label,

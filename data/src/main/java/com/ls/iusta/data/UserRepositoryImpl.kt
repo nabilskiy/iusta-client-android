@@ -4,6 +4,7 @@ import com.ls.iusta.data.mapper.customer.CustomerMapper
 import com.ls.iusta.data.mapper.info.AboutMapper
 import com.ls.iusta.data.mapper.info.FaqMapper
 import com.ls.iusta.data.mapper.info.TermsMapper
+import com.ls.iusta.data.mapper.push.PushMapper
 import com.ls.iusta.data.mapper.user.LoginMapper
 import com.ls.iusta.data.mapper.user.UserMapper
 import com.ls.iusta.data.source.UserDataSourceFactory
@@ -12,11 +13,14 @@ import com.ls.iusta.domain.models.customer.Customer
 import com.ls.iusta.domain.models.info.About
 import com.ls.iusta.domain.models.info.Faq
 import com.ls.iusta.domain.models.info.Terms
+import com.ls.iusta.domain.models.push.Push
 import com.ls.iusta.domain.models.user.User
 import com.ls.iusta.domain.repository.UserRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
+import kotlin.coroutines.resume
+import kotlin.coroutines.suspendCoroutine
 
 class UserRepositoryImpl @Inject constructor(
     private val userDataSourceFactory: UserDataSourceFactory,
@@ -25,7 +29,8 @@ class UserRepositoryImpl @Inject constructor(
     private val customerMapper: CustomerMapper,
     private val aboutMapper: AboutMapper,
     private val faqMapper: FaqMapper,
-    private val termsMapper: TermsMapper
+    private val termsMapper: TermsMapper,
+    private val pushMapper: PushMapper
 ) : UserRepository {
 
     override suspend fun login(email: String, password: String): Flow<Login> = flow {
@@ -33,6 +38,7 @@ class UserRepositoryImpl @Inject constructor(
         userDataSourceFactory.getCacheDataSource().setAuthToken(login.auth_token)
         emit(loginMapper.mapFromEntity(login))
     }
+
     override suspend fun register(
         username: String,
         password: String,
@@ -121,26 +127,34 @@ class UserRepositoryImpl @Inject constructor(
         new_password_confirmation: String
     ): Flow<Boolean> = flow {
         val updated = userDataSourceFactory.getRemoteDataSource()
-            .updatePassword(old_password, new_password, new_password_confirmation, userDataSourceFactory.getAuthToken())
+            .updatePassword(
+                old_password,
+                new_password,
+                new_password_confirmation,
+                userDataSourceFactory.getAuthToken()
+            )
         emit(updated)
     }
 
     override suspend fun logout(): Flow<Boolean> = flow {
-        val logout = userDataSourceFactory.getRemoteDataSource().logout(userDataSourceFactory.getAuthToken())
+        val logout =
+            userDataSourceFactory.getRemoteDataSource().logout(userDataSourceFactory.getAuthToken())
         userDataSourceFactory.getCacheDataSource().setAuthToken("")
         emit(logout)
     }
 
     override suspend fun about(): Flow<List<About>> = flow {
-        val aboutList = userDataSourceFactory.getRemoteDataSource().about(userDataSourceFactory.getAuthToken())
-            .map { aboutEntity ->
-                aboutMapper.mapFromEntity(aboutEntity)
-            }
+        val aboutList =
+            userDataSourceFactory.getRemoteDataSource().about(userDataSourceFactory.getAuthToken())
+                .map { aboutEntity ->
+                    aboutMapper.mapFromEntity(aboutEntity)
+                }
         emit(aboutList)
     }
 
     override suspend fun faq(lang: String?): Flow<List<Faq>> = flow {
-        val faqList = userDataSourceFactory.getRemoteDataSource().faq(lang, userDataSourceFactory.getAuthToken())
+        val faqList = userDataSourceFactory.getRemoteDataSource()
+            .faq(lang, userDataSourceFactory.getAuthToken())
             .map { faqEntity ->
                 faqMapper.mapFromEntity(faqEntity)
             }
@@ -153,5 +167,31 @@ class UserRepositoryImpl @Inject constructor(
                 termsMapper.mapFromEntity(termsEntity)
             }
         emit(termsList)
+    }
+
+    override suspend fun savePushToken(push_token: String): Flow<Boolean> = flow {
+        val result = userDataSourceFactory.getRemoteDataSource()
+            .savePushToken(push_token, userDataSourceFactory.getAuthToken())
+        emit(result)
+    }
+
+    override suspend fun notifications(): Flow<List<Push>> = flow {
+        val notifications = userDataSourceFactory.getRemoteDataSource()
+            .notifications(userDataSourceFactory.getAuthToken()).map { pushEntity ->
+                pushMapper.mapFromEntity(pushEntity)
+            }
+        emit(notifications)
+    }
+
+    override suspend fun readPush(ids: String): Flow<Boolean> = flow {
+        val result = userDataSourceFactory.getRemoteDataSource()
+            .readPush(ids, userDataSourceFactory.getAuthToken())
+        emit(result)
+    }
+
+    override suspend fun deletePush(ids: String): Flow<Boolean> = flow {
+        val result = userDataSourceFactory.getRemoteDataSource()
+            .deletePush(ids, userDataSourceFactory.getAuthToken())
+        emit(result)
     }
 }

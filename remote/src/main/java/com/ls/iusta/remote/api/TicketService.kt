@@ -2,6 +2,7 @@ package com.ls.iusta.remote.api
 
 import com.ls.iusta.remote.models.BaseModel
 import com.ls.iusta.remote.models.category.CategoryResponseModel
+import com.ls.iusta.remote.models.push.PushResponseModel
 import com.ls.iusta.remote.models.ticket.CreateTicketResponseModel
 import com.ls.iusta.remote.models.ticket.TicketNoteResponseModel
 import com.ls.iusta.remote.models.ticket.TicketResponseModel
@@ -35,6 +36,7 @@ interface TicketService {
     suspend fun getTickets(
         @Field("ticket_status") ticket_status: String,
         @Field("auth_token") auth_token: String?,
+        @Field("page_number") pageNumber: Int?,
         @Field("secret_key") secret_key: String = SECRET_KEY
     ): TicketResponseModel
 

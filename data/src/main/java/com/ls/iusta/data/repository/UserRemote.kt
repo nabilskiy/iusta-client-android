@@ -4,6 +4,7 @@ import com.ls.iusta.data.models.customer.CustomerEntity
 import com.ls.iusta.data.models.info.AboutEntity
 import com.ls.iusta.data.models.info.FaqEntity
 import com.ls.iusta.data.models.info.TermsEntity
+import com.ls.iusta.data.models.push.PushEntity
 import com.ls.iusta.data.models.user.LoginEntity
 import com.ls.iusta.data.models.user.UserEntity
 
@@ -43,5 +44,10 @@ interface UserRemote {
     suspend fun about(auth_token: String?): List<AboutEntity>
     suspend fun faq(lang: String?, auth_token: String?): List<FaqEntity>
     suspend fun terms(lang: String?): List<TermsEntity>
+
+    suspend fun savePushToken(push_token: String, auth_token: String?): Boolean
+    suspend fun notifications(auth_token: String?): List<PushEntity>
+    suspend fun readPush(ids: String, auth_token: String?): Boolean
+    suspend fun deletePush(ids: String, auth_token: String?): Boolean
 
 }

@@ -1,6 +1,7 @@
 object Versions {
 
     const val gradleVersion = "7.0.2"
+    const val googleVersion = "4.3.14"
     const val gradleNavigationArgVersion = "2.3.5"
     const val kotlinVersion = "1.5.31"
     const val ktLintVersion = "10.2.0"
@@ -40,6 +41,9 @@ object Versions {
 
     //Locale dependencies
     const val localeVersion = "1.5.1"
+
+    //Firebase dependencies
+    const val firebaseBomVersion = "26.4.0"
 
     //Image Picker dependencies
     const val imagePickerVersion = "2.1"

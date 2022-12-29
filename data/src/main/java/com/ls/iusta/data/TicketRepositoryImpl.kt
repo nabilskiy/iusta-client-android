@@ -30,12 +30,14 @@ class TicketRepositoryImpl @Inject constructor(
     private val attachmentFileMapper: AttachmentFileMapper
 ) : TicketRepository {
     override suspend fun getTickets(
-        ticket_status: String
+        ticket_status: String,
+        pageNumber: Int?
     ): Flow<List<Ticket>> =
         flow {
             //val isCached = ticketDataSourceFactory.getCacheDataSource().isCached()
             val ticketList =
-                ticketDataSourceFactory.getDataStore(false).getTickets(ticket_status, ticketDataSourceFactory.getAuthToken())
+                ticketDataSourceFactory.getDataStore(false)
+                    .getTickets(ticket_status, ticketDataSourceFactory.getAuthToken(), pageNumber)
                     .map { ticketEntity ->
                         ticketMapper.mapFromEntity(ticketEntity)
                     }
@@ -58,7 +60,8 @@ class TicketRepositoryImpl @Inject constructor(
     override suspend fun categories(menu_id: Int): Flow<CategoryInfo> =
         flow {
             val categoryInfo =
-                ticketDataSourceFactory.getRemoteDataSource().categories(menu_id, ticketDataSourceFactory.getAuthToken())
+                ticketDataSourceFactory.getRemoteDataSource()
+                    .categories(menu_id, ticketDataSourceFactory.getAuthToken())
             emit(categoryInfoMapper.mapFromEntity(categoryInfo))
         }
 

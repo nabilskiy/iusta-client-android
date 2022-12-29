@@ -48,7 +48,6 @@ class AddRatingActivity : BaseActivity<ActivityAddRatingBinding>() {
         observe(viewModel.ratingData, ::onViewStateChange)
     }
 
-
     private fun onViewStateChange(result: AddRatingUiModel) {
         if (result.isRedelivered) return
         when (result) {

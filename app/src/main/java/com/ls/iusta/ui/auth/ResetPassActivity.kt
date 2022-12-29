@@ -3,50 +3,54 @@ package com.ls.iusta.ui.auth
 import android.app.Activity
 import android.content.Intent
 import androidx.activity.viewModels
+import com.ls.iusta.R
 import com.ls.iusta.base.BaseActivity
 import com.ls.iusta.databinding.ActivityResetpassBinding
 import com.ls.iusta.domain.models.auth.LoginUiModel
+import com.ls.iusta.domain.models.auth.ResetPassUiModel
 import com.ls.iusta.extension.observe
+import com.ls.iusta.extension.showDialog
 import com.ls.iusta.extension.startWithAnimation
 import com.ls.iusta.presentation.viewmodel.user.LoginViewModel
+import com.ls.iusta.presentation.viewmodel.user.ResetPassViewModel
 import com.ls.iusta.ui.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class ResetPassActivity : BaseActivity<ActivityResetpassBinding>() {
 
-    override val viewModel: LoginViewModel by viewModels()
+    override val viewModel: ResetPassViewModel by viewModels()
 
     override fun getViewBinding() = ActivityResetpassBinding.inflate(layoutInflater)
 
     override fun initUI() {
         with(binding) {
-
             nextButton.setOnClickListener {
-
+                val email = emailTextInputEditText.text.toString()
+                if (email.isNotEmpty())
+                    viewModel.resetPass(email)
+                else emailTextInputLayout.error = getString(R.string.resetpass_error_empty)
             }
-
         }
     }
 
-    private fun onLogin(event: LoginUiModel) {
+    private fun onResetPass(event: ResetPassUiModel) {
         if (event.isRedelivered) return
         when (event) {
-            is LoginUiModel.Loading -> {
+            is ResetPassUiModel.Loading -> {
                 handleLoading(true)
             }
-            is LoginUiModel.Success -> {
+            is ResetPassUiModel.Success -> {
                 handleLoading(false)
-                MainActivity.startActivity(this@ResetPassActivity)
             }
-            is LoginUiModel.Error -> {
+            is ResetPassUiModel.Error -> {
                 handleErrorMessage(event.error)
             }
         }
     }
 
     override fun initViewModel() {
-        observe(viewModel.loginData, ::onLogin)
+        observe(viewModel.resetPassData, ::onResetPass)
     }
 
     companion object {

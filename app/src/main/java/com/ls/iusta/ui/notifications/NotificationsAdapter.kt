@@ -7,43 +7,44 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.RequestManager
 import com.ls.iusta.base.BaseAdapter
+import com.ls.iusta.databinding.ItemPushListBinding
 import com.ls.iusta.databinding.ItemTicketListBinding
+import com.ls.iusta.domain.models.push.Push
 import com.ls.iusta.domain.models.tickets.Ticket
+import com.ls.iusta.ui.ticketslist.TicketAdapter
 import javax.inject.Inject
 
 class NotificationsAdapter @Inject constructor(
 
-) : BaseAdapter<Ticket>() {
+) : BaseAdapter<Push>() {
 
-    private val diffCallback = object : DiffUtil.ItemCallback<Ticket>() {
-        override fun areItemsTheSame(oldItem: Ticket, newItem: Ticket): Boolean =
+    private val diffCallback = object : DiffUtil.ItemCallback<Push>() {
+        override fun areItemsTheSame(oldItem: Push, newItem: Push): Boolean =
             oldItem.id == newItem.id
 
-        override fun areContentsTheSame(oldItem: Ticket, newItem: Ticket): Boolean =
+        override fun areContentsTheSame(oldItem: Push, newItem: Push): Boolean =
             oldItem.hashCode() == newItem.hashCode()
 
     }
 
-    override val differ: AsyncListDiffer<Ticket> = AsyncListDiffer(this, diffCallback)
+    override val differ: AsyncListDiffer<Push> = AsyncListDiffer(this, diffCallback)
 
     override
     fun getViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val binding =
-            ItemTicketListBinding.inflate(
+            ItemPushListBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
             )
-        return TicketViewHolder(binding)
+        return PushViewHolder(binding)
     }
 
-    inner class TicketViewHolder(private val binding: ItemTicketListBinding) :
-        RecyclerView.ViewHolder(binding.root), Binder<Ticket> {
-        override fun bind(item: Ticket) {
+    inner class PushViewHolder(private val binding: ItemPushListBinding) :
+        RecyclerView.ViewHolder(binding.root), Binder<Push> {
+        override fun bind(item: Push) {
             binding.apply {
-                textViewTicketName.text = item.category_name
-                textViewStatus.text = item.current_event_label
-                textViewDate.text = item.create_time
+                textViewTitle.text = item.title
 
                 root.setOnClickListener {
                     onItemClickListener?.let { itemClick ->

@@ -4,6 +4,7 @@ import com.ls.iusta.data.models.customer.CustomerEntity
 import com.ls.iusta.data.models.info.AboutEntity
 import com.ls.iusta.data.models.info.FaqEntity
 import com.ls.iusta.data.models.info.TermsEntity
+import com.ls.iusta.data.models.push.PushEntity
 import com.ls.iusta.data.models.user.LoginEntity
 import com.ls.iusta.data.models.user.UserEntity
 import com.ls.iusta.data.repository.UserRemote
@@ -12,6 +13,7 @@ import com.ls.iusta.remote.mappers.customer.CustomerEntityMapper
 import com.ls.iusta.remote.mappers.info.AboutEntityMapper
 import com.ls.iusta.remote.mappers.info.FaqEntityMapper
 import com.ls.iusta.remote.mappers.info.TermsEntityMapper
+import com.ls.iusta.remote.mappers.push.PushEntityMapper
 import com.ls.iusta.remote.mappers.user.LoginEntityMapper
 import com.ls.iusta.remote.mappers.user.UserEntityMapper
 import javax.inject.Inject
@@ -23,7 +25,8 @@ class UserRemoteImpl @Inject constructor(
     private val customerEntityMapper: CustomerEntityMapper,
     private val aboutEntityMapper: AboutEntityMapper,
     private val faqEntityMapper: FaqEntityMapper,
-    private val termsEntityMapper: TermsEntityMapper
+    private val termsEntityMapper: TermsEntityMapper,
+    private val pushEntityMapper: PushEntityMapper
 ) : UserRemote {
 
     override suspend fun login(email: String, password: String): LoginEntity =
@@ -121,4 +124,17 @@ class UserRemoteImpl @Inject constructor(
             termsEntityMapper.mapFromModel(it)
         }
 
+    override suspend fun savePushToken(push_token: String, auth_token: String?): Boolean =
+        userService.savePushToken(push_token, auth_token).success
+
+    override suspend fun notifications(auth_token: String?): List<PushEntity> =
+        userService.notifications(auth_token).response.map {
+            pushEntityMapper.mapFromModel(it)
+        }
+
+    override suspend fun readPush(ids: String, auth_token: String?): Boolean =
+        userService.readPush(ids, auth_token).success
+
+    override suspend fun deletePush(ids: String, auth_token: String?): Boolean =
+        userService.deletePush(ids, auth_token).success
 }
