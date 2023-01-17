@@ -25,6 +25,7 @@ class ProfileFragment :
 
     override val viewModel: ProfileViewModel by viewModels()
 
+    private var customerId: Int? = 0
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -36,28 +37,32 @@ class ProfileFragment :
     private fun setupViews() {
         binding.apply {
             nextButton.setOnClickListener {
-                viewModel.updateUser(nameTextInputEditText.text.toString(),
+                viewModel.updateUser(
+                    nameTextInputEditText.text.toString(),
                     surnameTextInputEditText.text.toString(),
-                "", phoneTextInputEditText.text.toString(),
-                birthdayTextInputEditText.text.toString(), emailTextInputEditText.text.toString(),
-                "1081")
+                    "",
+                    phoneTextInputEditText.text.toString(),
+                    birthdayTextInputEditText.text.toString(),
+                    emailTextInputEditText.text.toString(),
+                    customerId.toString()
+                )
             }
             azButton.setOnClickListener {
-                changeLocale("az")
+                setLocaleBtn("az")
                 viewModel.setLocale("az")
             }
             engButton.setOnClickListener {
-                changeLocale("en")
+                setLocaleBtn("en")
                 viewModel.setLocale("en")
             }
             ruButton.setOnClickListener {
-                changeLocale("ru")
+                setLocaleBtn("ru")
                 viewModel.setLocale("ru")
             }
         }
     }
 
-    private fun changeLocale(lang: String) {
+    private fun setLocaleBtn(lang: String) {
         when (lang) {
             "az" -> {
                 binding.azButton.background =
@@ -99,6 +104,7 @@ class ProfileFragment :
     }
 
     private fun bindData(user: User) {
+        customerId = user.customer_id
         binding.apply {
             schoolTextInputEditText.setText(user.customer_name)
             nameTextInputEditText.setText(user.firstname)
@@ -123,13 +129,17 @@ class ProfileFragment :
             is UserUiModel.Error -> {
                 handleErrorMessage(result.error)
             }
-            is UserUiModel.ChangeLocale ->{
+            is UserUiModel.ChangeLocale -> {
                 handleLoading(false)
                 (requireActivity() as MainActivity).updateLocale(Locale(result.lang))
             }
             is UserUiModel.GetLocale -> {
                 handleLoading(false)
-                changeLocale(result.lang)
+                setLocaleBtn(result.lang)
+            }
+            is UserUiModel.Updated ->{
+                handleLoading(false)
+
             }
         }
     }

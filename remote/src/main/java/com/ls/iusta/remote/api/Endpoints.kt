@@ -18,6 +18,7 @@ class Endpoints {
         const val TICKET_CREATE = "mobile/tickets_create"
         const val TICKET_NOTE = "mobile/tickets_note"
         const val TICKET_HISTORY = "mobile/tickets_history"
+        const val TICKET_ACTIVE = "mobile/tickets_active"
         const val TICKET_NOTE_INFO = "mobile/tickets_note_info"
 
         const val WORKER_RATING = "mobile/worker_rating"

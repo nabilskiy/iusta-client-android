@@ -7,6 +7,7 @@ import com.ls.iusta.remote.models.worker.RatingModel
 
 data class PushResponseModel(
     var success: Boolean,
+    val message: Map<String, List<String>>?,
     var pageNumber: Int,
     var perPage: Int,
     var pageSize: Int,

@@ -10,8 +10,8 @@ import kotlinx.coroutines.flow.Flow
 
 interface TicketRepository {
     // Remote and cache
-    suspend fun getTickets(ticket_status: String, pageNumber: Int?): Flow<List<Ticket>>
-    suspend fun getTicket(ticket_status: String, ticketId: Long): Flow<Ticket>
+    suspend fun getTickets(ticket_status: Boolean, pageNumber: Int?): Flow<List<Ticket>>
+    suspend fun getTicket(ticketId: Long): Flow<Ticket>
 
 
     suspend fun categories(menu_id: Int): Flow<CategoryInfo>

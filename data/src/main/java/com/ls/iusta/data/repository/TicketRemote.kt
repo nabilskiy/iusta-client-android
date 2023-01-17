@@ -11,12 +11,12 @@ import com.ls.iusta.data.models.worker.WorkerEntity
 
 interface TicketRemote {
     suspend fun getTickets(
-        ticket_status: String,
+        ticket_status: Boolean,
         auth_token: String?,
         pageNumber: Int?
     ): List<TicketEntity>
 
-    suspend fun getTicket(ticket_status: String, auth_token: String?, ticketId: Long): TicketEntity
+    suspend fun getTicket(auth_token: String?, ticketId: Long): TicketEntity
 
     suspend fun categories(menu_id: Int, auth_token: String?): CategoryInfoEntity
     suspend fun createTicket(

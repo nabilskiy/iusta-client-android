@@ -2,7 +2,7 @@ object Versions {
 
     const val gradleVersion = "7.0.2"
     const val googleVersion = "4.3.14"
-    const val gradleNavigationArgVersion = "2.3.5"
+    const val gradleNavigationArgVersion = "2.4.0-alpha04"
     const val kotlinVersion = "1.5.31"
     const val ktLintVersion = "10.2.0"
 
@@ -18,8 +18,8 @@ object Versions {
     const val activityKtxVersion = "1.3.1"
 
     // Navigation component dependencies
-    const val navFragmentKtxVersion = "2.3.5"
-    const val navUiKtxVersion = "2.3.5"
+    const val navFragmentKtxVersion = "2.4.0-alpha04"
+    const val navUiKtxVersion = "2.4.0-alpha04"
 
     // LifeCycle dependencies
     const val viewmodelKtxVersion = "2.3.1"

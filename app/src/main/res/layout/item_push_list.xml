@@ -24,7 +24,7 @@
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:adjustViewBounds="true"
-            android:text="12.12.22 12:45"
+            tools:text="12.12.22 12:45"
             android:paddingEnd="10dp"
             android:gravity="center"
             android:drawablePadding="6dp"

@@ -98,7 +98,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     }
 
     override fun onBackPressed() {
-        if (currentNavController?.value?.graph?.startDestination == currentNavController?.value?.currentDestination?.id) {
+        if (currentNavController?.value?.graph?.startDestinationId == currentNavController?.value?.currentDestination?.id) {
             if (backPressedOnce) {
                 super.onBackPressed()
                 return

@@ -4,6 +4,6 @@ import com.google.gson.annotations.SerializedName
 
 data class TicketNoteResponseModel(
     var success: Boolean,
-    @SerializedName("response")
+    val message: Map<String, List<String>>?,
     val response: String
 )

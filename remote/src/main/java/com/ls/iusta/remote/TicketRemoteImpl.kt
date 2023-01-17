@@ -28,26 +28,29 @@ class TicketRemoteImpl @Inject constructor(
     private val attachmentFileEntityMapper: AttachmentFileEntityMapper
 ) : TicketRemote {
     override suspend fun getTickets(
-        ticket_status: String,
+        ticket_status: Boolean,
         auth_token: String?,
         pageNumber: Int?
     ): List<TicketEntity> =
-        ticketService.getTickets(ticket_status, auth_token, pageNumber).response.map {
-            ticketEntityMapper.mapFromModel(it)
-        }
+        if (ticket_status)
+            ticketService.getActiveTickets(auth_token, pageNumber).response.map {
+                ticketEntityMapper.mapFromModel(it)
+            }
+        else
+            ticketService.getTickets(auth_token, pageNumber).response.map {
+                ticketEntityMapper.mapFromModel(it)
+            }
+
 
     override suspend fun getTicket(
-        ticket_status: String,
         auth_token: String?,
         ticketId: Long
-    ): TicketEntity =
-        ticketEntityMapper.mapFromModel(
-            ticketService.getTicket(
-                ticket_status,
-                auth_token,
-                ticketId
-            ).response[0]
-        )
+    ): TicketEntity = ticketEntityMapper.mapFromModel(
+        ticketService.getTicket(
+            auth_token,
+            ticketId
+        ).response[0]
+    )
 
     override suspend fun categories(menu_id: Int, auth_token: String?): CategoryInfoEntity =
         categoryInfoEntityMapper.mapFromModel(
@@ -57,7 +60,12 @@ class TicketRemoteImpl @Inject constructor(
             ).response
         )
 
-    override suspend fun createTicket(attachments: List<AttachmentFileEntity>, category_id: Int,  note: String?, auth_token: String?): ShortTicketEntity =
+    override suspend fun createTicket(
+        attachments: List<AttachmentFileEntity>,
+        category_id: Int,
+        note: String?,
+        auth_token: String?
+    ): ShortTicketEntity =
         shortTicketEntityMapper.mapFromModel(
             ticketService.createTicket(
                 attachments.map {
@@ -98,7 +106,7 @@ class TicketRemoteImpl @Inject constructor(
         ticketService.addRating(workerRating, ticketId, ticketNote, auth_token).success
 
     override suspend fun getRating(ticketId: Long, auth_token: String?): RatingEntity =
-        ratingEntityMapper.mapFromModel(ticketService.getRating(ticketId,auth_token).response)
+        ratingEntityMapper.mapFromModel(ticketService.getRating(ticketId, auth_token).response)
 
     override suspend fun worker(id: Int, auth_token: String?): WorkerEntity =
         workerEntityMapper.mapFromModel(ticketService.worker(id, auth_token).response)

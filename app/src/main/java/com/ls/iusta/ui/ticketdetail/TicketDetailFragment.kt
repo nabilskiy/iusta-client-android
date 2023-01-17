@@ -147,7 +147,7 @@ class TicketDetailFragment :
                     result.data.let { ticket ->
                         binding.apply {
                             textViewCategory.text = ticket.category_name
-                                // glide.load(ticket.image).circleCrop().into(imageViewTicket)
+                            glide.load(ticket.category_icon).circleCrop().into(imageViewTicket)
                             textViewDate.text = ticket.create_time
                             textViewNumber.text = ticket.tn
                             textViewStatus.text = ticket.current_event_label

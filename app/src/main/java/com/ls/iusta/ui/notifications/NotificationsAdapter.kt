@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.RequestManager
+import com.ls.iusta.R
 import com.ls.iusta.base.BaseAdapter
 import com.ls.iusta.databinding.ItemPushListBinding
 import com.ls.iusta.databinding.ItemTicketListBinding
@@ -45,8 +46,12 @@ class NotificationsAdapter @Inject constructor(
         override fun bind(item: Push) {
             binding.apply {
                 textViewTitle.text = item.title
-
+                dateTv.text = item.created_at
+                if (item.read == 1)
+                    textViewTitle.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
                 root.setOnClickListener {
+                    if (item.read == 0)
+                        textViewTitle.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
                     onItemClickListener?.let { itemClick ->
                         itemClick(item)
                     }

@@ -1,5 +1,6 @@
 package com.ls.iusta
 
+import com.ls.iusta.core.push.NotificationChannels
 import com.ls.iusta.core.theme.ThemeUtils
 import com.ls.iusta.presentation.utils.PresentationPreferencesHelper
 import com.zeugmasolutions.localehelper.LocaleAwareApplication
@@ -20,6 +21,7 @@ class IUSTAApp : LocaleAwareApplication() {
     override fun onCreate() {
         super.onCreate()
         initNightMode()
+        NotificationChannels.create(this)
     }
 
     /**

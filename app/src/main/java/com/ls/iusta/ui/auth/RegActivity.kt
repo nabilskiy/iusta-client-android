@@ -6,6 +6,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.widget.ArrayAdapter
 import androidx.activity.viewModels
+import com.google.android.gms.common.config.GservicesValue.value
 import com.ls.iusta.R
 import com.ls.iusta.base.BaseActivity
 import com.ls.iusta.databinding.ActivityRegisterBinding
@@ -22,6 +23,8 @@ class RegActivity : BaseActivity<ActivityRegisterBinding>() {
     private var customers = emptyList<Customer>()
     private lateinit var adapter: ArrayAdapter<String>
     private lateinit var customerId: String
+    private lateinit var policyLink: String
+    private lateinit var termsLink: String
 
     override val viewModel: RegisterViewModel by viewModels()
 
@@ -29,6 +32,7 @@ class RegActivity : BaseActivity<ActivityRegisterBinding>() {
 
     override fun initViewModel() {
         observe(viewModel.regData, ::onReg)
+        viewModel.getTerms()
     }
 
     override fun initUI() {
@@ -71,15 +75,23 @@ class RegActivity : BaseActivity<ActivityRegisterBinding>() {
                 customerId = customers[i].id.toString()
             }
 
-            binding.messageDialog.setOnClickListener {
-                binding.messageDialog.apply {
+            messageDialog.setOnClickListener {
+                messageDialog.apply {
                     fadeOut()
                     onBackPressed()
                 }
             }
+
+            privacy.setOnClickListener {
+                if (privacy.isChecked)
+                    openBrowser(policyLink)
+            }
+            terms.setOnClickListener {
+                if (terms.isChecked)
+                    openBrowser(termsLink)
+            }
         }
     }
-
 
     private fun onReg(event: RegUiModel) {
         if (event.isRedelivered) return
@@ -93,7 +105,7 @@ class RegActivity : BaseActivity<ActivityRegisterBinding>() {
                     binding.messageDialog.makeVisible()
                 }
             }
-            is RegUiModel.SuccessSearch ->{
+            is RegUiModel.SuccessSearch -> {
                 handleLoading(false)
                 customers = event.data
                 results = event.data.map { it.name }
@@ -107,6 +119,19 @@ class RegActivity : BaseActivity<ActivityRegisterBinding>() {
             }
             is RegUiModel.Error -> {
                 handleErrorMessage(event.error)
+            }
+            is RegUiModel.Docs -> {
+                event.data.map {
+                    when (it.name) {
+                        "PrivacyPolicy" -> {
+                            policyLink = it.value.toString()
+                        }
+                        "UserTermsOfService" -> {
+                            termsLink = it.value.toString()
+                        }
+                    }
+                }
+
             }
         }
     }

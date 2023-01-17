@@ -166,7 +166,7 @@ class CategoriesListFragment :
                 } else {
                     attachIv.setImageURI(fileUri)
                 }
-                handleSelectImage(fileUri)
+             //  handleSelectImage(fileUri)
                 loader.makeGone()
                 attachIvRemove.makeVisible()
             } else if (resultCode == ImagePicker.RESULT_ERROR) {

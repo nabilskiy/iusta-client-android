@@ -2,7 +2,6 @@ package com.ls.iusta.presentation.viewmodel.tickets
 
 import androidx.lifecycle.LiveData
 import com.ls.iusta.domain.interactor.ticket.GetTicketListUseCase
-import com.ls.iusta.domain.interactor.user.UserInfoUseCase
 import com.ls.iusta.domain.models.tickets.GetTicketsRequest
 import com.ls.iusta.domain.models.tickets.TicketUIModel
 import com.ls.iusta.presentation.utils.AppConstants
@@ -28,14 +27,12 @@ class TicketsListViewModel @Inject constructor(
             _ticketList.postValue(TicketUIModel.Error(exception.message ?: "Error"))
         }
 
-    fun getTickets(active: Boolean) {
+    fun getTickets(active: Boolean, page: Int) {
         _ticketList.postValue(TicketUIModel.Loading)
-        var status = AppConstants.Status.OPENED
         launchCoroutineIO {
-            if (!active) status = AppConstants.Status.CLOSED
             loadTickets(
                 GetTicketsRequest(
-                    status, 1
+                    active, page
                 )
             )
         }
@@ -46,6 +43,5 @@ class TicketsListViewModel @Inject constructor(
             _ticketList.postValue(TicketUIModel.Success(it))
         }
     }
-
 
 }

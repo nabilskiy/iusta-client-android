@@ -30,7 +30,7 @@ class TicketRepositoryImpl @Inject constructor(
     private val attachmentFileMapper: AttachmentFileMapper
 ) : TicketRepository {
     override suspend fun getTickets(
-        ticket_status: String,
+        ticket_status: Boolean,
         pageNumber: Int?
     ): Flow<List<Ticket>> =
         flow {
@@ -46,13 +46,12 @@ class TicketRepositoryImpl @Inject constructor(
         }
 
     override suspend fun getTicket(
-        ticket_status: String,
         ticketId: Long
     ): Flow<Ticket> = flow {
         //   var ticket = ticketDataSourceFactory.getCacheDataSource().getTicket(ticket_status, auth_token, ticketId)
         //   if (ticket.title.isEmpty()) {
         var ticket = ticketDataSourceFactory.getRemoteDataSource()
-            .getTicket(ticket_status, ticketDataSourceFactory.getAuthToken(), ticketId)
+            .getTicket(ticketDataSourceFactory.getAuthToken(), ticketId)
         //   }
         emit(ticketMapper.mapFromEntity(ticket))
     }

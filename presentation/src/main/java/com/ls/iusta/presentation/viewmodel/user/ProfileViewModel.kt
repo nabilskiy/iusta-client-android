@@ -76,7 +76,6 @@ class ProfileViewModel @Inject constructor(
         saveUserInfoUseCase(data).collect {
             _userInfo.postValue(UserUiModel.Updated(it))
         }
-        //_userInfo.postValue(UserUiModel.SuccessUpdate(it))
     }
 
 

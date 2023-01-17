@@ -3,6 +3,7 @@ package com.ls.iusta.ui.auth
 import android.app.Activity
 import android.content.Intent
 import androidx.activity.viewModels
+import androidx.core.widget.doOnTextChanged
 import com.ls.iusta.R
 import com.ls.iusta.base.BaseActivity
 import com.ls.iusta.databinding.ActivityLoginBinding
@@ -25,23 +26,19 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
     override fun initUI() {
         with(binding) {
             passwordButton.setOnClickListener {
-                if (passwordEditText.isPassword()) {
-                    passwordEditText.setPasswordState(false)
+                if (passwordTextInputEditText.isPassword()) {
+                    passwordTextInputEditText.setPasswordState(false)
                     passwordButton.setImageResource(R.drawable.ic_password_on)
                 } else {
-                    passwordEditText.setPasswordState(true)
+                    passwordTextInputEditText.setPasswordState(true)
                     passwordButton.setImageResource(R.drawable.ic_password_off)
                 }
-                passwordEditText.setSelection(passwordEditText.text.toString().length)
+                passwordTextInputEditText.setSelection(passwordTextInputEditText.text.toString().length)
             }
 
             nextButton.setOnClickListener {
-                val email = binding.emailTextInputEditText.text.toString()
-                val password = binding.passwordEditText.text.toString()
-
-                if(email.isEmpty())
-                    binding.emailTextInputLayout.error = "Empty email"
-
+                val email = emailTextInputEditText.text.toString()
+                val password = passwordTextInputEditText.text.toString()
                 viewModel.startLogin(email, password)
             }
 
@@ -52,6 +49,18 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
             forgotPass.setOnClickListener {
                 ResetPassActivity.startActivity(this@LoginActivity)
             }
+            emailTextInputEditText.doOnTextChanged { _, _, _, _ ->
+                if (emailTextInputLayout.error != null) {
+                    emailTextInputLayout.error = null
+                }
+            }
+
+            passwordTextInputEditText.doOnTextChanged { _, _, _, _ ->
+                if (passwordTextInputLayout.error != null) {
+                    passwordTextInputLayout.error = null
+                }
+            }
+
         }
     }
 
@@ -63,15 +72,25 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
             }
             is LoginUiModel.Success -> {
                 handleLoading(false)
-                if (event.data.success){
+                if (event.data.success) {
                     MainActivity.startActivity(this@LoginActivity)
-                }else{
+                } else {
                     handleErrorMessage(event.data.message)
                 }
             }
             is LoginUiModel.Error -> {
                 handleErrorMessage(event.error)
             }
+            is LoginUiModel.EmptyEmail -> {
+                binding.emailTextInputLayout.error = getString(R.string.empty_email)
+            }
+            is LoginUiModel.IncorrectEmail -> {
+                binding.emailTextInputLayout.error = getString(R.string.incorrect_email)
+            }
+            is LoginUiModel.PasswordError -> {
+                binding.passwordTextInputLayout.error = getString(R.string.empty_password)
+            }
+
         }
     }
 

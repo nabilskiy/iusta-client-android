@@ -7,7 +7,7 @@
 
     <!-- Login Activity -->
     <string name="login">Войти</string>
-    <string name="signup">Have not registered yet? <b><font color="#FF9800">Sign up</font></b></string>
+    <string name="signup">Еще нет аккаунта? <b><font color="#FF9800">Регистрация</font></b></string>
     <string name="forgotpass">Забыли пароль?</string>
     <string name="next">Далее</string>
     <string name="email">Емейл</string>
@@ -19,19 +19,20 @@
     <string name="resetpass">Сбросить пароль</string>
     <string name="send">Отправить</string>
     <string name="goback">Назад</string>
-    <string name="resetpass_message">Please enter your email address. You will receive a link to create a new password via email</string>
+    <string name="resetpass_message">Пожалуйста, введите свой адрес электронной почты. Вы получите ссылку для создания нового пароля по электронной почте</string>
 
     <!-- Registration Activity -->
     <string name="reg">Зарегистрироваться</string>
-    <string name="loginlabel">Already registered? <b><font color="#FF9800">Log In</font></b></string>
-    <string name="privacy">I accept all <b><u><font color="#FF9800">Terms and Conditions</font></u></b></string>
+    <string name="loginlabel">Есть аккаунт? <b><font color="#FF9800">Войти</font></b></string>
+    <string name="privacy">Я принимаю <b><u><font color="#FF9800">Политику Конфиденциальности</font></u></b></string>
+    <string name="terms">Я принимаю все <b><u><font color="#FF9800">Условия и положения</font></u></b></string>
     <string name="school">Название школы</string>
     <string name="name">Имя</string>
     <string name="surname">Фамилия</string>
     <string name="emailaddress">Емейл адрес</string>
     <string name="phone">Номер телефона</string>
     <string name="tx">Спасибо!</string>
-    <string name="after_reg">Your request been successfully sent! Please wait for your confirmation. Confirmation letter will be sent to your email</string>
+    <string name="after_reg">Ваш запрос успешно отправлен! Пожалуйста, дождитесь вашего подтверждения. Письмо с подтверждением будет отправлено на вашу электронную почту</string>
 
 
     <!-- Tickets Fragment -->
@@ -57,22 +58,19 @@
 
 
     <string name="splash_screen">Splash Screen</string>
-    <string name="bookmark_error">Something went wrong, please try again.</string>
-    <string name="bookmark_success">Ticket bookmarked successfully</string>
-    <string name="un_bookmark_success">Ticket bookmarked removed successfully</string>
-    <string name="assigned_specialist">Assigned specialist</string>
-    <string name="proceed_to_scan">Proceed to scan</string>
+    <string name="assigned_specialist">Назначенный специалист</string>
+    <string name="proceed_to_scan">Сканированию</string>
     <string name="fragment_create_ticket_title_label">Создать заказ</string>
-    <string name="btn_continue">Continue</string>
-    <string name="get_repaired">Choose what you want to get repaired</string>
-    <string name="your_specialist_is_not_assigned">Your specialist is not assigned</string>
-    <string name="your_specialist_on_his_way">Your specialist on his way</string>
-    <string name="your_specialist_has_arrived">Your specialist has arrived</string>
-    <string name="your_request_is_completed">Your request is completed</string>
-    <string name="your_request_was_rejected">Your request has been rejected</string>
-    <string name="assistant_identified">Assistant identified</string>
-    <string name="assistant_not_identified">Assistant not identified</string>
-    <string name="save">Save</string>
+    <string name="btn_continue">Продолжить</string>
+    <string name="get_repaired">Выберите, что вы хотите отремонтировать</string>
+    <string name="your_specialist_is_not_assigned">Ваш специалист не назначен</string>
+    <string name="your_specialist_on_his_way">Ваш специалист в пути</string>
+    <string name="your_specialist_has_arrived">Ваш специалист прибыл</string>
+    <string name="your_request_is_completed">Ваш запрос выполнен</string>
+    <string name="your_request_was_rejected">Ваш запрос был отклонен</string>
+    <string name="assistant_identified">Ассистент определен</string>
+    <string name="assistant_not_identified">Ассистент не идентифицирован</string>
+    <string name="save">Сохранить</string>
     <string name="language">Язык</string>
     <string name="az">AZ</string>
     <string name="eng">ENG</string>
@@ -83,12 +81,14 @@
     <string name="new_password">Новый пароль</string>
     <string name="new_password_confirm">Подтвердите новый пароль</string>
     <string name="fragment_faq_title_label">ЧаВо</string>
-    <string name="fragment_privacy_title_label">Privacy Policy</string>
-    <string name="fragment_terms_title_label">Terms and Conditions</string>
+    <string name="fragment_privacy_title_label">Политика конфиденциальности</string>
+    <string name="fragment_terms_title_label">Условия и положения</string>
     <string name="fragment_profile_title_label">Редактировать профиль</string>
     <string name="fragment_changepass_title_label">Изменить пароль</string>
     <string name="menu_notifications">Уведомления</string>
-    <string name="proceed_anyway">Proceed anyway</string>
+    <string name="proceed_anyway">Все равно продолжить</string>
+    <string name="open_ticket">Открыть тикет</string>
+
 
 
 </resources>

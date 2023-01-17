@@ -24,7 +24,7 @@
     <!-- Registration Activity -->
     <string name="reg">Sign Up</string>
     <string name="loginlabel">Already registered? <b><font color="#FF9800">Log In</font></b></string>
-    <string name="privacy">I accept all <b><u><font color="#FF9800">Terms and Conditions</font></u></b></string>
+    <string name="privacy">I accept <b><u><font color="#FF9800">Privacy Policy</font></u></b></string>
     <string name="school">School Name</string>
     <string name="name">Name</string>
     <string name="surname">Surame</string>
@@ -89,6 +89,8 @@
     <string name="fragment_changepass_title_label">Change password</string>
     <string name="menu_notifications">Notifications</string>
     <string name="proceed_anyway">Proceed anyway</string>
+    <string name="open_ticket">Open ticket</string>
+    <string name="terms">I accept all <b><u><font color="#FF9800">Terms and Conditions</font></u></b></string>
 
 
 </resources>

@@ -14,18 +14,17 @@ class TicketRemoteDataSource @Inject constructor(
     private val ticketRemote: TicketRemote
 ) : TicketDataSource {
     override suspend fun getTickets(
-        ticket_status: String,
+        ticket_status: Boolean,
         auth_token: String?,
         pageNumber: Int?
     ): List<TicketEntity> =
         ticketRemote.getTickets(ticket_status, auth_token, pageNumber)
 
     override suspend fun getTicket(
-        ticket_status: String,
         auth_token: String?,
         ticketId: Long
     ): TicketEntity =
-        ticketRemote.getTicket(ticket_status, auth_token, ticketId)
+        ticketRemote.getTicket(auth_token, ticketId)
 
 
     override suspend fun categories(menu_id: Int, auth_token: String?): CategoryInfoEntity =

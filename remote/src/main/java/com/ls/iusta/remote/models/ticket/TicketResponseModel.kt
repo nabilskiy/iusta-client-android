@@ -4,10 +4,10 @@ import com.google.gson.annotations.SerializedName
 
 data class TicketResponseModel(
     var success: Boolean,
+    val message: Map<String, List<String>>?,
     var pageNumber: Int,
     var perPage: Int,
     var pageSize: Int,
     var totalPagesCount: Int,
-    @SerializedName("response")
     val response: List<TicketModel>
 )

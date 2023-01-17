@@ -13,7 +13,7 @@ class PushMapper @Inject constructor(
     override fun mapFromEntity(model: PushEntity): Push {
         return Push(
             id = model.id,
-            worker_id = model.worker_id,
+            contact_id = model.contact_id,
             ticket_id = model.ticket_id,
             title = model.title,
             text = model.text,
@@ -27,7 +27,7 @@ class PushMapper @Inject constructor(
     override fun mapToEntity(model: Push): PushEntity {
         return PushEntity(
             id = model.id,
-            worker_id = model.worker_id,
+            contact_id = model.contact_id,
             ticket_id = model.ticket_id,
             title = model.title,
             text = model.text,

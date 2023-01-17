@@ -12,16 +12,18 @@ class LoginMapper @Inject constructor(
         return Login(
             auth_token = type.auth_token,
             success = type.success,
-            message = type.message,
+            message = type.message?.entries?.iterator()?.next()?.value?.get(0),
             error = type.error
         )
     }
+
+
 
     override fun mapToEntity(type: Login): LoginEntity {
         return LoginEntity(
             auth_token = type.auth_token,
             success = type.success,
-            message = type.message,
+            message = null,
             error = type.error
         )
     }

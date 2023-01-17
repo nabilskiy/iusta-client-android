@@ -33,7 +33,8 @@
     <!-- Registration Activity -->
     <string name="reg">Sign Up</string>
     <string name="loginlabel">Already registered? <b><font color="#FF9800">Log In</font></b></string>
-    <string name="privacy">I accept all <b><u><font color="#FF9800">Terms and Conditions</font></u></b></string>
+    <string name="privacy">I accept <b><u><font color="#FF9800">Privacy Policy</font></u></b></string>
+    <string name="terms">I accept all <b><u><font color="#FF9800">Terms and Conditions</font></u></b></string>
     <string name="school">School Name</string>
     <string name="name">Name</string>
     <string name="surname">Surame</string>
@@ -72,9 +73,6 @@
     <string name="fragment_faq_title_label">FAQ</string>
     <string name="fragment_privacy_title_label">Privacy Policy</string>
     <string name="fragment_terms_title_label">Terms and Conditions</string>
-
-
-
     <string name="splash_screen">Splash Screen</string>
     <string name="bookmark_error">Something went wrong, please try again.</string>
     <string name="bookmark_success">Ticket bookmarked successfully</string>
@@ -83,7 +81,7 @@
     <string name="proceed_to_scan">Proceed to scan</string>
     <string name="btn_continue">Continue</string>
     <string name="get_repaired">Choose what you want to get repaired</string>
-
+    <string name="open_ticket">Open ticket</string>
     <string name="your_specialist_is_not_assigned">Your specialist is not assigned</string>
     <string name="your_specialist_on_his_way">Your specialist on his way</string>
     <string name="your_specialist_has_arrived">Your specialist has arrived</string>
@@ -98,6 +96,16 @@
     <string name="az">AZ</string>
     <string name="eng">ENG</string>
     <string name="ru">RU</string>
+
+
+    <!-- Errors -->
+    <string name="empty_email" translatable="false">Empty email</string>
+    <string name="incorrect_email" translatable="false">Incorrect email</string>
+    <string name="empty_password" translatable="false">Empty password</string>
+
+    <string name="reset_email" translatable="false">The selected email is invalid.</string>
+
+
 
 
 

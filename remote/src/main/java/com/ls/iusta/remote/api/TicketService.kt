@@ -21,7 +21,7 @@ interface TicketService {
         @Field("secret_key") secret_key: String = SECRET_KEY
     ): CategoryResponseModel
 
-    @Multipart
+   // @Multipart
     @POST(Endpoints.TICKET_CREATE)
     suspend fun createTicket(
         @Part attachments: List<MultipartBody.Part> = emptyList(),
@@ -34,7 +34,14 @@ interface TicketService {
     @FormUrlEncoded
     @POST(Endpoints.TICKET_HISTORY)
     suspend fun getTickets(
-        @Field("ticket_status") ticket_status: String,
+        @Field("auth_token") auth_token: String?,
+        @Field("page_number") pageNumber: Int?,
+        @Field("secret_key") secret_key: String = SECRET_KEY
+    ): TicketResponseModel
+
+    @FormUrlEncoded
+    @POST(Endpoints.TICKET_ACTIVE)
+    suspend fun getActiveTickets(
         @Field("auth_token") auth_token: String?,
         @Field("page_number") pageNumber: Int?,
         @Field("secret_key") secret_key: String = SECRET_KEY
@@ -43,7 +50,6 @@ interface TicketService {
     @FormUrlEncoded
     @POST(Endpoints.TICKET_HISTORY)
     suspend fun getTicket(
-        @Field("ticket_status") status: String,
         @Field("auth_token") auth_token: String?,
         @Field("ticket_id") id: Long,
         @Field("secret_key") secret_key: String = SECRET_KEY

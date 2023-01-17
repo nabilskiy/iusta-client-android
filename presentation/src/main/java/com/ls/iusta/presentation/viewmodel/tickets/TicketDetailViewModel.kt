@@ -51,7 +51,6 @@ class TicketDetailViewModel @Inject constructor(
         _ticketDetail.postValue(TicketDetailUIModel.Loading)
         ticketByIdUseCase(
             GetTicketByIdRequest(
-                AppConstants.Status.OPENED,
                 ticketId
             )
         ).collect {
@@ -72,7 +71,6 @@ class TicketDetailViewModel @Inject constructor(
     fun sendNoteForTicket(ticketId: Long, ticketNote: String?) {
         launchCoroutineIO {
             addNote(ticketId, ticketNote)
-
         }
     }
 

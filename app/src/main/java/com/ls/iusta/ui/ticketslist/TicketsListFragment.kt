@@ -5,6 +5,7 @@ import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.ls.iusta.R
 import com.ls.iusta.base.BaseFragment
 import com.ls.iusta.databinding.FragmentTicketsListBinding
@@ -21,6 +22,9 @@ class TicketsListFragment : BaseFragment<FragmentTicketsListBinding, TicketsList
     lateinit var ticketAdapter: TicketAdapter
 
     var isActive: Boolean = true
+    var pageNum: Int = 1
+    private var isLoading: Boolean = false
+    private lateinit var lManager: LinearLayoutManager
 
     override val viewModel: TicketsListViewModel by viewModels()
 
@@ -31,34 +35,57 @@ class TicketsListFragment : BaseFragment<FragmentTicketsListBinding, TicketsList
         super.onViewCreated(view, savedInstanceState)
         isActive =
             (findNavController().currentDestination?.label == getString(R.string.fragment_tickets_title_label))
-        viewModel.getTickets(isActive)
+        viewModel.getTickets(isActive, pageNum)
         observe(viewModel.ticketList, ::onViewStateChange)
         setupRecyclerView()
     }
 
     private fun setupRecyclerView() {
-        binding.refresh.setOnRefreshListener {
-            binding.refresh.isRefreshing = false
-            viewModel.getTickets(isActive)
-        }
+        binding.apply {
+            refresh.setOnRefreshListener {
+                binding.refresh.isRefreshing = false
+                pageNum = 1
+                viewModel.getTickets(isActive, pageNum)
+            }
 
-        binding.recyclerViewTickets.apply {
-            adapter = ticketAdapter
-            layoutManager = LinearLayoutManager(requireContext())
-        }
+            recyclerViewTickets.apply {
+                adapter = ticketAdapter
+                lManager = LinearLayoutManager(requireContext())
+                layoutManager = lManager
+            }
 
-        ticketAdapter.setItemClickListener { ticket ->
-            findNavController().navigate(
-                TicketsListFragmentDirections.actionTicketListFragmentToTicketDetailFragment(
-                    ticket.id
+            recyclerViewTickets.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    super.onScrolled(recyclerView, dx, dy)
+                    if (!isLoading) {
+                        if (lManager.findLastCompletelyVisibleItemPosition() == ticketAdapter.list.size - 1) {
+                            pageNum++
+                            viewModel.getTickets(isActive, pageNum)
+                            isLoading = true
+                        }
+                    }
+                }
+            })
+
+            ticketAdapter.setItemClickListener { ticket ->
+                findNavController().navigate(
+                    TicketsListFragmentDirections.actionTicketListFragmentToTicketDetailFragment(
+                        ticket.id
+                    )
                 )
-            )
-        }
+            }
 
-        binding.nextButton.setOnClickListener {
-            findNavController().navigate(
-               TicketsListFragmentDirections.actionTicketListFragmentToCreateTicketFragment()
-            )
+            ticketAdapter.registerAdapterDataObserver(object : RecyclerView.AdapterDataObserver() {
+                override fun onItemRangeInserted(positionStart: Int, itemCount: Int) {
+                    lManager.scrollToPositionWithOffset(positionStart, 0)
+                }
+            })
+
+            nextButton.setOnClickListener {
+                findNavController().navigate(
+                    TicketsListFragmentDirections.actionTicketListFragmentToCreateTicketFragment()
+                )
+            }
         }
     }
 
@@ -70,6 +97,8 @@ class TicketsListFragment : BaseFragment<FragmentTicketsListBinding, TicketsList
             }
             is TicketUIModel.Success -> {
                 handleLoading(false)
+                    // val tempList = ticketAdapter.list.toMutableList()
+                //свчавічсссtempList.addAll(event.data)
                 ticketAdapter.list = event.data
             }
             is TicketUIModel.Error -> {
@@ -77,6 +106,5 @@ class TicketsListFragment : BaseFragment<FragmentTicketsListBinding, TicketsList
             }
         }
     }
-
 
 }

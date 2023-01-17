@@ -3,6 +3,7 @@ package com.ls.iusta.ui.auth
 import android.app.Activity
 import android.content.Intent
 import androidx.activity.viewModels
+import androidx.core.widget.doOnTextChanged
 import com.ls.iusta.R
 import com.ls.iusta.base.BaseActivity
 import com.ls.iusta.databinding.ActivityResetpassBinding
@@ -26,11 +27,19 @@ class ResetPassActivity : BaseActivity<ActivityResetpassBinding>() {
     override fun initUI() {
         with(binding) {
             nextButton.setOnClickListener {
-                val email = emailTextInputEditText.text.toString()
-                if (email.isNotEmpty())
-                    viewModel.resetPass(email)
-                else emailTextInputLayout.error = getString(R.string.resetpass_error_empty)
+                viewModel.resetPass(emailTextInputEditText.text.toString())
             }
+
+            backTv.setOnClickListener {
+                finish()
+            }
+
+            emailTextInputEditText.doOnTextChanged { _, _, _, _ ->
+                if (emailTextInputLayout.error != null) {
+                    emailTextInputLayout.error = null
+                }
+            }
+
         }
     }
 
@@ -42,9 +51,17 @@ class ResetPassActivity : BaseActivity<ActivityResetpassBinding>() {
             }
             is ResetPassUiModel.Success -> {
                 handleLoading(false)
+                if (!event.result)
+                    handleErrorMessage(getString(R.string.reset_email))
             }
             is ResetPassUiModel.Error -> {
                 handleErrorMessage(event.error)
+            }
+            is ResetPassUiModel.EmptyEmail -> {
+                binding.emailTextInputLayout.error = getString(R.string.empty_email)
+            }
+            is ResetPassUiModel.IncorrectEmail -> {
+                binding.emailTextInputLayout.error = getString(R.string.incorrect_email)
             }
         }
     }

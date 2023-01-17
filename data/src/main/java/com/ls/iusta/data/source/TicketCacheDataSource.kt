@@ -15,14 +15,13 @@ class TicketCacheDataSource @Inject constructor(
     private val ticketCache: TicketCache
 ) : TicketDataSource {
     override suspend fun getTickets(
-        ticket_status: String,
+        ticket_status: Boolean,
         auth_token: String?,
         pageNumber: Int?
     ): List<TicketEntity> =
         ticketCache.getTickets()
 
     override suspend fun getTicket(
-        ticket_status: String,
         auth_token: String?,
         ticketId: Long
     ): TicketEntity =

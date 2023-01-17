@@ -14,7 +14,7 @@ import com.ls.iusta.ui.MainActivity
 
 class MessagingService : FirebaseMessagingService() {
 
-    override fun onMessageReceived(p0: RemoteMessage) {
+        override fun onMessageReceived(p0: RemoteMessage) {
         super.onMessageReceived(p0)
         Timber.tag("logtag").d("Message ${p0.data}")
         val title = p0.data["title"]

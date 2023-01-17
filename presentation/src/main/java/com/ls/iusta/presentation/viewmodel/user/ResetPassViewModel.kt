@@ -32,12 +32,29 @@ class ResetPassViewModel @Inject constructor(
 
     fun resetPass(email: String) {
         _resetPassData.postValue(ResetPassUiModel.Loading)
-        launchCoroutineIO {
-            resetPassUseCase(email).collect {
-                _resetPassData.postValue(ResetPassUiModel.Success(it))
+        if (checkEmail(email)) {
+            launchCoroutineIO {
+                resetPassUseCase(email).collect {
+                    _resetPassData.postValue(ResetPassUiModel.Success(it))
+                }
             }
         }
     }
 
+    // Check email field
+    private fun checkEmail(email: String): Boolean {
+        var isValid = true
+        when {
+            email.isEmpty() -> {
+                _resetPassData.postValue(ResetPassUiModel.EmptyEmail)
+                isValid = false
+            }
+            android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches().not() -> {
+                _resetPassData.postValue(ResetPassUiModel.IncorrectEmail)
+                isValid = false
+            }
+        }
+        return isValid
+    }
 
 }

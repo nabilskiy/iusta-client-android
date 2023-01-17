@@ -3,7 +3,10 @@ package com.ls.iusta.presentation.viewmodel.user
 import androidx.lifecycle.LiveData
 import com.ls.iusta.domain.interactor.auth.RegUseCase
 import com.ls.iusta.domain.interactor.customer.GetCustomersListUseCase
+import com.ls.iusta.domain.interactor.info.GetTermsUseCase
 import com.ls.iusta.domain.models.auth.*
+import com.ls.iusta.domain.models.info.GetInfoRequest
+import com.ls.iusta.domain.models.info.TermsUiModel
 import com.ls.iusta.presentation.utils.CoroutineContextProvider
 import com.ls.iusta.presentation.utils.UiAwareLiveData
 import com.ls.iusta.presentation.viewmodel.BaseViewModel
@@ -16,7 +19,8 @@ import javax.inject.Inject
 class RegisterViewModel @Inject constructor(
     contextProvider: CoroutineContextProvider,
     private val getCustomersListUseCase: GetCustomersListUseCase,
-    private val regUseCase: RegUseCase
+    private val regUseCase: RegUseCase,
+    private val getTermsUseCase: GetTermsUseCase,
 ) : BaseViewModel(contextProvider) {
 
     private val _regData = UiAwareLiveData<RegUiModel>()
@@ -40,18 +44,52 @@ class RegisterViewModel @Inject constructor(
         }
     }
 
-    fun startReg(username: String, password: String, password_confirmation: String, firstname: String,
-                 lastname: String, middlename: String, phone_number: String, birthday: String,
-                 email: String, il_customer_id: String, language: String) {
+    fun startReg(
+        username: String, password: String, password_confirmation: String, firstname: String,
+        lastname: String, middlename: String, phone_number: String, birthday: String,
+        email: String, il_customer_id: String, language: String
+    ) {
         _regData.postValue(RegUiModel.Loading)
         launchCoroutineIO {
-            createUser(RegRequest(username, password, password_confirmation, firstname, lastname, middlename, phone_number, birthday, email, il_customer_id, language))
+            createUser(
+                RegRequest(
+                    username,
+                    password,
+                    password_confirmation,
+                    firstname,
+                    lastname,
+                    middlename,
+                    phone_number,
+                    birthday,
+                    email,
+                    il_customer_id,
+                    language
+                )
+            )
         }
     }
 
     private suspend fun createUser(data: RegRequest) {
         regUseCase(data).collect {
             _regData.postValue(RegUiModel.Success(it))
+        }
+    }
+
+    fun getTerms() {
+        launchCoroutineIO {
+            loadTerms(
+                GetInfoRequest(
+                    "en"
+                )
+            )
+        }
+    }
+
+    private suspend fun loadTerms(data: GetInfoRequest) {
+        getTermsUseCase(
+            data
+        ).collect {
+            _regData.postValue(RegUiModel.Docs(it))
         }
     }
 
