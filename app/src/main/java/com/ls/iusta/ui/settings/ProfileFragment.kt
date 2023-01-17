@@ -139,7 +139,6 @@ class ProfileFragment :
             }
             is UserUiModel.Updated ->{
                 handleLoading(false)
-
             }
         }
     }

@@ -5,6 +5,7 @@ import com.ls.iusta.data.mapper.info.AboutMapper
 import com.ls.iusta.data.mapper.info.FaqMapper
 import com.ls.iusta.data.mapper.info.TermsMapper
 import com.ls.iusta.data.mapper.push.PushMapper
+import com.ls.iusta.data.mapper.user.BaseMapper
 import com.ls.iusta.data.mapper.user.LoginMapper
 import com.ls.iusta.data.mapper.user.UserMapper
 import com.ls.iusta.data.source.UserDataSourceFactory
@@ -14,6 +15,7 @@ import com.ls.iusta.domain.models.info.About
 import com.ls.iusta.domain.models.info.Faq
 import com.ls.iusta.domain.models.info.Terms
 import com.ls.iusta.domain.models.push.Push
+import com.ls.iusta.domain.models.user.Base
 import com.ls.iusta.domain.models.user.User
 import com.ls.iusta.domain.repository.UserRepository
 import kotlinx.coroutines.flow.Flow
@@ -30,7 +32,8 @@ class UserRepositoryImpl @Inject constructor(
     private val aboutMapper: AboutMapper,
     private val faqMapper: FaqMapper,
     private val termsMapper: TermsMapper,
-    private val pushMapper: PushMapper
+    private val pushMapper: PushMapper,
+    private val baseMapper: BaseMapper
 ) : UserRepository {
 
     override suspend fun login(email: String, password: String): Flow<Login> = flow {
@@ -51,7 +54,7 @@ class UserRepositoryImpl @Inject constructor(
         email: String,
         il_customer_id: String,
         language: String
-    ): Flow<Boolean> = flow {
+    ): Flow<Base> = flow {
         var created = userDataSourceFactory.getRemoteDataSource().register(
             username,
             password,
@@ -65,7 +68,7 @@ class UserRepositoryImpl @Inject constructor(
             il_customer_id,
             language
         )
-        emit(created)
+        emit(baseMapper.mapFromEntity(created))
     }
 
     override suspend fun userInfo(): Flow<User> = flow {

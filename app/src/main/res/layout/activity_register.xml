@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nested"
     android:fillViewport="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -109,6 +110,7 @@
             app:errorEnabled="true"
             app:boxStrokeWidth="0dp"
             app:boxStrokeWidthFocused="0dp"
+            android:hint="@string/school"
             app:layout_constraintBottom_toTopOf="@id/nameTextInputLayout"
             app:layout_constraintTop_toBottomOf="@+id/langBox">
 
@@ -116,8 +118,8 @@
                 android:id="@+id/schoolTextInputEditText"
                 style="@style/TextInputLayout.Login"
                 android:layout_width="match_parent"
-                android:hint="@string/school"
-                android:inputType="textEmailAddress" />
+
+                android:inputType="text" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -139,7 +141,7 @@
                 style="@style/TextInputLayout.Login"
                 android:layout_width="match_parent"
                 android:hint="@string/name"
-                android:inputType="textEmailAddress" />
+                android:inputType="textPersonName" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -161,7 +163,7 @@
                 style="@style/TextInputLayout.Login"
                 android:layout_width="match_parent"
                 android:hint="@string/surname"
-                android:inputType="textEmailAddress" />
+                android:inputType="textPersonName" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -205,7 +207,7 @@
                 style="@style/TextInputLayout.Login"
                 android:layout_width="match_parent"
                 android:hint="@string/phone"
-                android:inputType="textEmailAddress" />
+                android:inputType="phone" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -227,7 +229,7 @@
                 style="@style/TextInputLayout.Login"
                 android:layout_width="match_parent"
                 android:hint="@string/password"
-                android:inputType="textEmailAddress" />
+                android:inputType="textPassword" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -249,7 +251,7 @@
                 style="@style/TextInputLayout.Login"
                 android:layout_width="match_parent"
                 android:hint="@string/password_confirm"
-                android:inputType="textEmailAddress" />
+                android:inputType="textPassword" />
 
         </com.google.android.material.textfield.TextInputLayout>
 

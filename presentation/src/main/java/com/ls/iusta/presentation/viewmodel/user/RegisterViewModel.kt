@@ -7,7 +7,9 @@ import com.ls.iusta.domain.interactor.info.GetTermsUseCase
 import com.ls.iusta.domain.models.auth.*
 import com.ls.iusta.domain.models.info.GetInfoRequest
 import com.ls.iusta.domain.models.info.TermsUiModel
+import com.ls.iusta.domain.models.user.UserUiModel
 import com.ls.iusta.presentation.utils.CoroutineContextProvider
+import com.ls.iusta.presentation.utils.PresentationPreferencesHelper
 import com.ls.iusta.presentation.utils.UiAwareLiveData
 import com.ls.iusta.presentation.viewmodel.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -21,6 +23,7 @@ class RegisterViewModel @Inject constructor(
     private val getCustomersListUseCase: GetCustomersListUseCase,
     private val regUseCase: RegUseCase,
     private val getTermsUseCase: GetTermsUseCase,
+    private val presentationPreferencesHelper: PresentationPreferencesHelper
 ) : BaseViewModel(contextProvider) {
 
     private val _regData = UiAwareLiveData<RegUiModel>()
@@ -77,11 +80,10 @@ class RegisterViewModel @Inject constructor(
 
     fun getTerms() {
         launchCoroutineIO {
-            loadTerms(
-                GetInfoRequest(
-                    "en"
-                )
-            )
+            getLocale()
+            loadTerms( GetInfoRequest(
+                presentationPreferencesHelper.locale.toString()
+            ))
         }
     }
 
@@ -90,6 +92,17 @@ class RegisterViewModel @Inject constructor(
             data
         ).collect {
             _regData.postValue(RegUiModel.Docs(it))
+        }
+    }
+
+    private fun getLocale() {
+        _regData.postValue(RegUiModel.GetLocale(presentationPreferencesHelper.locale.toString()))
+    }
+
+    fun setLocale(lang: String) {
+        lang.run {
+            presentationPreferencesHelper.locale = lang
+            _regData.postValue(RegUiModel.ChangeLocale(lang))
         }
     }
 

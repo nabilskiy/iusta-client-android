@@ -6,6 +6,7 @@ import com.ls.iusta.domain.models.info.About
 import com.ls.iusta.domain.models.info.Faq
 import com.ls.iusta.domain.models.info.Terms
 import com.ls.iusta.domain.models.push.Push
+import com.ls.iusta.domain.models.user.Base
 import com.ls.iusta.domain.models.user.User
 import kotlinx.coroutines.flow.Flow
 
@@ -16,7 +17,7 @@ interface UserRepository {
         username: String, password: String, password_confirmation: String, firstname: String,
         lastname: String, middlename: String, phone_number: String, birthday: String,
         email: String, il_customer_id: String, language: String
-    ): Flow<Boolean>
+    ): Flow<Base>
 
     suspend fun userInfo(): Flow<User>
     suspend fun getAuthToken(): Flow<String?>

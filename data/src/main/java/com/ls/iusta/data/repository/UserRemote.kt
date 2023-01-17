@@ -1,5 +1,6 @@
 package com.ls.iusta.data.repository
 
+import com.ls.iusta.data.models.BaseModelEntity
 import com.ls.iusta.data.models.customer.CustomerEntity
 import com.ls.iusta.data.models.info.AboutEntity
 import com.ls.iusta.data.models.info.FaqEntity
@@ -14,7 +15,7 @@ interface UserRemote {
         username: String, password: String, password_confirmation: String, firstname: String,
         lastname: String, middlename: String, phone_number: String, birthday: String,
         email: String, il_customer_id: String, language: String
-    ): Boolean
+    ): BaseModelEntity
 
     suspend fun editUserInfo(
         firstname: String,

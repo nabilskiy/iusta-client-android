@@ -102,7 +102,12 @@
     <string name="empty_email" translatable="false">Empty email</string>
     <string name="incorrect_email" translatable="false">Incorrect email</string>
     <string name="empty_password" translatable="false">Empty password</string>
-
+    <string name="empty_password_confirm" translatable="false">Empty confirm password</string>
+    <string name="empty_name" translatable="false">Empty name</string>
+    <string name="empty_surname" translatable="false">Empty surname</string>
+    <string name="empty_phone" translatable="false">Empty phone</string>
+    <string name="empty_school" translatable="false">Empty customer</string>
+    <string name="privacy_and_terms" translatable="false">You must accept the privacy policy and terms and conditions</string>
     <string name="reset_email" translatable="false">The selected email is invalid.</string>
 
 

@@ -1,5 +1,6 @@
 package com.ls.iusta.data.source
 
+import com.ls.iusta.data.models.BaseModelEntity
 import com.ls.iusta.data.models.customer.CustomerEntity
 import com.ls.iusta.data.models.info.AboutEntity
 import com.ls.iusta.data.models.info.FaqEntity
@@ -32,7 +33,7 @@ class UserCacheDataSource @Inject constructor(
         email: String,
         il_customer_id: String,
         language: String
-    ): Boolean {
+    ): BaseModelEntity {
         TODO("Not yet implemented")
     }
 

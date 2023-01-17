@@ -1,5 +1,6 @@
 package com.ls.iusta.remote
 
+import com.ls.iusta.data.models.BaseModelEntity
 import com.ls.iusta.data.models.customer.CustomerEntity
 import com.ls.iusta.data.models.info.AboutEntity
 import com.ls.iusta.data.models.info.FaqEntity
@@ -14,8 +15,10 @@ import com.ls.iusta.remote.mappers.info.AboutEntityMapper
 import com.ls.iusta.remote.mappers.info.FaqEntityMapper
 import com.ls.iusta.remote.mappers.info.TermsEntityMapper
 import com.ls.iusta.remote.mappers.push.PushEntityMapper
+import com.ls.iusta.remote.mappers.user.BaseEntityMapper
 import com.ls.iusta.remote.mappers.user.LoginEntityMapper
 import com.ls.iusta.remote.mappers.user.UserEntityMapper
+import com.ls.iusta.remote.models.BaseModel
 import javax.inject.Inject
 
 class UserRemoteImpl @Inject constructor(
@@ -26,7 +29,8 @@ class UserRemoteImpl @Inject constructor(
     private val aboutEntityMapper: AboutEntityMapper,
     private val faqEntityMapper: FaqEntityMapper,
     private val termsEntityMapper: TermsEntityMapper,
-    private val pushEntityMapper: PushEntityMapper
+    private val pushEntityMapper: PushEntityMapper,
+    private val baseEntityMapper: BaseEntityMapper
 ) : UserRemote {
 
     override suspend fun login(email: String, password: String): LoginEntity =
@@ -49,8 +53,8 @@ class UserRemoteImpl @Inject constructor(
         username: String, password: String, password_confirmation: String, firstname: String,
         lastname: String, middlename: String, phone_number: String, birthday: String,
         email: String, il_customer_id: String, language: String
-    ): Boolean =
-        userService.registerUser(
+    ): BaseModelEntity =
+        baseEntityMapper.mapFromModel(userService.registerUser(
             username,
             password,
             password_confirmation,
@@ -62,7 +66,8 @@ class UserRemoteImpl @Inject constructor(
             email,
             il_customer_id,
             language
-        ).success
+        ))
+
 
     override suspend fun editUserInfo(
         firstname: String,
