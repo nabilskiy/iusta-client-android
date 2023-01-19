@@ -44,6 +44,7 @@ class RegActivity : BaseActivity<ActivityRegisterBinding>() {
 
     override fun initUI() {
       //  setHints()
+        //todo fix hints  implementation 'com.google.android.material:material:1.7.0'
         with(binding) {
             nextButton.setOnClickListener {
                 clearErrors()

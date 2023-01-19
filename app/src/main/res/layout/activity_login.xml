@@ -49,7 +49,7 @@
         android:id="@+id/emailTextInputEditText"
         style="@style/TextInputLayout.Login"
         android:layout_width="match_parent"
-        tools:text="alex_n@alex_n.com"
+        android:text="alex_n@alex_n.com"
         android:hint="@string/email"
         android:inputType="textEmailAddress" />
 
@@ -72,7 +72,7 @@
         android:id="@+id/passwordTextInputEditText"
         style="@style/TextInputLayout.Login"
         android:layout_width="match_parent"
-        tools:text="BZ67BeW4HwVqwBu"
+        android:text="BZ67BeW4HwVqwBu"
         android:hint="@string/password"
         android:inputType="textPassword" />
 
