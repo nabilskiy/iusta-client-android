@@ -97,8 +97,8 @@ class TicketsListFragment : BaseFragment<FragmentTicketsListBinding, TicketsList
             }
             is TicketUIModel.Success -> {
                 handleLoading(false)
-                    // val tempList = ticketAdapter.list.toMutableList()
-                //свчавічсссtempList.addAll(event.data)
+                // val tempList = ticketAdapter.list.toMutableList()
+                //tempList.addAll(event.data)
                 ticketAdapter.list = event.data
             }
             is TicketUIModel.Error -> {

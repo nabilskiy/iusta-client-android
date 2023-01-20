@@ -2,7 +2,8 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -70,53 +71,52 @@
             android:textColor="@color/black"
             android:textSize="14sp" />
 
-        <ImageView
-            android:id="@+id/attachment"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_below="@+id/note"
-            android:layout_margin="12dp"
-            android:scaleType="centerInside" />
-        <ProgressBar
-            android:id="@+id/loader"
-            android:visibility="gone"
-            android:layout_margin="18dp"
-            android:layout_below="@+id/note"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <ImageView
-            android:id="@+id/remove"
-            android:visibility="gone"
-            android:src="@drawable/ic_delete"
-            android:layout_width="wrap_content"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/attachments"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:scaleType="centerInside"
             android:layout_below="@+id/note"
-            android:layout_toRightOf="@+id/attachment"
+            android:clipToPadding="true"
+            android:orientation="horizontal"
+            android:paddingStart="8dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/item_attach_list" />
+
+        <TextView
+            android:id="@+id/size"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/attachments"
+            android:layout_toLeftOf="@+id/idBtnDismiss"
             android:layout_marginTop="12dp"
-            />
+            android:gravity="center"
+            android:padding="8dp"
+            android:text="@string/total_size" />
 
 
         <Button
             android:id="@+id/idBtnDismiss"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/note"
+            android:layout_below="@+id/attachments"
             android:layout_marginStart="12dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="12dp"
             android:layout_marginBottom="12dp"
             android:layout_toLeftOf="@+id/idBtnCreate"
             android:text="Cancel"
             android:textAllCaps="false" />
+
         <Button
             android:id="@+id/idBtnCreate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/attachments"
             android:layout_alignParentEnd="true"
-            android:layout_below="@+id/note"
-            android:layout_margin="12dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginBottom="12dp"
             android:text="Create"
             android:textAllCaps="false" />
 

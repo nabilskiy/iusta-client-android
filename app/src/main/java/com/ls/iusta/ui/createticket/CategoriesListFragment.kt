@@ -11,13 +11,18 @@ import android.provider.OpenableColumns
 import android.view.View
 import android.widget.ImageView
 import android.widget.ProgressBar
+import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.net.toFile
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.github.dhaval2404.imagepicker.ImagePicker
+import com.github.dhaval2404.imagepicker.util.FileUriUtils
+import com.google.android.gms.common.config.GservicesValue.value
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.ls.iusta.R
 import com.ls.iusta.base.BaseFragment
@@ -32,10 +37,15 @@ import com.ls.iusta.extension.makeVisible
 import com.ls.iusta.extension.observe
 import com.ls.iusta.extension.showSnackBar
 import com.ls.iusta.presentation.viewmodel.tickets.CategoriesListViewModel
+import com.ls.iusta.ui.notifications.NotificationsAdapter
+import com.ls.iusta.ui.ticketslist.AttachmentPreview
+import com.ls.iusta.ui.ticketslist.TicketsListFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
 import java.lang.NullPointerException
 import java.net.URI
+import java.text.CharacterIterator
+import java.text.StringCharacterIterator
 import javax.inject.Inject
 
 
@@ -52,11 +62,14 @@ class CategoriesListFragment :
     private var menuId: Int = 0
     private var backMenuId: Int = 0
 
-    private lateinit var loader:ProgressBar
-    private lateinit var attachIv: ImageView
-    private lateinit var attachIvRemove: ImageView
+    private lateinit var attachList: RecyclerView
+    private lateinit var sizeTv: TextView
+    var attachmentSize: Long = 0L
 
+    @Inject
+    lateinit var attachmentsAdapter: AttachmentsAdapter
     private val attachmentFilesList = mutableListOf<AttachmentFile>()
+    private val attachmentsList = mutableListOf<AttachmentPreview>()
 
     override fun getViewBinding(): FragmentCategoriesListBinding =
         FragmentCategoriesListBinding.inflate(layoutInflater)
@@ -65,6 +78,10 @@ class CategoriesListFragment :
         super.onViewCreated(view, savedInstanceState)
         viewModel.getCategories(menuId)
         observe(viewModel.category, ::onViewStateChange)
+        viewModel.orderNoteAttachmentSize.observe(viewLifecycleOwner) { size ->
+            sizeTv.text = getString(R.string.total_size) + humanReadableByteCountBin(size)
+            attachmentSize = size
+        }
         setupRecyclerView()
     }
 
@@ -103,43 +120,56 @@ class CategoriesListFragment :
             }
         }
 
-
+        attachmentsAdapter.setItemClickListener { attach ->
+            viewModel.attachmentDeleteSize(attach.size)
+            attachmentsList.remove(attach)
+            attachmentFilesList.map {
+                if (it.size == attach.size)
+                    attachmentFilesList.remove(it)
+            }
+            attachmentsAdapter.notifyDataSetChanged()
+        }
     }
 
     private fun showCreateDialog() {
         dialog = BottomSheetDialog(requireContext())
         val dialogBindig = DialogCreateTicketBinding.inflate(layoutInflater)
-        loader = dialogBindig.loader
-        attachIv = dialogBindig.attachment
-        attachIvRemove = dialogBindig.remove
-        attachIvRemove.setOnClickListener {
-            attachIv.setImageURI(null)
-            attachIv.setImageResource(0)
-            attachIvRemove.makeGone()
+        attachList = dialogBindig.attachments
+        sizeTv = dialogBindig.size
+        attachList.apply {
+            adapter = attachmentsAdapter
         }
+
         dialogBindig.gallery.setOnClickListener {
-            dialogBindig.loader.makeVisible()
             ImagePicker.with(requireActivity()).galleryOnly().compress(1024)
                 .createIntent { intent ->
                     startForAttachmentResult.launch(intent)
                 }
         }
         dialogBindig.photo.setOnClickListener {
-            dialogBindig.loader.makeVisible()
             ImagePicker.with(requireActivity()).cameraOnly().compress(1024)
                 .createIntent { intent ->
                     startForAttachmentResult.launch(intent)
                 }
         }
         dialogBindig.pdf.setOnClickListener {
-            dialogBindig.loader.makeVisible()
             selectPDF()
         }
         dialogBindig.idBtnDismiss.setOnClickListener {
+            viewModel.attachmentSizeClear()
+            attachmentFilesList.clear()
+            attachmentsList.clear()
+            attachmentsAdapter.notifyDataSetChanged()
             dialog.dismiss()
         }
         dialogBindig.idBtnCreate.setOnClickListener {
-            viewModel.sendTicket(emptyList(), menuId, dialogBindig.note.text.toString())
+            viewModel.sendTicket(
+                attachmentFilesList,
+                menuId,
+                dialogBindig.note.text.toString(),
+                attachmentSize
+            )
+            dialog.dismiss()
         }
         dialog.setCancelable(false)
         dialog.setContentView(dialogBindig.root)
@@ -159,16 +189,7 @@ class CategoriesListFragment :
             if (resultCode == Activity.RESULT_OK) {
                 //Image Uri will not be null for RESULT_OK
                 val fileUri = data?.data!!
-                // Get PDF path
-                //val realPath = FileUriUtils.getRealPath(requireContext(), fileUri)
-                if (isPdf(fileUri) == true) {
-                    attachIv.setImageResource(R.drawable.ic_baseline_insert_drive_file_24)
-                } else {
-                    attachIv.setImageURI(fileUri)
-                }
-             //  handleSelectImage(fileUri)
-                loader.makeGone()
-                attachIvRemove.makeVisible()
+                handleSelectImage(fileUri)
             } else if (resultCode == ImagePicker.RESULT_ERROR) {
                 showSnackBar(binding.root, ImagePicker.getError(data))
             } else {
@@ -184,29 +205,38 @@ class CategoriesListFragment :
             val name =
                 cursor?.getString(cursor.getColumnIndex(MediaStore.Images.Media.DISPLAY_NAME))
             val size = cursor?.getLong(cursor.getColumnIndex(MediaStore.Images.Media.SIZE))
-            attachmentFilesList.add(AttachmentFile(name, size, URI.create(uri.toString()), uri.toFile()))
+            val realPath = FileUriUtils.getRealPath(requireContext(), uri)
+            attachmentFilesList.add(
+                AttachmentFile(
+                    name,
+                    size,
+                    File(realPath)
+                )
+            )
+            size?.let { AttachmentPreview(it, uri) }?.let { attachmentsList.add(it) }
+            attachmentsAdapter.list = attachmentsList
+            attachmentsAdapter.notifyDataSetChanged()
             if (size != null) {
-                viewModel.orderNoteAttachmentResize(size)
-            }
-            if (name != null) {
-              //  addChip(name)
+                viewModel.attachmentResize(size)
             }
         }
     }
 
-
-    private fun isPdf(uri: Uri): Boolean? {
-        try {
-            val mCursor: Cursor =
-                requireContext().getContentResolver().query(uri, null, null, null, null)!!
-            val indexedname: Int = mCursor.getColumnIndex(OpenableColumns.DISPLAY_NAME)
-            mCursor.moveToFirst()
-            val filename: String = mCursor.getString(indexedname)
-            mCursor.close()
-            return filename.lowercase().contains("pdf")
-        } catch (e: NullPointerException) {
-            return false
+    fun humanReadableByteCountBin(bytes: Long): String? {
+        val absB = if (bytes == Long.MIN_VALUE) Long.MAX_VALUE else Math.abs(bytes)
+        if (absB < 1024) {
+            return "$bytes B"
         }
+        var value = absB
+        val ci: CharacterIterator = StringCharacterIterator("KMGTPE")
+        var i = 40
+        while (i >= 0 && absB > 0xfffccccccccccccL shr i) {
+            value = value shr 10
+            ci.next()
+            i -= 10
+        }
+        value *= java.lang.Long.signum(bytes).toLong()
+        return java.lang.String.format("%.1f %cB", value / 1024.0, ci.current())
     }
 
     private fun onViewStateChange(event: CategoryUiModel) {
@@ -226,13 +256,28 @@ class CategoriesListFragment :
             }
             is CategoryUiModel.CreateTicketSuccess -> {
                 handleLoading(false)
-                dialog.hide()
+                if (event.data.success)
+                    dialog.hide()
+                else
+                    event.data.message?.map {
+                        handleErrorMessage(it.value.get(0))
+                    }
+            }
+            is CategoryUiModel.NoteError -> {
+                if (event.error) {
+                    handleLoading(false)
+                    handleErrorMessage(getString(R.string.empty_note))
+                }
+            }
+            is CategoryUiModel.SizeError -> {
+                if (event.error) {
+                    handleLoading(false)
+                    handleErrorMessage(getString(R.string.big_size))
+                }
             }
             is CategoryUiModel.Error -> {
                 handleErrorMessage(event.error)
             }
         }
     }
-
-
 }

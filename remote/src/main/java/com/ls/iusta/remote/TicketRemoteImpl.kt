@@ -3,6 +3,7 @@ package com.ls.iusta.remote
 import com.ls.iusta.data.models.category.CategoryInfoEntity
 import com.ls.iusta.data.models.push.PushEntity
 import com.ls.iusta.data.models.ticket.AttachmentFileEntity
+import com.ls.iusta.data.models.ticket.CreateTicketEntity
 import com.ls.iusta.data.models.ticket.ShortTicketEntity
 import com.ls.iusta.data.models.ticket.TicketEntity
 import com.ls.iusta.data.models.worker.RatingEntity
@@ -11,6 +12,7 @@ import com.ls.iusta.data.repository.TicketRemote
 import com.ls.iusta.remote.api.TicketService
 import com.ls.iusta.remote.mappers.category.CategoryInfoEntityMapper
 import com.ls.iusta.remote.mappers.ticket.AttachmentFileEntityMapper
+import com.ls.iusta.remote.mappers.ticket.CreateTicketEntityMapper
 import com.ls.iusta.remote.mappers.ticket.ShortTicketEntityMapper
 import com.ls.iusta.remote.mappers.ticket.TicketEntityMapper
 import com.ls.iusta.remote.mappers.worker.RatingEntityMapper
@@ -22,6 +24,7 @@ class TicketRemoteImpl @Inject constructor(
     private val ticketService: TicketService,
     private val ticketEntityMapper: TicketEntityMapper,
     private val categoryInfoEntityMapper: CategoryInfoEntityMapper,
+    private val createTicketEntityMapper: CreateTicketEntityMapper,
     private val shortTicketEntityMapper: ShortTicketEntityMapper,
     private val workerEntityMapper: WorkerEntityMapper,
     private val ratingEntityMapper: RatingEntityMapper,
@@ -65,8 +68,8 @@ class TicketRemoteImpl @Inject constructor(
         category_id: Int,
         note: String?,
         auth_token: String?
-    ): ShortTicketEntity =
-        shortTicketEntityMapper.mapFromModel(
+    ): CreateTicketEntity =
+        createTicketEntityMapper.mapFromModel(
             ticketService.createTicket(
                 attachments.map {
                     attachmentFileEntityMapper.mapFromModel(it)
@@ -74,7 +77,7 @@ class TicketRemoteImpl @Inject constructor(
                 category_id,
                 note,
                 auth_token
-            ).response
+            )
         )
 
     override suspend fun addNoteTicket(
@@ -82,13 +85,15 @@ class TicketRemoteImpl @Inject constructor(
         ticketNote: String?,
         auth_token: String?
     ): ShortTicketEntity =
-        shortTicketEntityMapper.mapFromModel(
-            ticketService.ticketNote(
-                ticketId,
-                ticketNote,
-                auth_token
-            ).response
-        )
+        ticketService.ticketNote(
+            ticketId,
+            ticketNote,
+            auth_token
+        ).response?.let {
+            shortTicketEntityMapper.mapFromModel(
+                it
+            )
+        }!!
 
     override suspend fun getNoteTicket(
         ticketId: Long,

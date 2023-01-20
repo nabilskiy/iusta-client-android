@@ -3,6 +3,7 @@ package com.ls.iusta.data
 import com.ls.iusta.data.mapper.category.CategoryInfoMapper
 import com.ls.iusta.data.mapper.category.CategoryMapper
 import com.ls.iusta.data.mapper.ticket.AttachmentFileMapper
+import com.ls.iusta.data.mapper.ticket.CreateTicketMapper
 import com.ls.iusta.data.mapper.ticket.ShortTicketMapper
 import com.ls.iusta.data.mapper.ticket.TicketMapper
 import com.ls.iusta.data.mapper.worker.RatingMapper
@@ -11,6 +12,7 @@ import com.ls.iusta.data.models.ticket.AttachmentFileEntity
 import com.ls.iusta.data.source.TicketDataSourceFactory
 import com.ls.iusta.domain.models.category.CategoryInfo
 import com.ls.iusta.domain.models.tickets.AttachmentFile
+import com.ls.iusta.domain.models.tickets.CreateTicket
 import com.ls.iusta.domain.models.tickets.ShortTicket
 import com.ls.iusta.domain.models.tickets.Ticket
 import com.ls.iusta.domain.models.worker.Rating
@@ -24,6 +26,7 @@ class TicketRepositoryImpl @Inject constructor(
     private val ticketDataSourceFactory: TicketDataSourceFactory,
     private val ticketMapper: TicketMapper,
     private val shortTicketMapper: ShortTicketMapper,
+    private val createTicketMapper: CreateTicketMapper,
     private val categoryInfoMapper: CategoryInfoMapper,
     private val workerMapper: WorkerMapper,
     private val ratingMapper: RatingMapper,
@@ -68,7 +71,7 @@ class TicketRepositoryImpl @Inject constructor(
         attachments: List<AttachmentFile>,
         category_id: Int,
         note: String?
-    ): Flow<ShortTicket> =
+    ): Flow<CreateTicket> =
         flow {
             val ticket =
                 ticketDataSourceFactory.getRemoteDataSource()
@@ -76,7 +79,9 @@ class TicketRepositoryImpl @Inject constructor(
                         attachments.map { attachmentFileMapper.mapToEntity(it) },
                         category_id, note, ticketDataSourceFactory.getAuthToken()
                     )
-            emit(shortTicketMapper.mapFromEntity(ticket))
+
+
+            emit(createTicketMapper.mapFromEntity(ticket))
         }
 
     override suspend fun addNoteTicket(

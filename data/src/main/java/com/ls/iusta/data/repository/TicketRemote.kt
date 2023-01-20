@@ -3,6 +3,7 @@ package com.ls.iusta.data.repository
 import com.ls.iusta.data.models.category.CategoryInfoEntity
 import com.ls.iusta.data.models.push.PushEntity
 import com.ls.iusta.data.models.ticket.AttachmentFileEntity
+import com.ls.iusta.data.models.ticket.CreateTicketEntity
 import com.ls.iusta.data.models.ticket.ShortTicketEntity
 import com.ls.iusta.data.models.ticket.TicketEntity
 import com.ls.iusta.data.models.worker.RatingEntity
@@ -24,7 +25,7 @@ interface TicketRemote {
         category_id: Int,
         note: String?,
         auth_token: String?
-    ): ShortTicketEntity
+    ): CreateTicketEntity
 
     suspend fun addNoteTicket(
         ticketId: Long,

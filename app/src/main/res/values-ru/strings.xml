@@ -88,7 +88,7 @@
     <string name="menu_notifications">Уведомления</string>
     <string name="proceed_anyway">Все равно продолжить</string>
     <string name="open_ticket">Открыть тикет</string>
-
+    <string name="total_size">"Общий размер: "</string>
 
 
 </resources>

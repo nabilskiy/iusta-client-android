@@ -2,11 +2,7 @@ package com.ls.iusta.data.mapper.ticket
 
 import com.ls.iusta.data.mapper.Mapper
 import com.ls.iusta.data.models.ticket.AttachmentFileEntity
-import com.ls.iusta.data.models.ticket.ShortTicketEntity
 import com.ls.iusta.domain.models.tickets.AttachmentFile
-import com.ls.iusta.domain.models.tickets.ShortTicket
-import java.io.File
-import java.net.URI
 import javax.inject.Inject
 
 class AttachmentFileMapper @Inject constructor(
@@ -16,7 +12,6 @@ class AttachmentFileMapper @Inject constructor(
         return AttachmentFile(
             name = type.name,
             size = type.size,
-            uri = type.uri,
             file = type.file
         )
     }
@@ -25,7 +20,6 @@ class AttachmentFileMapper @Inject constructor(
         return AttachmentFileEntity(
             name = type.name,
             size = type.size,
-            uri = type.uri,
             file = type.file
         )
     }

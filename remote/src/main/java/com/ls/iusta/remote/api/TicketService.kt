@@ -21,11 +21,11 @@ interface TicketService {
         @Field("secret_key") secret_key: String = SECRET_KEY
     ): CategoryResponseModel
 
-   // @Multipart
+    @Multipart
     @POST(Endpoints.TICKET_CREATE)
     suspend fun createTicket(
-        @Part attachments: List<MultipartBody.Part> = emptyList(),
-        @Query("category_id") category_id: Int,
+        @Part attachments: List<MultipartBody.Part>?,
+        @Query("category_id") category_id: Int?,
         @Query("note") note: String?,
         @Query("auth_token") auth_token: String?,
         @Query("secret_key") secret_key: String = SECRET_KEY

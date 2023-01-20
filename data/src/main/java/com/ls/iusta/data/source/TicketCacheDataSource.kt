@@ -2,6 +2,7 @@ package com.ls.iusta.data.source
 
 import com.ls.iusta.data.models.category.CategoryInfoEntity
 import com.ls.iusta.data.models.ticket.AttachmentFileEntity
+import com.ls.iusta.data.models.ticket.CreateTicketEntity
 import com.ls.iusta.data.models.ticket.ShortTicketEntity
 import com.ls.iusta.data.models.ticket.TicketEntity
 import com.ls.iusta.data.models.worker.RatingEntity
@@ -37,7 +38,7 @@ class TicketCacheDataSource @Inject constructor(
         category_id: Int,
         note: String?,
         auth_token: String?
-    ): ShortTicketEntity {
+    ): CreateTicketEntity {
         TODO("Not yet implemented")
     }
 

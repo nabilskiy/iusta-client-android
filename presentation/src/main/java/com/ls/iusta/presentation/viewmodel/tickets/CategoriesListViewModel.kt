@@ -32,8 +32,6 @@ class CategoriesListViewModel @Inject constructor(
     val orderNoteAttachmentSize: LiveData<Long>
         get() = orderNoteAttachmentSizeLiveData
 
-
-
     override val coroutineExceptionHandler =
         CoroutineExceptionHandler { _, exception ->
             _category.postValue(CategoryUiModel.Error(exception.message ?: "Error"))
@@ -42,17 +40,18 @@ class CategoriesListViewModel @Inject constructor(
     fun getCategories(menuId: Int) {
         _category.postValue(CategoryUiModel.Loading)
         launchCoroutineIO {
-                loadCategories(
-                    GetCategoryRequest(
-                        menuId
-                    )
+            loadCategories(
+                GetCategoryRequest(
+                    menuId
                 )
+            )
         }
     }
 
-    fun sendTicket(attachments: List<AttachmentFile>, categoryId: Int, note: String?) {
+    fun sendTicket(attachments: List<AttachmentFile>, categoryId: Int, note: String, size: Long) {
         _category.postValue(CategoryUiModel.Loading)
         launchCoroutineIO {
+            if (checkNote(note) && checkAttachmentSize(size))
                 createTicket(
                     CreateTicketRequest(
                         attachments,
@@ -62,7 +61,6 @@ class CategoriesListViewModel @Inject constructor(
                 )
         }
     }
-
 
     private suspend fun loadCategories(data: GetCategoryRequest) {
         getCategoryListUseCase(data).collect {
@@ -76,28 +74,40 @@ class CategoriesListViewModel @Inject constructor(
         }
     }
 
-
-    private fun checkAttachmentSize(): Boolean {
+    private fun checkNote(note: String): Boolean {
         var isValid = true
-        var errorMessage: String? = null
-        val attachmentSize = orderNoteAttachmentSize.value ?: 0L
+        when {
+            note.isEmpty() -> {
+                isValid = false
+            }
+        }
+        _category.postValue(CategoryUiModel.NoteError(!isValid))
+        return isValid
+    }
+
+    private fun checkAttachmentSize(attachmentSize: Long): Boolean {
+        var isValid = true
         if (attachmentSize > 10485760L) {
             isValid = false
-         //   errorMessage =  applicationOrder.resources.getString(R.string.fragment_order_info_note_attachment_large)
         }
-       // errorOrderLiveData.postValue(errorMessage)
+        _category.postValue(CategoryUiModel.SizeError(!isValid))
         return isValid
     }
 
 
-    fun orderNoteAttachmentResize(newSize: Long) {
+    fun attachmentResize(newSize: Long) {
         val attachmentSize = orderNoteAttachmentSize.value ?: 0L
         orderNoteAttachmentSizeLiveData.postValue(attachmentSize.plus(newSize))
     }
 
-    fun orderNoteAttachmentSizeClear() {
-        orderNoteAttachmentSizeLiveData.postValue(0L)
+    fun attachmentDeleteSize(newSize: Long) {
+        val attachmentSize = orderNoteAttachmentSize.value ?: 0L
+        orderNoteAttachmentSizeLiveData.postValue(attachmentSize.minus(newSize))
     }
 
+
+    fun attachmentSizeClear() {
+        orderNoteAttachmentSizeLiveData.postValue(0L)
+    }
 
 }

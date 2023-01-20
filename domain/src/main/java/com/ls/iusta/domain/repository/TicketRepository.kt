@@ -2,6 +2,7 @@ package com.ls.iusta.domain.repository
 
 import com.ls.iusta.domain.models.category.CategoryInfo
 import com.ls.iusta.domain.models.tickets.AttachmentFile
+import com.ls.iusta.domain.models.tickets.CreateTicket
 import com.ls.iusta.domain.models.tickets.ShortTicket
 import com.ls.iusta.domain.models.tickets.Ticket
 import com.ls.iusta.domain.models.worker.Rating
@@ -19,7 +20,7 @@ interface TicketRepository {
         attachments: List<AttachmentFile>,
         category_id: Int,
         note: String?
-    ): Flow<ShortTicket>
+    ): Flow<CreateTicket>
 
     suspend fun addNoteTicket(
         ticketId: Long,

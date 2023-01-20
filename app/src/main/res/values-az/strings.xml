@@ -91,6 +91,7 @@
     <string name="proceed_anyway">Proceed anyway</string>
     <string name="open_ticket">Open ticket</string>
     <string name="terms">I accept all <b><u><font color="#FF9800">Terms and Conditions</font></u></b></string>
+    <string name="total_size">"Total size: "</string>
 
 
 </resources>
