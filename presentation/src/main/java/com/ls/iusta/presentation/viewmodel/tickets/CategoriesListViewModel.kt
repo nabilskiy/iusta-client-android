@@ -79,9 +79,9 @@ class CategoriesListViewModel @Inject constructor(
         when {
             note.isEmpty() -> {
                 isValid = false
+                _category.postValue(CategoryUiModel.NoteError(!isValid))
             }
         }
-        _category.postValue(CategoryUiModel.NoteError(!isValid))
         return isValid
     }
 
@@ -89,8 +89,9 @@ class CategoriesListViewModel @Inject constructor(
         var isValid = true
         if (attachmentSize > 10485760L) {
             isValid = false
+            _category.postValue(CategoryUiModel.SizeError(!isValid))
         }
-        _category.postValue(CategoryUiModel.SizeError(!isValid))
+
         return isValid
     }
 

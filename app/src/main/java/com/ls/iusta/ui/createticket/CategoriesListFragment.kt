@@ -249,7 +249,7 @@ class CategoriesListFragment :
                 handleLoading(false)
                 val info: CategoryInfo = event.data
                 backMenuId = info.back_menu
-                var categories = info.menus.map {
+                val categories = info.menus.map {
                     Category(it.id, it.name, it.description, it.icon, true)
                 }
                 categoriesAdapter.list = categories + info.categories

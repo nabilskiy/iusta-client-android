@@ -2,9 +2,7 @@ package com.ls.iusta.data.mapper.ticket
 
 import com.ls.iusta.data.mapper.Mapper
 import com.ls.iusta.data.models.ticket.CreateTicketEntity
-import com.ls.iusta.data.models.ticket.ShortTicketEntity
 import com.ls.iusta.domain.models.tickets.CreateTicket
-import com.ls.iusta.domain.models.tickets.ShortTicket
 import javax.inject.Inject
 
 class CreateTicketMapper @Inject constructor(

@@ -79,8 +79,6 @@ class TicketRepositoryImpl @Inject constructor(
                         attachments.map { attachmentFileMapper.mapToEntity(it) },
                         category_id, note, ticketDataSourceFactory.getAuthToken()
                     )
-
-
             emit(createTicketMapper.mapFromEntity(ticket))
         }
 

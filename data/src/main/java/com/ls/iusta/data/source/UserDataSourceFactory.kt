@@ -1,7 +1,5 @@
 package com.ls.iusta.data.source
 
-import com.ls.iusta.data.repository.TicketCache
-import com.ls.iusta.data.repository.TicketDataSource
 import com.ls.iusta.data.repository.UserCache
 import com.ls.iusta.data.repository.UserDataSource
 import javax.inject.Inject

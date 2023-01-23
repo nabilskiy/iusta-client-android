@@ -14,7 +14,7 @@ class AttachmentFileEntityMapper @Inject constructor(
         return MultipartBody.Part.createFormData(
             "attachments[]",
             model.name,
-            model.file.asRequestBody("image/*".toMediaTypeOrNull())
+            model.file.asRequestBody()
         )
     }
 }

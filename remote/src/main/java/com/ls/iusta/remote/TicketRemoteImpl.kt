@@ -17,7 +17,6 @@ import com.ls.iusta.remote.mappers.ticket.ShortTicketEntityMapper
 import com.ls.iusta.remote.mappers.ticket.TicketEntityMapper
 import com.ls.iusta.remote.mappers.worker.RatingEntityMapper
 import com.ls.iusta.remote.mappers.worker.WorkerEntityMapper
-import okhttp3.MultipartBody
 import javax.inject.Inject
 
 class TicketRemoteImpl @Inject constructor(
