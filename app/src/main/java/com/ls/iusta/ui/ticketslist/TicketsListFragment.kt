@@ -6,6 +6,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.gms.common.config.GservicesValue.value
 import com.ls.iusta.R
 import com.ls.iusta.base.BaseFragment
 import com.ls.iusta.databinding.FragmentTicketsListBinding
@@ -97,9 +98,15 @@ class TicketsListFragment : BaseFragment<FragmentTicketsListBinding, TicketsList
             }
             is TicketUIModel.Success -> {
                 handleLoading(false)
-                // val tempList = ticketAdapter.list.toMutableList()
-                //tempList.addAll(event.data)
-                ticketAdapter.list = event.data
+                if (event.data.success) {
+                    val tempList = ticketAdapter.list.toMutableList()
+                    event.data.response?.let { tempList.addAll(it) }
+                    ticketAdapter.list = tempList
+                } else {
+                    event.data.message?.map {
+                        handleErrorMessage(it.value.get(0))
+                    }
+                }
             }
             is TicketUIModel.Error -> {
                 handleErrorMessage(event.error)

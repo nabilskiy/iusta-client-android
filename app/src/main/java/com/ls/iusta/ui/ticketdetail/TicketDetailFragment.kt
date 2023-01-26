@@ -144,46 +144,53 @@ class TicketDetailFragment :
             is TicketDetailUIModel.Success -> {
                 handleLoading(false)
                 result.data.let {
-                    result.data.let { ticket ->
-                        binding.apply {
-                            textViewCategory.text = ticket.category_name
-                            glide.load(ticket.category_icon).circleCrop().into(imageViewTicket)
-                            textViewDate.text = ticket.create_time
-                            textViewNumber.text = ticket.tn
-                            textViewStatus.text = ticket.current_event_label
-                            ticketId = ticket.id
-                            workerId = ticket.user_id
-                            ticketStatus = ticket.current_event_label
-                            when (ticket.current_event_label) {
-                                AppConstants.StatusTickets.NEW -> {
-                                    workerStatus.text =
-                                        getString(R.string.your_specialist_is_not_assigned)
+                    result.data.let { getTicket ->
+                        if (getTicket.success) {
+                            val ticket = getTicket.response?.get(0)
+                            binding.apply {
+                                textViewCategory.text = ticket?.category_name
+                                glide.load(ticket?.category_icon).circleCrop().into(imageViewTicket)
+                                textViewDate.text = ticket?.create_time
+                                textViewNumber.text = ticket?.tn
+                                textViewStatus.text = ticket?.current_event_label
+                                ticketId = ticket!!.id
+                                workerId = ticket.user_id
+                                ticketStatus = ticket.current_event_label
+                                when (ticket?.current_event_label) {
+                                    AppConstants.StatusTickets.NEW -> {
+                                        workerStatus.text =
+                                            getString(R.string.your_specialist_is_not_assigned)
+                                    }
+                                    AppConstants.StatusTickets.ACCEPT -> {
+                                        workerStatus.text =
+                                            getString(R.string.your_specialist_on_his_way)
+                                        assignedLabel.makeVisible()
+                                        viewModel.getWorkerDetail(ticket.user_id)
+                                    }
+                                    AppConstants.StatusTickets.ARRIVED -> {
+                                        workerStatus.text =
+                                            getString(R.string.your_specialist_has_arrived)
+                                        scanButton.makeVisible()
+                                        assignedLabel.makeVisible()
+                                        viewModel.getWorkerDetail(ticket.user_id)
+                                    }
+                                    AppConstants.StatusTickets.COMPLETE -> {
+                                        workerStatus.text =
+                                            getString(R.string.your_request_is_completed)
+                                        workerCallOrRate.setImageResource(R.drawable.ic_rate)
+                                        assignedLabel.makeVisible()
+                                        viewModel.getWorkerDetail(ticket.user_id)
+                                        viewModel.checkRating(ticket.id)
+                                    }
+                                    AppConstants.StatusTickets.REJECT -> {
+                                        workerStatus.text =
+                                            getString(R.string.your_request_was_rejected)
+                                    }
                                 }
-                                AppConstants.StatusTickets.ACCEPT -> {
-                                    workerStatus.text =
-                                        getString(R.string.your_specialist_on_his_way)
-                                    assignedLabel.makeVisible()
-                                    viewModel.getWorkerDetail(ticket.user_id)
-                                }
-                                AppConstants.StatusTickets.ARRIVED -> {
-                                    workerStatus.text =
-                                        getString(R.string.your_specialist_has_arrived)
-                                    scanButton.makeVisible()
-                                    assignedLabel.makeVisible()
-                                    viewModel.getWorkerDetail(ticket.user_id)
-                                }
-                                AppConstants.StatusTickets.COMPLETE -> {
-                                    workerStatus.text =
-                                        getString(R.string.your_request_is_completed)
-                                    workerCallOrRate.setImageResource(R.drawable.ic_rate)
-                                    assignedLabel.makeVisible()
-                                    viewModel.getWorkerDetail(ticket.user_id)
-                                    viewModel.checkRating(ticket.id)
-                                }
-                                AppConstants.StatusTickets.REJECT -> {
-                                    workerStatus.text =
-                                        getString(R.string.your_request_was_rejected)
-                                }
+                            }
+                        } else {
+                            getTicket.message?.map {
+                                handleErrorMessage(it.value.get(0))
                             }
                         }
                     }

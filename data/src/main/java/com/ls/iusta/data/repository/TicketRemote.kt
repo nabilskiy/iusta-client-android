@@ -2,10 +2,7 @@ package com.ls.iusta.data.repository
 
 import com.ls.iusta.data.models.category.CategoryInfoEntity
 import com.ls.iusta.data.models.push.PushEntity
-import com.ls.iusta.data.models.ticket.AttachmentFileEntity
-import com.ls.iusta.data.models.ticket.CreateTicketEntity
-import com.ls.iusta.data.models.ticket.ShortTicketEntity
-import com.ls.iusta.data.models.ticket.TicketEntity
+import com.ls.iusta.data.models.ticket.*
 import com.ls.iusta.data.models.worker.RatingEntity
 import com.ls.iusta.data.models.worker.WorkerEntity
 
@@ -15,9 +12,9 @@ interface TicketRemote {
         ticket_status: Boolean,
         auth_token: String?,
         pageNumber: Int?
-    ): List<TicketEntity>
+    ): GetTicketEntity
 
-    suspend fun getTicket(auth_token: String?, ticketId: Long): TicketEntity
+    suspend fun getTicket(auth_token: String?, ticketId: Long): GetTicketEntity
 
     suspend fun categories(menu_id: Int, auth_token: String?): CategoryInfoEntity
     suspend fun createTicket(

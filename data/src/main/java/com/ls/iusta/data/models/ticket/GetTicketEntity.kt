@@ -1,13 +1,11 @@
-package com.ls.iusta.remote.models.ticket
+package com.ls.iusta.data.models.ticket
 
-import com.google.gson.annotations.SerializedName
-
-data class TicketResponseModel(
+data class GetTicketEntity(
     var success: Boolean,
     val message: Map<String, List<String>>?,
     var pageNumber: Int?,
     var perPage: Int?,
     var pageSize: Int?,
     var totalPagesCount: Int?,
-    val response: List<TicketModel>?
+    val response: List<TicketEntity>?
 )

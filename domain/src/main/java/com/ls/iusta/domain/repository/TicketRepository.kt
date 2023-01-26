@@ -1,18 +1,15 @@
 package com.ls.iusta.domain.repository
 
 import com.ls.iusta.domain.models.category.CategoryInfo
-import com.ls.iusta.domain.models.tickets.AttachmentFile
-import com.ls.iusta.domain.models.tickets.CreateTicket
-import com.ls.iusta.domain.models.tickets.ShortTicket
-import com.ls.iusta.domain.models.tickets.Ticket
+import com.ls.iusta.domain.models.tickets.*
 import com.ls.iusta.domain.models.worker.Rating
 import com.ls.iusta.domain.models.worker.Worker
 import kotlinx.coroutines.flow.Flow
 
 interface TicketRepository {
     // Remote and cache
-    suspend fun getTickets(ticket_status: Boolean, pageNumber: Int?): Flow<List<Ticket>>
-    suspend fun getTicket(ticketId: Long): Flow<Ticket>
+    suspend fun getTickets(ticket_status: Boolean, pageNumber: Int?): Flow<GetTicket>
+    suspend fun getTicket(ticketId: Long): Flow<GetTicket>
 
 
     suspend fun categories(menu_id: Int): Flow<CategoryInfo>

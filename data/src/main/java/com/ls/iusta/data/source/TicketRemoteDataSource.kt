@@ -1,10 +1,7 @@
 package com.ls.iusta.data.source
 
 import com.ls.iusta.data.models.category.CategoryInfoEntity
-import com.ls.iusta.data.models.ticket.AttachmentFileEntity
-import com.ls.iusta.data.models.ticket.CreateTicketEntity
-import com.ls.iusta.data.models.ticket.ShortTicketEntity
-import com.ls.iusta.data.models.ticket.TicketEntity
+import com.ls.iusta.data.models.ticket.*
 import com.ls.iusta.data.models.worker.RatingEntity
 import com.ls.iusta.data.models.worker.WorkerEntity
 import com.ls.iusta.data.repository.TicketDataSource
@@ -18,13 +15,13 @@ class TicketRemoteDataSource @Inject constructor(
         ticket_status: Boolean,
         auth_token: String?,
         pageNumber: Int?
-    ): List<TicketEntity> =
+    ): GetTicketEntity =
         ticketRemote.getTickets(ticket_status, auth_token, pageNumber)
 
     override suspend fun getTicket(
         auth_token: String?,
         ticketId: Long
-    ): TicketEntity =
+    ): GetTicketEntity =
         ticketRemote.getTicket(auth_token, ticketId)
 
 

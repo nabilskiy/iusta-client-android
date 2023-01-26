@@ -2,19 +2,13 @@ package com.ls.iusta.data
 
 import com.ls.iusta.data.mapper.category.CategoryInfoMapper
 import com.ls.iusta.data.mapper.category.CategoryMapper
-import com.ls.iusta.data.mapper.ticket.AttachmentFileMapper
-import com.ls.iusta.data.mapper.ticket.CreateTicketMapper
-import com.ls.iusta.data.mapper.ticket.ShortTicketMapper
-import com.ls.iusta.data.mapper.ticket.TicketMapper
+import com.ls.iusta.data.mapper.ticket.*
 import com.ls.iusta.data.mapper.worker.RatingMapper
 import com.ls.iusta.data.mapper.worker.WorkerMapper
 import com.ls.iusta.data.models.ticket.AttachmentFileEntity
 import com.ls.iusta.data.source.TicketDataSourceFactory
 import com.ls.iusta.domain.models.category.CategoryInfo
-import com.ls.iusta.domain.models.tickets.AttachmentFile
-import com.ls.iusta.domain.models.tickets.CreateTicket
-import com.ls.iusta.domain.models.tickets.ShortTicket
-import com.ls.iusta.domain.models.tickets.Ticket
+import com.ls.iusta.domain.models.tickets.*
 import com.ls.iusta.domain.models.worker.Rating
 import com.ls.iusta.domain.models.worker.Worker
 import com.ls.iusta.domain.repository.TicketRepository
@@ -24,7 +18,7 @@ import javax.inject.Inject
 
 class TicketRepositoryImpl @Inject constructor(
     private val ticketDataSourceFactory: TicketDataSourceFactory,
-    private val ticketMapper: TicketMapper,
+    private val getTicketMapper: GetTicketMapper,
     private val shortTicketMapper: ShortTicketMapper,
     private val createTicketMapper: CreateTicketMapper,
     private val categoryInfoMapper: CategoryInfoMapper,
@@ -35,28 +29,20 @@ class TicketRepositoryImpl @Inject constructor(
     override suspend fun getTickets(
         ticket_status: Boolean,
         pageNumber: Int?
-    ): Flow<List<Ticket>> =
+    ): Flow<GetTicket> =
         flow {
-            //val isCached = ticketDataSourceFactory.getCacheDataSource().isCached()
             val ticketList =
-                ticketDataSourceFactory.getDataStore(false)
+                ticketDataSourceFactory.getRemoteDataSource()
                     .getTickets(ticket_status, ticketDataSourceFactory.getAuthToken(), pageNumber)
-                    .map { ticketEntity ->
-                        ticketMapper.mapFromEntity(ticketEntity)
-                    }
-            // saveTickets(ticketList)
-            emit(ticketList)
+            emit(getTicketMapper.mapFromEntity(ticketList))
         }
 
     override suspend fun getTicket(
         ticketId: Long
-    ): Flow<Ticket> = flow {
-        //   var ticket = ticketDataSourceFactory.getCacheDataSource().getTicket(ticket_status, auth_token, ticketId)
-        //   if (ticket.title.isEmpty()) {
+    ): Flow<GetTicket> = flow {
         var ticket = ticketDataSourceFactory.getRemoteDataSource()
             .getTicket(ticketDataSourceFactory.getAuthToken(), ticketId)
-        //   }
-        emit(ticketMapper.mapFromEntity(ticket))
+        emit(getTicketMapper.mapFromEntity(ticket))
     }
 
     override suspend fun categories(menu_id: Int): Flow<CategoryInfo> =

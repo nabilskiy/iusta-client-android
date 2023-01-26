@@ -2,26 +2,20 @@ package com.ls.iusta.remote
 
 import com.ls.iusta.data.models.category.CategoryInfoEntity
 import com.ls.iusta.data.models.push.PushEntity
-import com.ls.iusta.data.models.ticket.AttachmentFileEntity
-import com.ls.iusta.data.models.ticket.CreateTicketEntity
-import com.ls.iusta.data.models.ticket.ShortTicketEntity
-import com.ls.iusta.data.models.ticket.TicketEntity
+import com.ls.iusta.data.models.ticket.*
 import com.ls.iusta.data.models.worker.RatingEntity
 import com.ls.iusta.data.models.worker.WorkerEntity
 import com.ls.iusta.data.repository.TicketRemote
 import com.ls.iusta.remote.api.TicketService
 import com.ls.iusta.remote.mappers.category.CategoryInfoEntityMapper
-import com.ls.iusta.remote.mappers.ticket.AttachmentFileEntityMapper
-import com.ls.iusta.remote.mappers.ticket.CreateTicketEntityMapper
-import com.ls.iusta.remote.mappers.ticket.ShortTicketEntityMapper
-import com.ls.iusta.remote.mappers.ticket.TicketEntityMapper
+import com.ls.iusta.remote.mappers.ticket.*
 import com.ls.iusta.remote.mappers.worker.RatingEntityMapper
 import com.ls.iusta.remote.mappers.worker.WorkerEntityMapper
 import javax.inject.Inject
 
 class TicketRemoteImpl @Inject constructor(
     private val ticketService: TicketService,
-    private val ticketEntityMapper: TicketEntityMapper,
+    private val getTicketEntityMapper: GetTicketEntityMapper,
     private val categoryInfoEntityMapper: CategoryInfoEntityMapper,
     private val createTicketEntityMapper: CreateTicketEntityMapper,
     private val shortTicketEntityMapper: ShortTicketEntityMapper,
@@ -33,25 +27,21 @@ class TicketRemoteImpl @Inject constructor(
         ticket_status: Boolean,
         auth_token: String?,
         pageNumber: Int?
-    ): List<TicketEntity> =
+    ): GetTicketEntity =
         if (ticket_status)
-            ticketService.getActiveTickets(auth_token, pageNumber).response.map {
-                ticketEntityMapper.mapFromModel(it)
-            }
+            getTicketEntityMapper.mapFromModel(ticketService.getActiveTickets(auth_token, pageNumber))
         else
-            ticketService.getTickets(auth_token, pageNumber).response.map {
-                ticketEntityMapper.mapFromModel(it)
-            }
+            getTicketEntityMapper.mapFromModel(ticketService.getTickets(auth_token, pageNumber))
 
 
     override suspend fun getTicket(
         auth_token: String?,
         ticketId: Long
-    ): TicketEntity = ticketEntityMapper.mapFromModel(
+    ): GetTicketEntity = getTicketEntityMapper.mapFromModel(
         ticketService.getTicket(
             auth_token,
             ticketId
-        ).response[0]
+        )
     )
 
     override suspend fun categories(menu_id: Int, auth_token: String?): CategoryInfoEntity =
