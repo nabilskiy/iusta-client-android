@@ -6,4 +6,5 @@ sealed class TicketUIModel : UiAwareModel(){
     object Loading : TicketUIModel()
     data class Success(val data: GetTicket) : TicketUIModel()
     data class Error(var error: String) : TicketUIModel()
+    data class Logout(var status: Boolean) : TicketUIModel()
 }

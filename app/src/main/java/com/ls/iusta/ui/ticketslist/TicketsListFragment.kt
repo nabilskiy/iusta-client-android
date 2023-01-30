@@ -10,9 +10,11 @@ import com.google.android.gms.common.config.GservicesValue.value
 import com.ls.iusta.R
 import com.ls.iusta.base.BaseFragment
 import com.ls.iusta.databinding.FragmentTicketsListBinding
+import com.ls.iusta.domain.models.settings.SettingUiModel
 import com.ls.iusta.domain.models.tickets.TicketUIModel
 import com.ls.iusta.extension.observe
 import com.ls.iusta.presentation.viewmodel.tickets.TicketsListViewModel
+import com.ls.iusta.ui.auth.LoginActivity
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -46,6 +48,7 @@ class TicketsListFragment : BaseFragment<FragmentTicketsListBinding, TicketsList
             refresh.setOnRefreshListener {
                 binding.refresh.isRefreshing = false
                 pageNum = 1
+                ticketAdapter.list = emptyList()
                 viewModel.getTickets(isActive, pageNum)
             }
 
@@ -104,12 +107,18 @@ class TicketsListFragment : BaseFragment<FragmentTicketsListBinding, TicketsList
                     ticketAdapter.list = tempList
                 } else {
                     event.data.message?.map {
+                        if(it.key.equals("auth_token")){
+                            viewModel.logout()
+                        }
                         handleErrorMessage(it.value.get(0))
                     }
                 }
             }
             is TicketUIModel.Error -> {
                 handleErrorMessage(event.error)
+            }
+            is TicketUIModel.Logout -> {
+                LoginActivity.startActivity(requireActivity())
             }
         }
     }

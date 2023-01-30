@@ -3,6 +3,7 @@ package com.ls.iusta.cache.datasourceImpl
 import com.ls.iusta.cache.dao.TicketDao
 import com.ls.iusta.cache.mapper.TicketCacheMapper
 import com.ls.iusta.cache.utils.CachePreferencesHelper
+import com.ls.iusta.data.models.ticket.GetTicketEntity
 import com.ls.iusta.data.repository.TicketCache
 import com.ls.iusta.data.models.ticket.TicketEntity
 import javax.inject.Inject
@@ -12,13 +13,21 @@ class TicketCacheImpl @Inject constructor(
     private val ticketCacheMapper: TicketCacheMapper,
     private val cachePreferencesHelper: CachePreferencesHelper
 ) : TicketCache {
-    override suspend fun getTickets(): List<TicketEntity> =
-        ticketDao.getTickets().map { cacheTicket ->
-            ticketCacheMapper.mapFromCached(cacheTicket)
-        }
+//    override suspend fun getTickets(): GetTicketEntity =
+//        ticketDao.getTickets().map { cacheTicket ->
+//            ticketCacheMapper.mapFromCached(cacheTicket)
+//        }
+//
+//    override suspend fun getTicket(ticketId: Long): GetTicketEntity =
+//        ticketCacheMapper.mapFromCached(ticketDao.getTicket(ticketId))
 
-    override suspend fun getTicket(ticketId: Long): TicketEntity =
-        ticketCacheMapper.mapFromCached(ticketDao.getTicket(ticketId))
+    override suspend fun getTickets(): GetTicketEntity {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun getTicket(ticketId: Long): GetTicketEntity {
+        TODO("Not yet implemented")
+    }
 
     override suspend fun saveTickets(listTickets: List<TicketEntity>) =
         ticketDao.addTicket(

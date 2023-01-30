@@ -43,6 +43,7 @@ interface UserRepository {
     ): Flow<Boolean>
 
     suspend fun logout(): Flow<Boolean>
+    suspend fun logoutForce(): Flow<Boolean>
 
     suspend fun about(): Flow<List<About>>
     suspend fun faq(lang: String?): Flow<List<Faq>>

@@ -146,6 +146,11 @@ class UserRepositoryImpl @Inject constructor(
         emit(logout)
     }
 
+    override suspend fun logoutForce(): Flow<Boolean> = flow {
+        userDataSourceFactory.getCacheDataSource().setAuthToken("")
+        emit(true)
+    }
+
     override suspend fun about(): Flow<List<About>> = flow {
         val aboutList =
             userDataSourceFactory.getRemoteDataSource().about(userDataSourceFactory.getAuthToken())

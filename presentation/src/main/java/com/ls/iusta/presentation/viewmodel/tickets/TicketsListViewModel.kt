@@ -1,7 +1,10 @@
 package com.ls.iusta.presentation.viewmodel.tickets
 
 import androidx.lifecycle.LiveData
+import com.ls.iusta.domain.interactor.auth.LogoutForceUseCase
+import com.ls.iusta.domain.interactor.auth.LogoutUseCase
 import com.ls.iusta.domain.interactor.ticket.GetTicketListUseCase
+import com.ls.iusta.domain.models.settings.SettingUiModel
 import com.ls.iusta.domain.models.tickets.GetTicketsRequest
 import com.ls.iusta.domain.models.tickets.TicketUIModel
 import com.ls.iusta.presentation.utils.AppConstants
@@ -16,7 +19,8 @@ import javax.inject.Inject
 @HiltViewModel
 class TicketsListViewModel @Inject constructor(
     contextProvider: CoroutineContextProvider,
-    private val ticketListUseCase: GetTicketListUseCase
+    private val ticketListUseCase: GetTicketListUseCase,
+    private val logoutUseCase: LogoutForceUseCase,
 ) : BaseViewModel(contextProvider) {
 
     private val _ticketList = UiAwareLiveData<TicketUIModel>()
@@ -41,6 +45,15 @@ class TicketsListViewModel @Inject constructor(
     private suspend fun loadTickets(data: GetTicketsRequest) {
         ticketListUseCase(data).collect {
             _ticketList.postValue(TicketUIModel.Success(it))
+        }
+    }
+
+    fun logout() {
+        _ticketList.postValue(TicketUIModel.Loading)
+        launchCoroutineIO {
+            logoutUseCase(Unit).collect {
+                _ticketList.postValue(TicketUIModel.Logout(it))
+            }
         }
     }
 

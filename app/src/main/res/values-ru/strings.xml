@@ -59,7 +59,7 @@
 
     <string name="splash_screen">Splash Screen</string>
     <string name="assigned_specialist">Назначенный специалист</string>
-    <string name="proceed_to_scan">Сканированию</string>
+    <string name="proceed_to_scan">Сканирование</string>
     <string name="fragment_create_ticket_title_label">Создать заказ</string>
     <string name="btn_continue">Продолжить</string>
     <string name="get_repaired">Выберите, что вы хотите отремонтировать</string>
