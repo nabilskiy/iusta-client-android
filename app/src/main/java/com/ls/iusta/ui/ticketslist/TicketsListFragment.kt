@@ -43,6 +43,11 @@ class TicketsListFragment : BaseFragment<FragmentTicketsListBinding, TicketsList
         setupRecyclerView()
     }
 
+    override fun onResume() {
+        super.onResume()
+        ticketAdapter.list = emptyList()
+    }
+
     private fun setupRecyclerView() {
         binding.apply {
             refresh.setOnRefreshListener {
@@ -72,7 +77,6 @@ class TicketsListFragment : BaseFragment<FragmentTicketsListBinding, TicketsList
             })
 
             ticketAdapter.setItemClickListener { ticket ->
-                ticketAdapter.list = emptyList()
                 findNavController().navigate(
                     TicketsListFragmentDirections.actionTicketListFragmentToTicketDetailFragment(
                         ticket.id

@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.pm.PackageManager.PERMISSION_GRANTED
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
@@ -35,9 +36,18 @@ class PermissionManager @Inject constructor(@ApplicationContext val context: Con
             permissions.toTypedArray(),
             100
         )
-
         return PERMISSIONS_SUCCESS
     }
+
+    fun requestForFragment(fragment: Fragment): Short {
+        if (permissions.size == 0) return PERMISSIONS_GRANTED
+        fragment.requestPermissions(
+            permissions.toTypedArray(),
+            100
+        )
+        return PERMISSIONS_SUCCESS
+    }
+
 
     fun checkAllGranted(grantResults: IntArray): Boolean {
         for (result in grantResults) {

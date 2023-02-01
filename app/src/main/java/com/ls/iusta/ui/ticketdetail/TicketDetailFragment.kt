@@ -107,7 +107,7 @@ class TicketDetailFragment :
     }
 
     private fun requestPermissions() {
-        val result = permissionManager.cameraPermission().requestFor(requireActivity())
+        val result = permissionManager.cameraPermission().requestForFragment(this)
         if (result == PermissionManager.PERMISSIONS_GRANTED) startScan()
     }
 
