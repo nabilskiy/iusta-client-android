@@ -72,6 +72,7 @@ class TicketsListFragment : BaseFragment<FragmentTicketsListBinding, TicketsList
             })
 
             ticketAdapter.setItemClickListener { ticket ->
+                ticketAdapter.list = emptyList()
                 findNavController().navigate(
                     TicketsListFragmentDirections.actionTicketListFragmentToTicketDetailFragment(
                         ticket.id
@@ -107,7 +108,8 @@ class TicketsListFragment : BaseFragment<FragmentTicketsListBinding, TicketsList
                     ticketAdapter.list = tempList
                 } else {
                     event.data.message?.map {
-                        if(it.key.equals("auth_token")){
+                        //todo remove hardcoded key
+                        if (it.key.equals("auth_token")) {
                             viewModel.logout()
                         }
                         handleErrorMessage(it.value.get(0))
