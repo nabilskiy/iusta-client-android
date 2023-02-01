@@ -145,7 +145,7 @@ class TicketDetailFragment :
                 handleLoading(false)
                 result.data.let {
                     result.data.let { getTicket ->
-                        if (getTicket.success) {
+                        if (getTicket.success && getTicket.response?.size!! > 0) {
                             val ticket = getTicket.response?.get(0)
                             binding.apply {
                                 textViewCategory.text = ticket?.category_name
