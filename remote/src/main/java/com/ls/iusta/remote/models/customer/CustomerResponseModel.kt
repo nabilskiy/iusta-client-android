@@ -6,5 +6,5 @@ data class CustomerResponseModel(
     var success: Boolean,
     val message: Map<String, List<String>>?,
     @SerializedName("response")
-    val response: List<CustomerModel>
+    val response: List<CustomerModel>?
 )

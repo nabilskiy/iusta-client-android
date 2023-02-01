@@ -2,6 +2,7 @@ package com.ls.iusta.data.repository
 
 import com.ls.iusta.data.models.BaseModelEntity
 import com.ls.iusta.data.models.customer.CustomerEntity
+import com.ls.iusta.data.models.customer.CustomerResponseEntity
 import com.ls.iusta.data.models.info.AboutEntity
 import com.ls.iusta.data.models.info.FaqEntity
 import com.ls.iusta.data.models.info.TermsEntity
@@ -21,7 +22,7 @@ interface UserDataSource {
     suspend fun setAuthToken(authToken: String?)
     suspend fun getAuthToken(): String?
     suspend fun userInfo(authToken: String?): UserEntity
-    suspend fun customers(query: String): List<CustomerEntity>
+    suspend fun customers(query: String): CustomerResponseEntity
 
     suspend fun editUserInfo(
         firstname: String,

@@ -118,7 +118,6 @@
                 android:id="@+id/schoolTextInputEditText"
                 style="@style/TextInputLayout.Login"
                 android:layout_width="match_parent"
-
                 android:inputType="text" />
 
         </com.google.android.material.textfield.TextInputLayout>

@@ -99,6 +99,7 @@
 
 
     <!-- Errors -->
+    <string name="nothing" translatable="false">Nothing found</string>
     <string name="empty_email" translatable="false">Empty email</string>
     <string name="incorrect_email" translatable="false">Incorrect email</string>
     <string name="empty_password" translatable="false">Empty password</string>

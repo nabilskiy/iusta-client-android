@@ -2,6 +2,7 @@ package com.ls.iusta.remote
 
 import com.ls.iusta.data.models.BaseModelEntity
 import com.ls.iusta.data.models.customer.CustomerEntity
+import com.ls.iusta.data.models.customer.CustomerResponseEntity
 import com.ls.iusta.data.models.info.AboutEntity
 import com.ls.iusta.data.models.info.FaqEntity
 import com.ls.iusta.data.models.info.TermsEntity
@@ -11,6 +12,7 @@ import com.ls.iusta.data.models.user.UserEntity
 import com.ls.iusta.data.repository.UserRemote
 import com.ls.iusta.remote.api.UserService
 import com.ls.iusta.remote.mappers.customer.CustomerEntityMapper
+import com.ls.iusta.remote.mappers.customer.CustomerResponseEntityMapper
 import com.ls.iusta.remote.mappers.info.AboutEntityMapper
 import com.ls.iusta.remote.mappers.info.FaqEntityMapper
 import com.ls.iusta.remote.mappers.info.TermsEntityMapper
@@ -25,7 +27,7 @@ class UserRemoteImpl @Inject constructor(
     private val userService: UserService,
     private val loginEntityMapper: LoginEntityMapper,
     private val userEntityMapper: UserEntityMapper,
-    private val customerEntityMapper: CustomerEntityMapper,
+    private val customerResponseEntityMapper: CustomerResponseEntityMapper,
     private val aboutEntityMapper: AboutEntityMapper,
     private val faqEntityMapper: FaqEntityMapper,
     private val termsEntityMapper: TermsEntityMapper,
@@ -39,11 +41,8 @@ class UserRemoteImpl @Inject constructor(
     override suspend fun userInfo(authToken: String?): UserEntity =
         userEntityMapper.mapFromModel(userService.userInfo(authToken))
 
-
-    override suspend fun customers(query: String): List<CustomerEntity> =
-        userService.customers(query).response.map {
-            customerEntityMapper.mapFromModel(it)
-        }
+    override suspend fun customers(query: String): CustomerResponseEntity =
+        customerResponseEntityMapper.mapFromModel(userService.customers(query))
 
     override suspend fun setAuthToken(authToken: String?) {
         TODO("Not yet implemented")

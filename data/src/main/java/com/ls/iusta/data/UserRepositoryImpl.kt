@@ -1,6 +1,7 @@
 package com.ls.iusta.data
 
 import com.ls.iusta.data.mapper.customer.CustomerMapper
+import com.ls.iusta.data.mapper.customer.CustomerResponseMapper
 import com.ls.iusta.data.mapper.info.AboutMapper
 import com.ls.iusta.data.mapper.info.FaqMapper
 import com.ls.iusta.data.mapper.info.TermsMapper
@@ -11,6 +12,7 @@ import com.ls.iusta.data.mapper.user.UserMapper
 import com.ls.iusta.data.source.UserDataSourceFactory
 import com.ls.iusta.domain.models.auth.Login
 import com.ls.iusta.domain.models.customer.Customer
+import com.ls.iusta.domain.models.customer.CustomerResponse
 import com.ls.iusta.domain.models.info.About
 import com.ls.iusta.domain.models.info.Faq
 import com.ls.iusta.domain.models.info.Terms
@@ -28,7 +30,7 @@ class UserRepositoryImpl @Inject constructor(
     private val userDataSourceFactory: UserDataSourceFactory,
     private val loginMapper: LoginMapper,
     private val userMapper: UserMapper,
-    private val customerMapper: CustomerMapper,
+    private val customerResponseMapper: CustomerResponseMapper,
     private val aboutMapper: AboutMapper,
     private val faqMapper: FaqMapper,
     private val termsMapper: TermsMapper,
@@ -87,12 +89,9 @@ class UserRepositoryImpl @Inject constructor(
         emit(token)
     }
 
-    override suspend fun customers(query: String): Flow<List<Customer>> = flow {
-        val customersList = userDataSourceFactory.getRemoteDataSource().customers(query)
-            .map { customerEntity ->
-                customerMapper.mapFromEntity(customerEntity)
-            }
-        emit(customersList)
+    override suspend fun customers(query: String): Flow<CustomerResponse> = flow {
+        val customers = userDataSourceFactory.getRemoteDataSource().customers(query)
+        emit(customerResponseMapper.mapFromEntity(customers))
     }
 
     override suspend fun editUserInfo(

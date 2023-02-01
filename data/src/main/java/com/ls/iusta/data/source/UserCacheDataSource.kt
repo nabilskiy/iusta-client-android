@@ -2,6 +2,7 @@ package com.ls.iusta.data.source
 
 import com.ls.iusta.data.models.BaseModelEntity
 import com.ls.iusta.data.models.customer.CustomerEntity
+import com.ls.iusta.data.models.customer.CustomerResponseEntity
 import com.ls.iusta.data.models.info.AboutEntity
 import com.ls.iusta.data.models.info.FaqEntity
 import com.ls.iusta.data.models.info.TermsEntity
@@ -37,7 +38,7 @@ class UserCacheDataSource @Inject constructor(
         TODO("Not yet implemented")
     }
 
-    override suspend fun customers(query: String): List<CustomerEntity> {
+    override suspend fun customers(query: String): CustomerResponseEntity {
         TODO("Not yet implemented")
     }
 

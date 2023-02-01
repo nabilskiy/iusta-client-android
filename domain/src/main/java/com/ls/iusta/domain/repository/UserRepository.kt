@@ -2,6 +2,7 @@ package com.ls.iusta.domain.repository
 
 import com.ls.iusta.domain.models.auth.Login
 import com.ls.iusta.domain.models.customer.Customer
+import com.ls.iusta.domain.models.customer.CustomerResponse
 import com.ls.iusta.domain.models.info.About
 import com.ls.iusta.domain.models.info.Faq
 import com.ls.iusta.domain.models.info.Terms
@@ -22,7 +23,7 @@ interface UserRepository {
     suspend fun userInfo(): Flow<User>
     suspend fun getAuthToken(): Flow<String?>
     suspend fun isUserLogged(): Flow<Boolean?>
-    suspend fun customers(query: String): Flow<List<Customer>>
+    suspend fun customers(query: String): Flow<CustomerResponse>
 
     suspend fun editUserInfo(
         firstname: String,

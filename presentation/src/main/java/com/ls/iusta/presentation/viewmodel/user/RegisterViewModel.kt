@@ -1,6 +1,7 @@
 package com.ls.iusta.presentation.viewmodel.user
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.viewModelScope
 import com.ls.iusta.domain.interactor.auth.RegUseCase
 import com.ls.iusta.domain.interactor.customer.GetCustomersListUseCase
 import com.ls.iusta.domain.interactor.info.GetTermsUseCase
@@ -35,7 +36,7 @@ class RegisterViewModel @Inject constructor(
         }
 
     fun searchCustomer(query: String) {
-        _regData.postValue(RegUiModel.Loading)
+  //     _regData.postValue(RegUiModel.Loading)
         launchCoroutineIO {
             customers(query)
         }

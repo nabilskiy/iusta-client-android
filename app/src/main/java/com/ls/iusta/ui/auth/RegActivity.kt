@@ -29,6 +29,7 @@ class RegActivity : BaseActivity<ActivityRegisterBinding>() {
     private var customers = emptyList<Customer>()
     private lateinit var adapter: ArrayAdapter<String>
     private lateinit var customerId: String
+    private var customerIdIsSet: Boolean = false
     private var langId: String = "en"
     private lateinit var policyLink: String
     private lateinit var termsLink: String
@@ -43,7 +44,7 @@ class RegActivity : BaseActivity<ActivityRegisterBinding>() {
     }
 
     override fun initUI() {
-      //  setHints()
+        //  setHints()
         //todo fix hints  implementation 'com.google.android.material:material:1.7.0'
         with(binding) {
             nextButton.setOnClickListener {
@@ -104,6 +105,8 @@ class RegActivity : BaseActivity<ActivityRegisterBinding>() {
 
             schoolTextInputEditText.threshold = 2
             schoolTextInputEditText.addTextChangedListener(object : TextWatcher {
+                private var timer = Timer()
+                private val DELAY: Long = 1000L
                 override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 }
 
@@ -111,12 +114,22 @@ class RegActivity : BaseActivity<ActivityRegisterBinding>() {
                 }
 
                 override fun afterTextChanged(query: Editable?) {
-                    if (query.toString().length > 1)
-                        viewModel.searchCustomer(query.toString())
+                    timer.cancel()
+                    timer = Timer()
+                    timer.schedule(object : TimerTask() {
+                        override fun run() {
+                            if (query.toString().length > 1
+                            //&& !customerIdIsSet
+                            )
+                                viewModel.searchCustomer(query.toString())
+                        }
+                    }, DELAY)
                 }
             })
 
             schoolTextInputEditText.setOnItemClickListener { adapterView, view, i, l ->
+                hideKeyboard()
+                // customerIdIsSet = true
                 customerId = customers[i].id.toString()
             }
 
@@ -164,8 +177,8 @@ class RegActivity : BaseActivity<ActivityRegisterBinding>() {
         }
     }
 
-    private fun setHints(){
-        with(binding){
+    private fun setHints() {
+        with(binding) {
             passwordTextInputLayout.hint = getString(R.string.password)
             confirmPassTextInputLayout.hint = getString(R.string.password_confirm)
             nameTextInputLayout.hint = getString(R.string.name)
@@ -174,7 +187,6 @@ class RegActivity : BaseActivity<ActivityRegisterBinding>() {
             emailTextInputLayout.hint = getString(R.string.emailaddress)
             schoolTextInputEditText.hint = getString(R.string.school)
         }
-
     }
 
     private fun setLocaleBtn(lang: String) {
@@ -248,16 +260,24 @@ class RegActivity : BaseActivity<ActivityRegisterBinding>() {
                 }
             }
             is RegUiModel.SuccessSearch -> {
-                handleLoading(false)
-                customers = event.data
-                results = event.data.map { it.name }
-                adapter = ArrayAdapter<String>(
-                    this@RegActivity,
-                    R.layout.item_search, results
-                )
-                binding.schoolTextInputEditText.setAdapter(adapter)
-                adapter.notifyDataSetChanged()
-                binding.schoolTextInputEditText.showDropDown()
+                //  handleLoading(false)
+                if (event.data.success && event.data.response != null) {
+                    customers = event.data.response!!
+                    results = customers.map { it.name }
+                    adapter = ArrayAdapter<String>(
+                        this@RegActivity,
+                        R.layout.item_search, results
+                    )
+                    binding.schoolTextInputEditText.setAdapter(adapter)
+                    adapter.notifyDataSetChanged()
+                    binding.schoolTextInputEditText.showDropDown()
+                } else if (event.data.success && event.data.response == null) {
+                    handleErrorMessage(getString(R.string.nothing))
+                } else {
+                    event.data.message?.map {
+                        handleErrorMessage(it.value[0])
+                    }
+                }
             }
             is RegUiModel.Error -> {
                 handleErrorMessage(event.error)

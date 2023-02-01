@@ -68,8 +68,8 @@
     <string name="your_request_is_completed">Sorğunuz tamamlandı</string>
     <string name="your_request_was_rejected">Sorğunuz rədd edildi</string>
     <string name="assistant_identified">Assistent müəyyən edildi</string>
-    <string name="assistant_not_identified">Assistant not identified</string>
-    <string name="save">Assistent müəyyən edilmədi</string>
+    <string name="assistant_not_identified">Assistent müəyyən edilmədi</string>
+    <string name="save">Yadda saxla</string>
     <string name="language">Dil</string>
     <string name="az">AZ</string>
     <string name="eng">ENG</string>
