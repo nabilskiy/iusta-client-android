@@ -80,7 +80,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_top_main, menu)
         viewNotifications = menu?.findItem(R.id.navigationGraphNotifications)
-        viewModel.getUserInfo()
+        updateUserInfo()
         return super.onCreateOptionsMenu(menu)
     }
 
@@ -134,9 +134,15 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             }
     }
 
+    fun updateUserInfo(){
+        viewModel.getUserInfo()
+    }
+
     override fun initViewModel() {
         observe(viewModel.mainData, ::onTokenSaved)
     }
+
+
 
     @SuppressLint("UnsafeOptInUsageError")
     private fun onTokenSaved(event: MainScreenUIModel) {

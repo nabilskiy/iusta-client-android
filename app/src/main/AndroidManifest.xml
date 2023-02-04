@@ -24,15 +24,15 @@
             </intent-filter>
         </activity>
         <activity
-            android:theme="@style/Theme.Login"
+            android:theme="@style/Theme.IUsta"
             android:name="com.ls.iusta.ui.auth.LoginActivity"
             android:exported="true" />
         <activity
-            android:theme="@style/Theme.Login"
+            android:theme="@style/Theme.IUsta"
             android:name="com.ls.iusta.ui.auth.RegActivity"
             android:exported="true" />
         <activity
-            android:theme="@style/Theme.Login"
+            android:theme="@style/Theme.IUsta"
             android:name="com.ls.iusta.ui.auth.ResetPassActivity"
             android:exported="true" />
         <activity

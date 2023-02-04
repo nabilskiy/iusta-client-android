@@ -41,7 +41,7 @@
     <string name="fragment_ticket_detail_title_label">Детали обращения</string>
     <string name="new_ticket">Создать запрос</string>
     <string name="order_status">"Статус заказа: "</string>
-    <string name="order_type">"Тип заказа: "</string>
+    <string name="order_type">"Категория: "</string>
     <string name="order_date">"Дата создания: "</string>
 
     <string name="ticket_category_label">Категория:</string>
@@ -89,6 +89,10 @@
     <string name="proceed_anyway">Все равно продолжить</string>
     <string name="open_ticket">Открыть тикет</string>
     <string name="total_size">"Общий размер: "</string>
+    <string name="see_order">Открыть</string>
+    <string name="type_note_here">Type note here</string>
+    <string name="cancel">Cancel</string>
+    <string name="create">Create</string>
 
 
 </resources>

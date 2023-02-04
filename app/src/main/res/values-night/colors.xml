@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <color name="black">#CCFFFFFF</color>
+    <color name="white">#F1F1F1</color>
     <color name="whiteTr">#80FFFFFF</color>
-
-    <color name="whiteText">#FFFFFFFF</color>
+    <color name="whiteText">#606060</color>
     <color name="orange">#FF9800</color>
     <color name="orange_dark">#BD7406</color>
     <color name="red">#e52a22</color>
     <color name="brown">#501212</color>
-    <color name="dark_grey">#636262</color>
-    <color name="grey">#C1C0C0</color>
+    <color name="dark_grey">#FFFFFF</color>
+    <color name="grey">#9E9797</color>
 
     <color name="colorBg">#B9EEEEF1</color>
-    <color name="cardBg">#80EEEEF1</color>
+    <color name="cardBg">#FFFFFF</color>
 
     <color name="colorGradientStart">#F5F5FC</color>
     <color name="colorGradientEnd">#D9E7F2</color>
@@ -28,5 +27,5 @@
     <color name="white_100">#f4f4f4</color>
     <color name="black_900">#1e1e1e</color>
 
-    <color name="black_800">#3f3f3f</color>
+    <color name="black_800">#635959</color>
 </resources>

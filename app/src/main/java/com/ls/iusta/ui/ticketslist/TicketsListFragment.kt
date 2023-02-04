@@ -45,7 +45,7 @@ class TicketsListFragment : BaseFragment<FragmentTicketsListBinding, TicketsList
 
     override fun onResume() {
         super.onResume()
-        ticketAdapter.list = emptyList()
+            // ticketAdapter.list = emptyList()
     }
 
     private fun setupRecyclerView() {

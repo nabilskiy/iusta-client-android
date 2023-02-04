@@ -74,6 +74,7 @@
                     <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/scanButton"
                         android:visibility="gone"
+                        tools:visibility="visible"
                         android:layout_height="53dp"
                         android:layout_width="match_parent"
                         android:background="@drawable/btn_lighter_grey"
@@ -87,6 +88,7 @@
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/info"
+                        android:background="@color/whiteText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:padding="12dp"
@@ -190,6 +192,7 @@
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/assignedLabel"
                 android:visibility="gone"
+                tools:visibility="visible"
                 style="@style/TextView.Title.Mid"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -205,6 +208,7 @@
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/workerCard"
                 android:visibility="gone"
+                tools:visibility="visible"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -215,6 +219,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/assignedLabel">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
+                    android:background="@color/whiteText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 

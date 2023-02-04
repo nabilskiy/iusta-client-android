@@ -49,7 +49,7 @@
         android:id="@+id/emailTextInputEditText"
         style="@style/TextInputLayout.Login"
         android:layout_width="match_parent"
-        android:text="alex_n@alex_n.com"
+        android:text="drotkin@azedunet.az"
         android:hint="@string/email"
         android:inputType="textEmailAddress" />
 
@@ -72,7 +72,7 @@
         android:id="@+id/passwordTextInputEditText"
         style="@style/TextInputLayout.Login"
         android:layout_width="match_parent"
-        android:text="BZ67BeW4HwVqwBu"
+        android:text="RNACYvOTFa"
         android:hint="@string/password"
         android:inputType="textPassword" />
 
@@ -101,6 +101,7 @@
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintVertical_chainStyle="packed" />
+
 <Button
     android:id="@+id/nextButton"
     style="@style/Button.Accent"
@@ -110,9 +111,6 @@
     android:text="@string/login"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintTop_toBottomOf="@id/forgot_pass" />
-
-
-
 
 <TextView
     android:id="@+id/sign_up"
@@ -128,3 +126,7 @@
     app:layout_constraintVertical_chainStyle="packed" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+<!--    android:text="alex_n@alex_n.com"-->
+<!--    android:text="BZ67BeW4HwVqwBu"-->

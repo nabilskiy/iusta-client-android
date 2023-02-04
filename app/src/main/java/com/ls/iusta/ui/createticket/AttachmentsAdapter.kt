@@ -6,21 +6,12 @@ import android.net.Uri
 import android.provider.OpenableColumns
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.RequestManager
 import com.ls.iusta.R
 import com.ls.iusta.base.BaseAdapter
 import com.ls.iusta.databinding.ItemAttachListBinding
-import com.ls.iusta.databinding.ItemCategoryListBinding
-import com.ls.iusta.databinding.ItemTicketListBinding
-import com.ls.iusta.domain.models.category.Category
-import com.ls.iusta.domain.models.tickets.Ticket
-import com.ls.iusta.ui.ticketslist.AttachmentPreview
-import com.ls.iusta.ui.ticketslist.TicketAdapter
-import java.io.File
 import java.lang.NullPointerException
 import javax.inject.Inject
 

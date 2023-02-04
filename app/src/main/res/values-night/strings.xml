@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="language">Language</string>
-    <string name="az">AZ</string>
-    <string name="eng">ENG</string>
-    <string name="ru">RU</string>
-    <string name="change_password">Change password</string>
-    <string name="confirm">Confirm</string>
-</resources>

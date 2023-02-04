@@ -40,7 +40,7 @@
     <string name="fragment_ticket_detail_title_label">Bilet təfərrüatları</string>
     <string name="new_ticket">Başqa bir sifariş edin</string>
     <string name="order_status">Sifariş statusu: </string>
-    <string name="order_type">Sifariş növü: </string>
+    <string name="order_type">"Kateqoriya: "</string>
     <string name="order_date">Yaradılma tarixi: </string>
 
     <string name="ticket_category_label">Kateqoriya:</string>
@@ -89,6 +89,10 @@
     <string name="open_ticket">Açıq bilet</string>
     <string name="terms">Mən bütün Qaydalar və <b><u><font color="#FF9800">Şərtləri qəbul edirəm</font></u></b></string>
     <string name="total_size">"Ümumi ölçü: "</string>
+    <string name="see_order">Sifariş bax</string>
+    <string name="type_note_here">Type note here</string>
+    <string name="cancel">Cancel</string>
+    <string name="create">Create</string>
 
 
 </resources>

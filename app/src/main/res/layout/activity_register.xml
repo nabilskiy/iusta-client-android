@@ -205,6 +205,7 @@
                 android:id="@+id/phoneTextInputEditText"
                 style="@style/TextInputLayout.Login"
                 android:layout_width="match_parent"
+                android:maxLength="10"
                 android:hint="@string/phone"
                 android:inputType="phone" />
 
@@ -257,32 +258,55 @@
         <CheckBox
             android:id="@+id/privacy"
             style="@style/TextView.Title.Small"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="8dp"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
+
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/confirmPassTextInputLayout"
+            />
+
+        <TextView
+            android:id="@+id/privacyTxt"
+            style="@style/TextView.Title.Small"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            app:layout_constraintBaseline_toBaselineOf="@id/privacy"
             android:textSize="13sp"
             android:text="@string/privacy"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/confirmPassTextInputLayout"
+            app:layout_constraintStart_toEndOf="@id/privacy"
             app:layout_constraintVertical_chainStyle="packed" />
+
+
 
         <CheckBox
             android:id="@+id/terms"
             style="@style/TextView.Title.Small"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="8dp"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             android:textSize="13sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/privacy" />
+
+        <TextView
+            android:id="@+id/termsTxt"
+            style="@style/TextView.Title.Small"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            app:layout_constraintBaseline_toBaselineOf="@id/terms"
+            android:textSize="13sp"
             android:text="@string/terms"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/privacy"
-            app:layout_constraintVertical_chainStyle="packed" />
+            app:layout_constraintStart_toEndOf="@id/terms"
+            />
 
         <Button
             android:id="@+id/nextButton"
@@ -305,7 +329,7 @@
             app:layout_constraintTop_toBottomOf="@id/nextButton"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintVertical_chainStyle="packed" />
+            />
 
 
 

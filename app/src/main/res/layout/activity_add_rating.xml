@@ -99,6 +99,7 @@
         android:hint="Type comment here"
         android:minHeight="80dp"
         android:padding="12dp"
+        android:textColorHint="@color/dark_grey"
         android:textColor="@color/black"
         android:textSize="14sp" />
 
@@ -106,7 +107,7 @@
         android:id="@+id/nextButton"
         style="@style/Button.Accent"
         android:layout_width="match_parent"
-        android:text="Done"
+        android:text="@string/next"
         app:layout_constraintBottom_toBottomOf="parent" />
 
 

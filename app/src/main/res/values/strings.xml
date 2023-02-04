@@ -50,7 +50,7 @@
     <string name="fragment_ticket_detail_title_label">Ticket Detail</string>
     <string name="new_ticket">Make another order</string>
     <string name="order_status">Order status: </string>
-    <string name="order_type">Order type: </string>
+    <string name="order_type">"Category: "</string>
     <string name="order_date">Created date: </string>
 
     <string name="ticket_category_label">Category:</string>
@@ -112,8 +112,10 @@
     <string name="reset_email" translatable="false">The selected email is invalid.</string>
     <string name="empty_note" translatable="false">Empty note</string>
     <string name="big_size" translatable="false">Attachment too large, Max size 10mb</string>
-
-
+    <string name="see_order">See order</string>
+    <string name="type_note_here">Type note here</string>
+    <string name="cancel">Cancel</string>
+    <string name="create">Create</string>
 
 
 </resources>

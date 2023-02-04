@@ -13,6 +13,7 @@ import com.ls.iusta.domain.models.push.MainScreenUIModel
 import com.ls.iusta.domain.models.push.NotificationsUIModel
 import com.ls.iusta.extension.observe
 import com.ls.iusta.presentation.viewmodel.notifications.NotificationsListViewModel
+import com.ls.iusta.ui.MainActivity
 import com.ls.iusta.ui.ticketslist.TicketsListFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -78,7 +79,7 @@ class NotificationsListFragment :
                 handleErrorMessage(event.error)
             }
             is NotificationsUIModel.Read -> {
-
+                (requireActivity() as MainActivity).updateUserInfo()
             }
             is NotificationsUIModel.Delete -> {
 

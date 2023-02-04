@@ -140,12 +140,10 @@ class RegActivity : BaseActivity<ActivityRegisterBinding>() {
                 }
             }
 
-            privacy.setOnClickListener {
-                if (privacy.isChecked)
+            privacyTxt.setOnClickListener {
                     openBrowser(policyLink)
             }
-            terms.setOnClickListener {
-                if (terms.isChecked)
+            termsTxt.setOnClickListener {
                     openBrowser(termsLink)
             }
 
