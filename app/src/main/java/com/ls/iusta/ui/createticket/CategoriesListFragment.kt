@@ -149,6 +149,11 @@ class CategoriesListFragment :
             dialog.dismiss()
         }
         dialogBindig.idBtnCreate.setOnClickListener {
+
+            if(attachmentFilesList.isEmpty()){
+                attachmentFilesList.add(AttachmentFile("",0,File.createTempFile("temp", "temp")))
+            }
+
             viewModel.sendTicket(
                 attachmentFilesList,
                 menuId,
