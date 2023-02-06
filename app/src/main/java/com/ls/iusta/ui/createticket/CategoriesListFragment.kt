@@ -11,6 +11,7 @@ import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.net.toFile
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -109,9 +110,12 @@ class CategoriesListFragment :
         attachmentsAdapter.setItemClickListener { attach ->
             viewModel.attachmentDeleteSize(attach.size)
             attachmentsList.remove(attach)
-            attachmentFilesList.map {
-                if (it.size == attach.size)
-                    attachmentFilesList.remove(it)
+            val iterator = attachmentFilesList.iterator()
+            while(iterator.hasNext()){
+                val item = iterator.next()
+                if(item.size == attach.size){
+                    iterator.remove()
+                }
             }
             attachmentsAdapter.notifyDataSetChanged()
         }
@@ -150,8 +154,8 @@ class CategoriesListFragment :
         }
         dialogBindig.idBtnCreate.setOnClickListener {
 
-            if(attachmentFilesList.isEmpty()){
-                attachmentFilesList.add(AttachmentFile("",0,File.createTempFile("temp", "temp")))
+            if (attachmentFilesList.isEmpty()) {
+                attachmentFilesList.add(AttachmentFile("", 0, File.createTempFile("temp", "temp")))
             }
 
             viewModel.sendTicket(
@@ -180,6 +184,8 @@ class CategoriesListFragment :
             if (resultCode == Activity.RESULT_OK) {
                 //Image Uri will not be null for RESULT_OK
                 val fileUri = data?.data!!
+                //file:///storage/emulated/0/Android/data/com.ls.iusta/files/DCIM/IMG_20230206_122610675.png
+                //content://com.android.providers.downloads.documents/document/msf%3A64550
                 handleSelectImage(fileUri)
             } else if (resultCode == ImagePicker.RESULT_ERROR) {
                 showSnackBar(binding.root, ImagePicker.getError(data))
@@ -247,8 +253,10 @@ class CategoriesListFragment :
             }
             is CategoryUiModel.CreateTicketSuccess -> {
                 handleLoading(false)
-                if (event.data.success)
+                if (event.data.success){
+                    showSnackBar(binding.root, getString(R.string.create_ticket_success_label))
                     dialog.hide()
+                }
                 else
                     event.data.message?.map {
                         handleErrorMessage(it.value.get(0))

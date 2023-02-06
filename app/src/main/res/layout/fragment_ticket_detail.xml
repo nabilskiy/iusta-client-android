@@ -283,6 +283,7 @@
         android:layout_margin="32dp"
         android:padding="16dp"
         android:visibility="gone"
+        tools:visibility="visible"
         android:id="@+id/scanResultsDialog"
         android:background="@drawable/dialog_bg"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -308,23 +309,11 @@
             android:layout_marginTop="16dp"
             android:text="@string/assistant_identified"
             app:layout_constraintTop_toBottomOf="@+id/icon"
-            app:layout_constraintBottom_toTopOf="@+id/messageTv"
+            app:layout_constraintBottom_toTopOf="@+id/nextButton"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintVertical_chainStyle="packed" />
 
-        <TextView
-            android:id="@+id/messageTv"
-            style="@style/TextView.Dialog"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:gravity="center"
-            android:text="@string/assistant_instruction"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txTv"
-            app:layout_constraintVertical_chainStyle="packed" />
 
         <Button
             android:id="@+id/nextButton"
@@ -334,7 +323,7 @@
             android:text="@string/btn_continue"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/messageTv" />
+            app:layout_constraintTop_toBottomOf="@id/txTv" />
 
         <Button
             android:id="@+id/cancelButton"

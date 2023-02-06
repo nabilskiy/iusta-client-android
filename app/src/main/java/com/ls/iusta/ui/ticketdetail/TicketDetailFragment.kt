@@ -124,6 +124,7 @@ class TicketDetailFragment :
             scanResultsDialog.makeVisible()
             if (match) {
                 txTv.text = getString(R.string.assistant_identified)
+                nextButton.text = getString(R.string.btn_continue)
                 icon.setImageResource(R.drawable.ic_done)
                 cancelButton.makeGone()
             } else {

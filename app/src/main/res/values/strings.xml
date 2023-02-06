@@ -61,6 +61,7 @@
 
     <!-- Create Ticket Fragment -->
     <string name="fragment_create_ticket_title_label">Create ticket</string>
+    <string name="create_ticket_success_label">Your ticket has been successfully created</string>
     <string name="total_size">Total size: </string>
 
     <!-- Settings Fragment -->

@@ -142,8 +142,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         observe(viewModel.mainData, ::onTokenSaved)
     }
 
-
-
     @SuppressLint("UnsafeOptInUsageError")
     private fun onTokenSaved(event: MainScreenUIModel) {
         if (event.isRedelivered) return

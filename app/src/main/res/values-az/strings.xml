@@ -7,7 +7,7 @@
 
     <!-- Login Activity -->
     <string name="login">Daxil ol</string>
-    <string name="signup">Hələ qeydiyyatdan keçməmisiniz?giriş <b><font color="#FF9800">Qeydiyyatdan keçin</font></b></string>
+    <string name="signup">Hələ qeydiyyatdan keçməmisiniz? <b><font color="#FF9800">Qeydiyyatdan keçin</font></b></string>
     <string name="forgotpass">Şifrəni unutmusunuz?</string>
     <string name="next">Next</string>
     <string name="email">E-poçt</string>

@@ -36,16 +36,17 @@ class TicketsListFragment : BaseFragment<FragmentTicketsListBinding, TicketsList
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        observe(viewModel.ticketList, ::onViewStateChange)
         isActive =
             (findNavController().currentDestination?.label == getString(R.string.fragment_tickets_title_label))
         viewModel.getTickets(isActive, pageNum)
-        observe(viewModel.ticketList, ::onViewStateChange)
         setupRecyclerView()
     }
 
     override fun onResume() {
         super.onResume()
-            // ticketAdapter.list = emptyList()
+            //  ticketAdapter.list = emptyList()
+//        viewModel.getTickets(isActive, pageNum)
     }
 
     private fun setupRecyclerView() {
@@ -107,9 +108,9 @@ class TicketsListFragment : BaseFragment<FragmentTicketsListBinding, TicketsList
             is TicketUIModel.Success -> {
                 handleLoading(false)
                 if (event.data.success) {
-                    val tempList = ticketAdapter.list.toMutableList()
-                    event.data.response?.let { tempList.addAll(it) }
-                    ticketAdapter.list = tempList
+                //    val tempList = ticketAdapter.list.toMutableList()
+               //     event.data.response?.let { tempList.addAll(it) }
+                    ticketAdapter.list = event.data.response!!
                 } else {
                     event.data.message?.map {
                         //todo remove hardcoded key
