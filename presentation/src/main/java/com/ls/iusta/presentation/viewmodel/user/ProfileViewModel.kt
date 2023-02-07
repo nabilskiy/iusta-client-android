@@ -39,6 +39,7 @@ class ProfileViewModel @Inject constructor(
         _userInfo.postValue(UserUiModel.Loading)
         launchCoroutineIO {
             loadUserInfo()
+            getLocale()
         }
     }
 
@@ -71,7 +72,6 @@ class ProfileViewModel @Inject constructor(
     private suspend fun loadUserInfo() {
         userInfoUseCase(Unit).collect {
             _userInfo.postValue(UserUiModel.Success(it))
-            //getLocale()
         }
     }
 
