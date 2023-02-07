@@ -1,342 +1,350 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/rootView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorBg"
+    android:fillViewport="true"
     tools:context=".ui.ticketdetail.TicketDetailFragment">
 
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/refresh"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="wrap_content">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/refresh"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cardViewImage"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="16dp"
-                android:elevation="5dp"
-                app:cardCornerRadius="@dimen/card_view_radius"
-                app:layout_constraintTop_toTopOf="parent">
+                android:layout_height="match_parent">
 
-                <androidx.constraintlayout.widget.ConstraintLayout
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardViewImage"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <androidx.appcompat.widget.AppCompatImageView
-                        android:id="@+id/bg"
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/background_menu_head"
-                        app:layout_constraintBottom_toTopOf="@+id/info"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <androidx.appcompat.widget.AppCompatImageView
-                        android:id="@+id/imageViewTicket"
-                        android:layout_width="90dp"
-                        android:layout_height="90dp"
-                        android:layout_margin="24dp"
-                        android:src="@drawable/ic_moon"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/workerStatus"
-                        style="@style/TextView.Ticket.Value2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/message_bg"
-                        android:gravity="center"
-                        android:padding="24dp"
-                        android:layout_margin="16dp"
-                        android:text="@string/your_specialist_is_not_assigned"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintBottom_toTopOf="@+id/scanButton"
-                        app:layout_constraintTop_toBottomOf="@+id/imageViewTicket" />
-
-                    <androidx.appcompat.widget.AppCompatButton
-                        android:id="@+id/scanButton"
-                        android:visibility="gone"
-                        tools:visibility="visible"
-                        android:layout_height="53dp"
-                        android:layout_width="match_parent"
-                        android:background="@drawable/btn_lighter_grey"
-                        android:textColor="@color/white"
-                        android:textAllCaps="false"
-                        android:textSize="18sp"
-                        android:layout_margin="16dp"
-                        android:text="@string/proceed_to_scan"
-                        app:layout_constraintBottom_toTopOf="@+id/info"
-                        app:layout_constraintTop_toBottomOf="@+id/workerStatus" />
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="16dp"
+                    android:elevation="5dp"
+                    app:cardCornerRadius="@dimen/card_view_radius"
+                    app:layout_constraintTop_toTopOf="parent">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/info"
-                        android:background="@color/whiteText"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="12dp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/scanButton">
+                        android:layout_height="match_parent">
 
-                        <com.google.android.material.textview.MaterialTextView
-                            android:id="@+id/textViewCategoryLabel"
-                            style="@style/TextView.Ticket.Title2"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:text="@string/ticket_category_label"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintWidth_percent=".5" />
-
-                        <com.google.android.material.textview.MaterialTextView
-                            android:id="@+id/textViewDateLabel"
-                            style="@style/TextView.Ticket.Title2"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:text="@string/ticket_date_label"
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/bg"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/background_menu_head"
+                            app:layout_constraintBottom_toTopOf="@+id/info"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintWidth_percent=".5" />
-
-                        <com.google.android.material.textview.MaterialTextView
-                            android:id="@+id/textViewCategory"
-                            style="@style/TextView.Ticket.Value2"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/textViewCategoryLabel"
-                            app:layout_constraintWidth_percent=".5"
-                            tools:text="Internet not working" />
+                            app:layout_constraintTop_toTopOf="parent" />
 
-                        <com.google.android.material.textview.MaterialTextView
-                            android:id="@+id/textViewDate"
-                            style="@style/TextView.Ticket.Value2"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/imageViewTicket"
+                            android:layout_width="90dp"
+                            android:layout_height="90dp"
+                            android:layout_margin="24dp"
+                            android:src="@drawable/ic_moon"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/textViewDateLabel"
-                            app:layout_constraintWidth_percent=".5"
-                            tools:text="01.01.1970" />
-
-                        <com.google.android.material.textview.MaterialTextView
-                            android:id="@+id/textViewNumberLabel"
-                            style="@style/TextView.Ticket.Title2"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:text="@string/ticket_num_label"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/textViewCategory"
-                            app:layout_constraintWidth_percent=".5" />
+                            app:layout_constraintTop_toTopOf="parent" />
 
                         <com.google.android.material.textview.MaterialTextView
-                            android:id="@+id/textViewStatusLabel"
-                            style="@style/TextView.Ticket.Title2"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:text="@string/ticket_status_label"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/textViewDate"
-                            app:layout_constraintWidth_percent=".5" />
-
-                        <com.google.android.material.textview.MaterialTextView
-                            android:id="@+id/textViewNumber"
+                            android:id="@+id/workerStatus"
                             style="@style/TextView.Ticket.Value2"
-                            android:layout_width="0dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_margin="16dp"
+                            android:background="@drawable/message_bg"
+                            android:gravity="center"
+                            android:padding="24dp"
+                            android:text="@string/your_specialist_is_not_assigned"
+                            app:layout_constraintBottom_toTopOf="@+id/scanButton"
+                            app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/textViewNumberLabel"
-                            app:layout_constraintWidth_percent=".5"
-                            tools:text="12312312312311231" />
+                            app:layout_constraintTop_toBottomOf="@+id/imageViewTicket" />
 
-                        <com.google.android.material.textview.MaterialTextView
-                            android:id="@+id/textViewStatus"
-                            style="@style/TextView.Ticket.Value2"
-                            android:textColor="@color/orange"
-                            android:textStyle="bold"
-                            android:layout_width="0dp"
+                        <androidx.appcompat.widget.AppCompatButton
+                            android:id="@+id/scanButton"
+                            android:layout_width="match_parent"
+                            android:layout_height="53dp"
+                            android:layout_margin="16dp"
+                            android:background="@drawable/btn_lighter_grey"
+                            android:text="@string/proceed_to_scan"
+                            android:textAllCaps="false"
+                            android:textColor="@color/white"
+                            android:textSize="18sp"
+                            android:visibility="gone"
+                            app:layout_constraintBottom_toTopOf="@+id/info"
+                            app:layout_constraintTop_toBottomOf="@+id/workerStatus"
+                            tools:visibility="visible" />
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/info"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:background="@color/whiteText"
+                            android:padding="12dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/textViewStatusLabel"
-                            app:layout_constraintWidth_percent=".5"
-                            tools:text="New" />
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/scanButton">
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:id="@+id/textViewCategoryLabel"
+                                style="@style/TextView.Ticket.Title2"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:text="@string/ticket_category_label"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintWidth_percent=".5" />
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:id="@+id/textViewDateLabel"
+                                style="@style/TextView.Ticket.Title2"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:text="@string/ticket_date_label"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintWidth_percent=".5" />
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:id="@+id/textViewCategory"
+                                style="@style/TextView.Ticket.Value2"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/textViewCategoryLabel"
+                                app:layout_constraintWidth_percent=".5"
+                                tools:text="Internet not working" />
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:id="@+id/textViewDate"
+                                style="@style/TextView.Ticket.Value2"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/textViewDateLabel"
+                                app:layout_constraintWidth_percent=".5"
+                                tools:text="01.01.1970" />
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:id="@+id/textViewNumberLabel"
+                                style="@style/TextView.Ticket.Title2"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:text="@string/ticket_num_label"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/textViewCategory"
+                                app:layout_constraintWidth_percent=".5" />
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:id="@+id/textViewStatusLabel"
+                                style="@style/TextView.Ticket.Title2"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:text="@string/ticket_status_label"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/textViewDate"
+                                app:layout_constraintWidth_percent=".5" />
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:id="@+id/textViewNumber"
+                                style="@style/TextView.Ticket.Value2"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/textViewNumberLabel"
+                                app:layout_constraintWidth_percent=".5"
+                                tools:text="12312312312311231" />
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:id="@+id/textViewStatus"
+                                style="@style/TextView.Ticket.Value2"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/orange"
+                                android:textStyle="bold"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/textViewStatusLabel"
+                                app:layout_constraintWidth_percent=".5"
+                                tools:text="New" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-            </com.google.android.material.card.MaterialCardView>
+                </com.google.android.material.card.MaterialCardView>
 
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/assignedLabel"
-                android:visibility="gone"
-                tools:visibility="visible"
-                style="@style/TextView.Title.Mid"
-                android:layout_width="0dp"
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/assignedLabel"
+                    style="@style/TextView.Title.Mid"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="start"
+                    android:paddingStart="16dp"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
+                    android:text="@string/assigned_specialist"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/cardViewImage"
+                    tools:visibility="visible" />
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/workerCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:elevation="5dp"
+                    android:visibility="gone"
+                    app:cardCornerRadius="@dimen/card_view_radius"
+                    app:layout_constraintTop_toBottomOf="@+id/assignedLabel"
+                    tools:visibility="visible">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/whiteText">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/workerAvatar"
+                            android:layout_width="80dp"
+                            android:layout_height="80dp"
+                            android:layout_margin="16dp"
+                            android:src="@drawable/avatar_icon"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/workerName"
+                            style="@style/TextView.Ticket.Value2"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="16dp"
+                            android:text="Earth"
+                            app:layout_constraintStart_toEndOf="@+id/workerAvatar"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <androidx.appcompat.widget.AppCompatRatingBar
+                            android:id="@+id/workerRating"
+                            style="@style/Widget.AppCompat.RatingBar.Small"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:max="5"
+                            android:progress="3"
+                            app:layout_constraintStart_toEndOf="@+id/workerAvatar"
+                            app:layout_constraintTop_toBottomOf="@+id/workerName" />
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/workerCallOrRate"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:layout_margin="16dp"
+                            android:background="@drawable/btn_accent"
+                            android:padding="8dp"
+                            android:src="@drawable/ic_call"
+                            android:tint="@color/white"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/scanResultsDialog"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="32dp"
+            android:background="@drawable/dialog_bg"
+            android:padding="16dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="visible">
+
+            <ImageView
+                android:id="@+id/icon"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="start"
-                android:paddingStart="16dp"
-                android:paddingTop="8dp"
-                android:paddingBottom="8dp"
-                android:text="@string/assigned_specialist"
+                android:src="@drawable/ic_done"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cardViewImage" />
+                app:layout_constraintTop_toTopOf="parent" />
 
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/workerCard"
-                android:visibility="gone"
-                tools:visibility="visible"
+            <TextView
+                android:id="@+id/txTv"
+                style="@style/TextView.Title.Mid"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:elevation="5dp"
-                app:cardCornerRadius="@dimen/card_view_radius"
-                app:layout_constraintTop_toBottomOf="@+id/assignedLabel">
+                android:layout_marginTop="16dp"
+                android:gravity="center"
+                android:text="@string/assistant_identified"
+                app:layout_constraintBottom_toTopOf="@+id/nextButton"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/icon"
+                app:layout_constraintVertical_chainStyle="packed" />
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:background="@color/whiteText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
 
-                    <androidx.appcompat.widget.AppCompatImageView
-                        android:id="@+id/workerAvatar"
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"
-                        android:layout_margin="16dp"
-                        android:src="@drawable/avatar_icon"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+            <Button
+                android:id="@+id/nextButton"
+                style="@style/Button.Accent"
+                android:layout_width="0dp"
+                android:layout_margin="16dp"
+                android:text="@string/btn_continue"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/txTv" />
 
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/workerName"
-                        style="@style/TextView.Ticket.Value2"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginStart="8dp"
-                        android:text="Earth"
-                        app:layout_constraintStart_toEndOf="@+id/workerAvatar"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <androidx.appcompat.widget.AppCompatRatingBar
-                        android:id="@+id/workerRating"
-                        style="@style/Widget.AppCompat.RatingBar.Small"
-                        android:layout_marginStart="8dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:max="5"
-                        android:progress="3"
-                        app:layout_constraintStart_toEndOf="@+id/workerAvatar"
-                        app:layout_constraintTop_toBottomOf="@+id/workerName" />
-
-                    <androidx.appcompat.widget.AppCompatImageView
-                        android:id="@+id/workerCallOrRate"
-                        android:layout_width="60dp"
-                        android:layout_height="60dp"
-                        android:layout_margin="16dp"
-                        android:padding="8dp"
-                        android:background="@drawable/btn_accent"
-                        android:src="@drawable/ic_call"
-                        android:tint="@color/white"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-            </com.google.android.material.card.MaterialCardView>
+            <Button
+                android:id="@+id/cancelButton"
+                style="@style/Button.Accent"
+                android:layout_width="0dp"
+                android:layout_margin="16dp"
+                android:text="@string/goback"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/nextButton" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="32dp"
-        android:padding="16dp"
-        android:visibility="gone"
-        tools:visibility="visible"
-        android:id="@+id/scanResultsDialog"
-        android:background="@drawable/dialog_bg"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <ImageView
-            android:id="@+id/icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_done"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/txTv"
-            style="@style/TextView.Title.Mid"
-            android:layout_width="match_parent"
-            android:gravity="center"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="@string/assistant_identified"
-            app:layout_constraintTop_toBottomOf="@+id/icon"
-            app:layout_constraintBottom_toTopOf="@+id/nextButton"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintVertical_chainStyle="packed" />
-
-
-        <Button
-            android:id="@+id/nextButton"
-            style="@style/Button.Accent"
-            android:layout_width="0dp"
-            android:layout_margin="16dp"
-            android:text="@string/btn_continue"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/txTv" />
-
-        <Button
-            android:id="@+id/cancelButton"
-            android:visibility="gone"
-            style="@style/Button.Accent"
-            android:layout_width="0dp"
-            android:layout_margin="16dp"
-            android:text="@string/goback"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/nextButton" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>

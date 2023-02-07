@@ -35,7 +35,8 @@ data class TicketCacheEntity(
     val next_event_label: String,
     val next_event_id: Int,
     val next_event_name: String,
-    val current_event_label: String
+    val current_event_label: String,
+    val current_event_id: Int
 //    @ColumnInfo(name = "is_bookmarked")
 //    var isBookMarked: Boolean
 )

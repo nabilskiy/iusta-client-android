@@ -2,8 +2,10 @@ package com.ls.iusta.presentation.viewmodel.user
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.ls.iusta.domain.interactor.customer.GetCustomersListUseCase
 import com.ls.iusta.domain.interactor.user.SaveUserInfoUseCase
 import com.ls.iusta.domain.interactor.user.UserInfoUseCase
+import com.ls.iusta.domain.models.auth.RegUiModel
 import com.ls.iusta.domain.models.settings.SettingUiModel
 import com.ls.iusta.domain.models.settings.Settings
 import com.ls.iusta.domain.models.user.SaveUserRequest
@@ -21,6 +23,7 @@ class ProfileViewModel @Inject constructor(
     contextProvider: CoroutineContextProvider,
     private val userInfoUseCase: UserInfoUseCase,
     private val saveUserInfoUseCase: SaveUserInfoUseCase,
+    private val getCustomersListUseCase: GetCustomersListUseCase,
     private val presentationPreferencesHelper: PresentationPreferencesHelper
 ) : BaseViewModel(contextProvider) {
 
@@ -87,6 +90,18 @@ class ProfileViewModel @Inject constructor(
         lang.run {
             presentationPreferencesHelper.locale = lang
             _userInfo.postValue(UserUiModel.ChangeLocale(lang))
+        }
+    }
+
+    fun searchCustomer(query: String) {
+        launchCoroutineIO {
+            customers(query)
+        }
+    }
+
+    private suspend fun customers(query: String) {
+        getCustomersListUseCase(query).collect {
+            _userInfo.postValue(UserUiModel.SuccessSearch(it))
         }
     }
 

@@ -10,10 +10,10 @@ object AppConstants {
     }
 
     object StatusTickets {
-        const val NEW = "New"
-        const val ACCEPT = "Accept"
-        const val ARRIVED = "I have arrived"
-        const val COMPLETE = "Completed"
-        const val REJECT = "Reject"
+        const val NEW = 1
+        const val ACCEPT = 4
+        const val ARRIVED = 5
+        const val COMPLETE = 7
+        const val REJECT = 6
     }
 }

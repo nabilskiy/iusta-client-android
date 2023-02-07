@@ -11,7 +11,7 @@
     <string name="forgotpass">Şifrəni unutmusunuz?</string>
     <string name="next">Next</string>
     <string name="email">E-poçt</string>
-    <string name="password">Parol</string>
+    <string name="password">Şifrə</string>
     <string name="birthday">Ad günü</string>
     <string name="password_confirm">Şifrəni təsdiqləyin</string>
 
@@ -19,7 +19,7 @@
     <string name="resetpass">Parolu sıfırlamak</string>
     <string name="send">Göndər</string>
     <string name="goback">Qeri gayıt</string>
-    <string name="resetpass_message">E-poçt ünvanınızı daxil edin. Siz e-poçt vasitəsilə yeni parol yaratmaq üçün bir keçid alacaqsınız</string>
+    <string name="resetpass_message">E-poçt ünvanınızı daxil edin. Siz e-poçt vasitəsilə yeni Şifrə yaratmaq üçün bir keçid alacaqsınız</string>
 
     <!-- Registration Activity -->
     <string name="reg">Qeydiyyatdan keçin</string>

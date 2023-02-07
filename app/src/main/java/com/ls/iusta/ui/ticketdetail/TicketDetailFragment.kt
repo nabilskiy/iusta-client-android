@@ -157,7 +157,7 @@ class TicketDetailFragment :
                                 ticketId = ticket!!.id
                                 workerId = ticket.user_id
                                 ticketStatus = ticket.current_event_label
-                                when (ticket?.current_event_label) {
+                                when (ticket?.current_event_id) {
                                     AppConstants.StatusTickets.NEW -> {
                                         workerStatus.text =
                                             getString(R.string.your_specialist_is_not_assigned)
@@ -190,9 +190,13 @@ class TicketDetailFragment :
                                 }
                             }
                         } else {
-                            getTicket.message?.map {
-                                handleErrorMessage(it.value.get(0))
-                            }
+
+                            binding.workerStatus.text =
+                                getString(R.string.no_ticket)
+                            handleErrorMessage(getString(R.string.no_ticket))
+//                            getTicket.message?.map {
+//                                handleErrorMessage(it.value.get(0))
+//                            }
                         }
                     }
                 }

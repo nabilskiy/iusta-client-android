@@ -2,6 +2,8 @@ package com.ls.iusta.domain.models.user
 
 import com.ls.iusta.domain.models.UiAwareModel
 import com.ls.iusta.domain.models.auth.Login
+import com.ls.iusta.domain.models.auth.RegUiModel
+import com.ls.iusta.domain.models.customer.CustomerResponse
 
 sealed class UserUiModel : UiAwareModel() {
     object Loading : UserUiModel()
@@ -10,5 +12,7 @@ sealed class UserUiModel : UiAwareModel() {
     data class Updated(var result: Boolean) : UserUiModel()
     data class ChangeLocale(var lang: String) : UserUiModel()
     data class GetLocale(var lang: String) : UserUiModel()
+    data class SuccessSearch(var data: CustomerResponse) : UserUiModel()
+
    // data class SuccessUpdate() : UserUiModel()
 }

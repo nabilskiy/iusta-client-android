@@ -35,7 +35,8 @@ class TicketEntityMapper @Inject constructor(
             next_event_label = model.next_event_label,
             next_event_id = model.next_event_id,
             next_event_name = model.next_event_name,
-            current_event_label = model.current_event_label
+            current_event_label = model.current_event_label,
+            current_event_id = model.current_event_id
         )
     }
 }
