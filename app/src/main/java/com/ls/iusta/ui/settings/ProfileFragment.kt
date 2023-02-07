@@ -171,7 +171,7 @@ class ProfileFragment :
                 (requireActivity() as MainActivity).updateLocale(Locale(result.lang))
             }
             is UserUiModel.GetLocale -> {
-                handleLoading(false)
+              //  handleLoading(false)
                 setLocaleBtn(result.lang)
             }
             is UserUiModel.Updated ->{
