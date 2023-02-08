@@ -13,6 +13,7 @@ import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.net.toFile
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.github.dhaval2404.imagepicker.ImagePicker
@@ -21,6 +22,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.ls.iusta.R
 import com.ls.iusta.base.BaseFragment
 import com.ls.iusta.databinding.DialogCreateTicketBinding
+import com.ls.iusta.databinding.DialogTicketCreatedBinding
 import com.ls.iusta.databinding.FragmentCategoriesListBinding
 import com.ls.iusta.domain.models.category.Category
 import com.ls.iusta.domain.models.category.CategoryInfo
@@ -29,6 +31,7 @@ import com.ls.iusta.domain.models.tickets.AttachmentFile
 import com.ls.iusta.extension.observe
 import com.ls.iusta.extension.showSnackBar
 import com.ls.iusta.presentation.viewmodel.tickets.CategoriesListViewModel
+import com.ls.iusta.ui.ticketslist.TicketsListFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
 import java.text.CharacterIterator
@@ -46,6 +49,7 @@ class CategoriesListFragment :
     override val viewModel: CategoriesListViewModel by viewModels()
 
     lateinit var dialog: BottomSheetDialog
+    lateinit var dialogCreated: BottomSheetDialog
     private var menuId: Int = 0
     private var backMenuId: Int = 0
 
@@ -171,6 +175,20 @@ class CategoriesListFragment :
         dialog.show()
     }
 
+    private fun showCreatedDialog() {
+        dialogCreated = BottomSheetDialog(requireContext())
+        val dialogBindig = DialogTicketCreatedBinding.inflate(layoutInflater)
+        dialogBindig.nextButton.setOnClickListener {
+            findNavController().navigate(
+                CategoriesListFragmentDirections.actionCategoriesListFragmentToTicketsListFragment()
+            )
+            dialogCreated.hide()
+        }
+        dialogCreated.setCancelable(false)
+        dialogCreated.setContentView(dialogBindig.root)
+        dialogCreated.show()
+    }
+
     private fun selectPDF() {
         val intent = Intent(Intent.ACTION_GET_CONTENT)
         intent.type = "application/pdf"
@@ -254,7 +272,7 @@ class CategoriesListFragment :
             is CategoryUiModel.CreateTicketSuccess -> {
                 handleLoading(false)
                 if (event.data.success){
-                    showSnackBar(binding.root, getString(R.string.create_ticket_success_label))
+                    showCreatedDialog()
                     dialog.hide()
                 }
                 else

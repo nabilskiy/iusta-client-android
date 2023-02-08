@@ -22,6 +22,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:gravity="center"
         android:text="Assistant identified"
         app:layout_constraintTop_toBottomOf="@+id/icon"
         app:layout_constraintBottom_toTopOf="@+id/messageTv"

@@ -46,7 +46,7 @@ class TicketDetailFragment :
     private var workerId: Int = 0
     private lateinit var workerPhone: String
     private var ratingSet: Boolean = false
-    private lateinit var ticketStatus: String
+    private var ticketStatus: Int = 0
 
     val startForResult =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
@@ -79,14 +79,14 @@ class TicketDetailFragment :
                 scanResultsDialog.makeGone()
             }
             workerCallOrRate.setOnClickListener {
-                if (!ticketStatus.equals(AppConstants.StatusTickets.COMPLETE)) {
+                if (ticketStatus != AppConstants.StatusTickets.COMPLETE) {
                     val callIntent: Intent = Uri.parse("tel:" + workerPhone).let { number ->
                         Intent(Intent.ACTION_DIAL, number)
                     }
                     startActivity(callIntent)
-                } else if (!ratingSet && ticketStatus.equals(AppConstants.StatusTickets.COMPLETE)) {
-                    AddRatingActivity.startActivity(requireActivity(), ticketId, workerId)
-                }
+                } else if (ticketStatus == AppConstants.StatusTickets.COMPLETE && !ratingSet) {
+                AddRatingActivity.startActivity(requireActivity(), ticketId, workerId)
+            }
             }
         }
     }
@@ -156,7 +156,7 @@ class TicketDetailFragment :
                                 textViewStatus.text = ticket?.current_event_label
                                 ticketId = ticket!!.id
                                 workerId = ticket.user_id
-                                ticketStatus = ticket.current_event_label
+                                ticketStatus = ticket.current_event_id
                                 when (ticket?.current_event_id) {
                                     AppConstants.StatusTickets.NEW -> {
                                         workerStatus.text =
@@ -190,7 +190,6 @@ class TicketDetailFragment :
                                 }
                             }
                         } else {
-
                             binding.workerStatus.text =
                                 getString(R.string.no_ticket)
                             handleErrorMessage(getString(R.string.no_ticket))

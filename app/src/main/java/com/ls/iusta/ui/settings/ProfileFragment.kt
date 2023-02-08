@@ -167,7 +167,7 @@ class ProfileFragment :
                 handleErrorMessage(result.error)
             }
             is UserUiModel.ChangeLocale -> {
-                handleLoading(false)
+               // handleLoading(false)
                 (requireActivity() as MainActivity).updateLocale(Locale(result.lang))
             }
             is UserUiModel.GetLocale -> {
