@@ -107,6 +107,7 @@
     <string name="empty_email" translatable="false">Empty email</string>
     <string name="incorrect_email" translatable="false">Incorrect email</string>
     <string name="empty_password" translatable="false">Empty password</string>
+    <string name="short_password" translatable="false">Password must be at least 8 characters</string>
     <string name="empty_password_confirm" translatable="false">Empty confirm password</string>
     <string name="empty_name" translatable="false">Empty name</string>
     <string name="empty_surname" translatable="false">Empty surname</string>

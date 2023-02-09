@@ -3,6 +3,10 @@ package com.ls.iusta.presentation.utils
 object AppConstants {
     //const val DB_NAME = "iusta_app.db"
 
+    object Message {
+        const val INVALID_TOKEN = "auth_token"
+    }
+
     object Status {
         const val ALL = "all"
         const val OPENED = "opened"

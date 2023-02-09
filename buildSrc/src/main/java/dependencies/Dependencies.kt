@@ -24,6 +24,7 @@ object Dependencies {
             "androidx.navigation:navigation-ui-ktx:${Versions.navUiKtxVersion}"
         const val activityKtx = "androidx.activity:activity-ktx:${Versions.activityKtxVersion}"
         const val swipeRefreshLayout ="androidx.swiperefreshlayout:swiperefreshlayout:${Versions.swipeRefreshLayoutVersion}"
+        const val paging ="androidx.paging:paging-runtime-ktx:${Versions.pagingVersion}"
     }
 
     object LifeCycleDep {

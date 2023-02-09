@@ -2,6 +2,7 @@ package com.ls.iusta.domain.interactor.push
 
 import com.ls.iusta.domain.interactor.BaseUseCase
 import com.ls.iusta.domain.models.customer.Customer
+import com.ls.iusta.domain.models.push.GetPush
 import com.ls.iusta.domain.models.push.Push
 import com.ls.iusta.domain.models.tickets.GetTicketsRequest
 import com.ls.iusta.domain.models.tickets.Ticket
@@ -12,7 +13,7 @@ import javax.inject.Inject
 
 class GetPushListUseCase @Inject constructor(
     private val userRepository: UserRepository
-) : BaseUseCase<Unit, Flow<List<Push>>> {
-    override suspend fun invoke(params: Unit): Flow<List<Push>> =
-        userRepository.notifications()
+) : BaseUseCase<Int, Flow<GetPush>> {
+    override suspend fun invoke(page: Int): Flow<GetPush> =
+        userRepository.notifications(page)
 }

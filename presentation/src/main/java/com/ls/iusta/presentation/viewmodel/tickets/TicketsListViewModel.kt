@@ -1,5 +1,6 @@
 package com.ls.iusta.presentation.viewmodel.tickets
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import com.ls.iusta.domain.interactor.auth.LogoutForceUseCase
 import com.ls.iusta.domain.interactor.auth.LogoutUseCase
@@ -32,6 +33,7 @@ class TicketsListViewModel @Inject constructor(
         }
 
     fun getTickets(active: Boolean, page: Int) {
+        Log.d("getTickets", " page: "+page)
         _ticketList.postValue(TicketUIModel.Loading)
         launchCoroutineIO {
             loadTickets(

@@ -77,7 +77,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         currentNavController = controller
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_top_main, menu)
         viewNotifications = menu?.findItem(R.id.navigationGraphNotifications)
         updateUserInfo()

@@ -6,6 +6,7 @@ import com.ls.iusta.domain.models.customer.CustomerResponse
 import com.ls.iusta.domain.models.info.About
 import com.ls.iusta.domain.models.info.Faq
 import com.ls.iusta.domain.models.info.Terms
+import com.ls.iusta.domain.models.push.GetPush
 import com.ls.iusta.domain.models.push.Push
 import com.ls.iusta.domain.models.user.Base
 import com.ls.iusta.domain.models.user.User
@@ -51,7 +52,7 @@ interface UserRepository {
     suspend fun terms(lang: String?): Flow<List<Terms>>
 
     suspend fun savePushToken(push_token: String): Flow<Boolean>
-    suspend fun notifications(): Flow<List<Push>>
+    suspend fun notifications(page: Int): Flow<GetPush>
     suspend fun readPush(ids: String): Flow<Boolean>
     suspend fun deletePush(ids: String): Flow<Boolean>
 }

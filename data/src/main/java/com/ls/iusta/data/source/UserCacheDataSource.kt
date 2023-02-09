@@ -6,6 +6,7 @@ import com.ls.iusta.data.models.customer.CustomerResponseEntity
 import com.ls.iusta.data.models.info.AboutEntity
 import com.ls.iusta.data.models.info.FaqEntity
 import com.ls.iusta.data.models.info.TermsEntity
+import com.ls.iusta.data.models.push.GetPushEntity
 import com.ls.iusta.data.models.push.PushEntity
 import com.ls.iusta.data.models.user.LoginEntity
 import com.ls.iusta.data.models.user.UserEntity
@@ -97,7 +98,7 @@ class UserCacheDataSource @Inject constructor(
         TODO("Not yet implemented")
     }
 
-    override suspend fun notifications(auth_token: String?): List<PushEntity> {
+    override suspend fun notifications(page: Int, auth_token: String?): GetPushEntity {
         TODO("Not yet implemented")
     }
 

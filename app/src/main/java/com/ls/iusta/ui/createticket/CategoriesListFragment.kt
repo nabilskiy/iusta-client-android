@@ -2,11 +2,14 @@ package com.ls.iusta.ui.createticket
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.ContentResolver
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import android.view.View
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.ActivityResult
@@ -28,12 +31,15 @@ import com.ls.iusta.domain.models.category.Category
 import com.ls.iusta.domain.models.category.CategoryInfo
 import com.ls.iusta.domain.models.category.CategoryUiModel
 import com.ls.iusta.domain.models.tickets.AttachmentFile
+import com.ls.iusta.extension.makeGone
+import com.ls.iusta.extension.makeVisible
 import com.ls.iusta.extension.observe
 import com.ls.iusta.extension.showSnackBar
 import com.ls.iusta.presentation.viewmodel.tickets.CategoriesListViewModel
 import com.ls.iusta.ui.ticketslist.TicketsListFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
+import java.io.FileNotFoundException
 import java.text.CharacterIterator
 import java.text.StringCharacterIterator
 import javax.inject.Inject
@@ -54,6 +60,7 @@ class CategoriesListFragment :
     private var backMenuId: Int = 0
 
     private lateinit var attachList: RecyclerView
+    private lateinit var loaderImage: ProgressBar
     private lateinit var sizeTv: TextView
     var attachmentSize: Long = 0L
 
@@ -115,9 +122,9 @@ class CategoriesListFragment :
             viewModel.attachmentDeleteSize(attach.size)
             attachmentsList.remove(attach)
             val iterator = attachmentFilesList.iterator()
-            while(iterator.hasNext()){
+            while (iterator.hasNext()) {
                 val item = iterator.next()
-                if(item.size == attach.size){
+                if (item.size == attach.size) {
                     iterator.remove()
                 }
             }
@@ -129,24 +136,28 @@ class CategoriesListFragment :
         dialog = BottomSheetDialog(requireContext())
         val dialogBindig = DialogCreateTicketBinding.inflate(layoutInflater)
         attachList = dialogBindig.attachments
+        loaderImage = dialogBindig.loaderImage
         sizeTv = dialogBindig.size
         attachList.apply {
             adapter = attachmentsAdapter
         }
 
         dialogBindig.gallery.setOnClickListener {
+            loaderImage.makeVisible()
             ImagePicker.with(requireActivity()).galleryOnly().compress(1024)
                 .createIntent { intent ->
                     startForAttachmentResult.launch(intent)
                 }
         }
         dialogBindig.photo.setOnClickListener {
+            loaderImage.makeVisible()
             ImagePicker.with(requireActivity()).cameraOnly().compress(1024)
                 .createIntent { intent ->
                     startForAttachmentResult.launch(intent)
                 }
         }
         dialogBindig.pdf.setOnClickListener {
+            loaderImage.makeVisible()
             selectPDF()
         }
         dialogBindig.idBtnDismiss.setOnClickListener {
@@ -175,12 +186,15 @@ class CategoriesListFragment :
         dialog.show()
     }
 
-    private fun showCreatedDialog() {
+    private fun showCreatedDialog(ticketId: Long) {
         dialogCreated = BottomSheetDialog(requireContext())
         val dialogBindig = DialogTicketCreatedBinding.inflate(layoutInflater)
         dialogBindig.nextButton.setOnClickListener {
             findNavController().navigate(
-                CategoriesListFragmentDirections.actionCategoriesListFragmentToTicketsListFragment()
+                CategoriesListFragmentDirections.actionCategoriesListFragmentToTicketDetailFragment(
+                    ticketId
+                )
+                // redirect to tickets list   CategoriesListFragmentDirections.actionCategoriesListFragmentToTicketsListFragment()
             )
             dialogCreated.hide()
         }
@@ -214,13 +228,33 @@ class CategoriesListFragment :
 
     @SuppressLint("Range")
     private fun handleSelectImage(uri: Uri?) {
+        var size: Long
+        var name:String
+
         if (uri != null) {
-            val cursor = context?.contentResolver?.query(uri, null, null, null, null)
-            cursor?.moveToFirst()
-            val name =
-                cursor?.getString(cursor.getColumnIndex(MediaStore.Images.Media.DISPLAY_NAME))
-            val size = cursor?.getLong(cursor.getColumnIndex(MediaStore.Images.Media.SIZE))
             val realPath = FileUriUtils.getRealPath(requireContext(), uri)
+
+            if (uri.scheme.equals(ContentResolver.SCHEME_CONTENT)) {
+                val cursor = context?.contentResolver?.query(uri, null, null, null, null)
+                cursor?.moveToFirst()
+                name =
+                    cursor?.getString(cursor.getColumnIndex(MediaStore.Images.Media.DISPLAY_NAME)).toString()
+                size = cursor?.getLong(cursor.getColumnIndex(MediaStore.Images.Media.SIZE))!!
+            } else {
+                val assetFileDescriptor = try {
+                    context?.contentResolver?.openAssetFileDescriptor(uri, "r")
+                } catch (e: FileNotFoundException) {
+                    null
+                }
+                name = uri.lastPathSegment.toString()
+                // uses ParcelFileDescriptor#getStatSize underneath if failed
+                size = assetFileDescriptor?.use { it.length } ?: -1L
+                if (size != -1L) {
+                    Log.d("TAG", "handleSelectImage: " + size)
+                }
+            }
+
+
             attachmentFilesList.add(
                 AttachmentFile(
                     name,
@@ -231,6 +265,7 @@ class CategoriesListFragment :
             size?.let { AttachmentPreview(it, uri) }?.let { attachmentsList.add(it) }
             attachmentsAdapter.list = attachmentsList
             attachmentsAdapter.notifyDataSetChanged()
+            loaderImage.makeGone()
             if (size != null) {
                 viewModel.attachmentResize(size)
             }
@@ -271,11 +306,10 @@ class CategoriesListFragment :
             }
             is CategoryUiModel.CreateTicketSuccess -> {
                 handleLoading(false)
-                if (event.data.success){
-                    showCreatedDialog()
+                if (event.data.success) {
+                    event.data.response?.TicketID?.toLong()?.let { showCreatedDialog(it) }
                     dialog.hide()
-                }
-                else
+                } else
                     event.data.message?.map {
                         handleErrorMessage(it.value.get(0))
                     }

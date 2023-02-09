@@ -30,15 +30,15 @@ class NotificationsListViewModel @Inject constructor(
             _pushList.postValue(NotificationsUIModel.Error(exception.message ?: "Error"))
         }
 
-    fun getPushes() {
+    fun getPushes(page:Int) {
         _pushList.postValue(NotificationsUIModel.Loading)
         launchCoroutineIO {
-            loadPushes()
+            loadPushes(page)
         }
     }
 
-    private suspend fun loadPushes() {
-        pushListUseCase(Unit).collect {
+    private suspend fun loadPushes(page:Int) {
+        pushListUseCase(page).collect {
             _pushList.postValue(NotificationsUIModel.Success(it))
         }
     }

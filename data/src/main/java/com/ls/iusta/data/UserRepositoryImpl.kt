@@ -5,6 +5,7 @@ import com.ls.iusta.data.mapper.customer.CustomerResponseMapper
 import com.ls.iusta.data.mapper.info.AboutMapper
 import com.ls.iusta.data.mapper.info.FaqMapper
 import com.ls.iusta.data.mapper.info.TermsMapper
+import com.ls.iusta.data.mapper.push.GetPushMapper
 import com.ls.iusta.data.mapper.push.PushMapper
 import com.ls.iusta.data.mapper.user.BaseMapper
 import com.ls.iusta.data.mapper.user.LoginMapper
@@ -16,6 +17,7 @@ import com.ls.iusta.domain.models.customer.CustomerResponse
 import com.ls.iusta.domain.models.info.About
 import com.ls.iusta.domain.models.info.Faq
 import com.ls.iusta.domain.models.info.Terms
+import com.ls.iusta.domain.models.push.GetPush
 import com.ls.iusta.domain.models.push.Push
 import com.ls.iusta.domain.models.user.Base
 import com.ls.iusta.domain.models.user.User
@@ -34,7 +36,7 @@ class UserRepositoryImpl @Inject constructor(
     private val aboutMapper: AboutMapper,
     private val faqMapper: FaqMapper,
     private val termsMapper: TermsMapper,
-    private val pushMapper: PushMapper,
+    private val getPushMapper: GetPushMapper,
     private val baseMapper: BaseMapper
 ) : UserRepository {
 
@@ -182,12 +184,10 @@ class UserRepositoryImpl @Inject constructor(
         emit(result)
     }
 
-    override suspend fun notifications(): Flow<List<Push>> = flow {
+    override suspend fun notifications(page: Int): Flow<GetPush> = flow {
         val notifications = userDataSourceFactory.getRemoteDataSource()
-            .notifications(userDataSourceFactory.getAuthToken()).map { pushEntity ->
-                pushMapper.mapFromEntity(pushEntity)
-            }
-        emit(notifications)
+            .notifications(page, userDataSourceFactory.getAuthToken())
+        emit(getPushMapper.mapFromEntity(notifications))
     }
 
     override suspend fun readPush(ids: String): Flow<Boolean> = flow {

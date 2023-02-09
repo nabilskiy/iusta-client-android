@@ -39,7 +39,10 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
             nextButton.setOnClickListener {
                 val email = emailTextInputEditText.text.toString()
                 val password = passwordTextInputEditText.text.toString()
-                viewModel.startLogin(email, password)
+                if (password.length > 7)
+                    viewModel.startLogin(email, password)
+                else
+                    binding.passwordTextInputLayout.error = getString(R.string.short_password)
             }
 
             signUp.setOnClickListener {

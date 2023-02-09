@@ -18,12 +18,12 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerViewTickets"
+            android:id="@+id/recyclerViewNotifications"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingBottom="72dp"
             android:clipToPadding="false"
-            tools:listitem="@layout/item_ticket_list" />
+            tools:listitem="@layout/item_push_list" />
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 

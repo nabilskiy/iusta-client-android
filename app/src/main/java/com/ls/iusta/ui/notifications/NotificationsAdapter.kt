@@ -41,6 +41,13 @@ class NotificationsAdapter @Inject constructor(
         return PushViewHolder(binding)
     }
 
+    fun addItems(items: List<Push>) {
+        val tempList = list.toMutableList()
+        tempList.addAll(items)
+        list = tempList
+        notifyDataSetChanged()
+    }
+
     inner class PushViewHolder(private val binding: ItemPushListBinding) :
         RecyclerView.ViewHolder(binding.root), Binder<Push> {
         override fun bind(item: Push) {

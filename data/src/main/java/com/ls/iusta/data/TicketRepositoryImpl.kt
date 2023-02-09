@@ -33,7 +33,7 @@ class TicketRepositoryImpl @Inject constructor(
         flow {
             val ticketList =
                 ticketDataSourceFactory.getRemoteDataSource()
-                    .getTickets(ticket_status, ticketDataSourceFactory.getAuthToken(), pageNumber)
+                    .   getTickets(ticket_status, ticketDataSourceFactory.getAuthToken(), pageNumber)
             emit(getTicketMapper.mapFromEntity(ticketList))
         }
 

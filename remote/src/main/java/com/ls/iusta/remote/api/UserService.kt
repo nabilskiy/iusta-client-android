@@ -122,6 +122,7 @@ interface UserService {
     @FormUrlEncoded
     @POST(Endpoints.PUSH_MESSAGES)
     suspend fun notifications(
+        @Field("page_number") pageNumber: Int?,
         @Field("auth_token") auth_token: String?,
         @Field("secret_key") secret_key: String = SECRET_KEY
     ): PushResponseModel

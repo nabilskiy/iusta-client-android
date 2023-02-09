@@ -11,18 +11,10 @@
         tools:layout="@layout/fragment_tickets_list">
         <action
             android:id="@+id/action_ticketListFragment_to_ticketDetailFragment"
-            app:destination="@id/ticketDetailFragment"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+            app:destination="@id/ticketDetailFragment" />
         <action
             android:id="@+id/action_ticketListFragment_to_createTicketFragment"
-            app:destination="@id/createTicketFragment"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+            app:destination="@id/createTicketFragment" />
     </fragment>
     <fragment
         android:id="@+id/ticketDetailFragment"
@@ -42,11 +34,12 @@
         tools:layout="@layout/fragment_categories_list">
         <action
             android:id="@+id/action_CategoriesListFragment_to_ticketsListFragment"
-            app:destination="@id/ticketsListFragment"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+            app:destination="@id/ticketsListFragment"/>
+        <action
+            android:id="@+id/action_CategoriesListFragment_to_ticketDetailFragment"
+            app:destination="@id/ticketDetailFragment"
+            app:popUpTo="@id/navigationGraphHome"
+            app:popUpToInclusive="true" />
     </fragment>
 
     <fragment
@@ -57,10 +50,8 @@
         <action
             android:id="@+id/action_notificationsFragment_to_ticketDetailFragment"
             app:destination="@id/ticketDetailFragment"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+            app:popUpTo="@id/navigationGraphHome"
+            app:popUpToInclusive="true" />
     </fragment>
 
 </navigation>

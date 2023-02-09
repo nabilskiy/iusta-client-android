@@ -13,6 +13,7 @@ import com.ls.iusta.databinding.FragmentTicketsListBinding
 import com.ls.iusta.domain.models.settings.SettingUiModel
 import com.ls.iusta.domain.models.tickets.TicketUIModel
 import com.ls.iusta.extension.observe
+import com.ls.iusta.presentation.utils.AppConstants
 import com.ls.iusta.presentation.viewmodel.tickets.TicketsListViewModel
 import com.ls.iusta.ui.auth.LoginActivity
 import dagger.hilt.android.AndroidEntryPoint
@@ -27,6 +28,7 @@ class TicketsListFragment : BaseFragment<FragmentTicketsListBinding, TicketsList
     var isActive: Boolean = true
     var pageNum: Int = 1
     private var isLoading: Boolean = false
+    private var lastPage: Boolean = false
     private lateinit var lManager: LinearLayoutManager
 
     override val viewModel: TicketsListViewModel by viewModels()
@@ -39,23 +41,17 @@ class TicketsListFragment : BaseFragment<FragmentTicketsListBinding, TicketsList
         observe(viewModel.ticketList, ::onViewStateChange)
         isActive =
             (findNavController().currentDestination?.label == getString(R.string.fragment_tickets_title_label))
-        viewModel.getTickets(isActive, pageNum)
-        setupRecyclerView()
-    }
 
-    override fun onResume() {
-        super.onResume()
-            //  ticketAdapter.list = emptyList()
-//        viewModel.getTickets(isActive, pageNum)
+        setupRecyclerView()
     }
 
     private fun setupRecyclerView() {
         binding.apply {
             refresh.setOnRefreshListener {
                 binding.refresh.isRefreshing = false
-                pageNum = 1
-                ticketAdapter.list = emptyList()
+                clearAdapter()
                 viewModel.getTickets(isActive, pageNum)
+                isLoading = true
             }
 
             recyclerViewTickets.apply {
@@ -67,7 +63,7 @@ class TicketsListFragment : BaseFragment<FragmentTicketsListBinding, TicketsList
             recyclerViewTickets.addOnScrollListener(object : RecyclerView.OnScrollListener() {
                 override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                     super.onScrolled(recyclerView, dx, dy)
-                    if (!isLoading) {
+                    if (!isLoading && !lastPage) {
                         if (lManager.findLastCompletelyVisibleItemPosition() == ticketAdapter.list.size - 1) {
                             pageNum++
                             viewModel.getTickets(isActive, pageNum)
@@ -99,6 +95,23 @@ class TicketsListFragment : BaseFragment<FragmentTicketsListBinding, TicketsList
         }
     }
 
+    override fun onStop() {
+        super.onStop()
+        clearAdapter()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        viewModel.getTickets(isActive, pageNum)
+        isLoading = true
+    }
+
+    private fun clearAdapter(){
+        pageNum = 1
+        lastPage = false
+        ticketAdapter.list = emptyList()
+    }
+
     private fun onViewStateChange(event: TicketUIModel) {
         if (event.isRedelivered) return
         when (event) {
@@ -108,13 +121,18 @@ class TicketsListFragment : BaseFragment<FragmentTicketsListBinding, TicketsList
             is TicketUIModel.Success -> {
                 handleLoading(false)
                 if (event.data.success) {
-                //    val tempList = ticketAdapter.list.toMutableList()
-               //     event.data.response?.let { tempList.addAll(it) }
-                    ticketAdapter.list = event.data.response!!
+                    if (event.data.pageSize < event.data.perPage)
+                        lastPage = true
+
+                    if (pageNum == 1) {
+                        ticketAdapter.list = event.data.response!!
+                    } else {
+                        ticketAdapter.addItems(event.data.response!!)
+                    }
+                    isLoading = false
                 } else {
                     event.data.message?.map {
-                        //todo remove hardcoded key
-                        if (it.key.equals("auth_token")) {
+                        if (it.key.equals(AppConstants.Message.INVALID_TOKEN)) {
                             viewModel.logout()
                         }
                         handleErrorMessage(it.value.get(0))

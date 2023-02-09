@@ -21,7 +21,7 @@ android {
         versionCode = Environments.Release.appVersionCode
         versionName = Environments.Release.appVersionName
 
-
+        multiDexEnabled = true
         // Configs
         buildConfigField("String", "BASE_URL", "\"" + Environments.Release.baseUrl + "\"")
         buildConfigField("String", "SECRETKEY", "\"" + Environments.Release.secretKey + "\"")
@@ -53,6 +53,8 @@ android {
 
 dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
+
+    implementation("androidx.multidex:multidex:2.0.1")
     // Modules
     implementation(project(Modules.domain))
     implementation(project(Modules.data))
@@ -67,6 +69,7 @@ dependencies {
     implementation(UiDep.constraint)
     implementation(UiDep.activityKtx)
     implementation(UiDep.swipeRefreshLayout)
+        //implementation(UiDep.paging)
     // LifeCycle
     UiDep.LifeCycle.forEach {
         implementation(it)

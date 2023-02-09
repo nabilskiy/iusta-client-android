@@ -26,10 +26,17 @@ class TicketAdapter @Inject constructor(
 
     override val differ: AsyncListDiffer<Ticket> = AsyncListDiffer(this, diffCallback)
 
+    fun addItems(items: List<Ticket>) {
+        val tempList = list.toMutableList()
+        tempList.addAll(items)
+        list = tempList
+        notifyDataSetChanged()
+    }
+
     override
     fun getViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val binding =
-            com.ls.iusta.databinding.ItemTicketListBinding.inflate(
+            ItemTicketListBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false

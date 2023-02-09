@@ -44,8 +44,6 @@ class RegActivity : BaseActivity<ActivityRegisterBinding>() {
     }
 
     override fun initUI() {
-        //  setHints()
-        //todo fix hints  implementation 'com.google.android.material:material:1.7.0'
         with(binding) {
             nextButton.setOnClickListener {
                 clearErrors()
@@ -172,18 +170,6 @@ class RegActivity : BaseActivity<ActivityRegisterBinding>() {
             phoneTextInputLayout.error = null
             emailTextInputLayout.error = null
             schoolTextInputLayout.error = null
-        }
-    }
-
-    private fun setHints() {
-        with(binding) {
-            passwordTextInputLayout.hint = getString(R.string.password)
-            confirmPassTextInputLayout.hint = getString(R.string.password_confirm)
-            nameTextInputLayout.hint = getString(R.string.name)
-            surnameTextInputLayout.hint = getString(R.string.surname)
-            phoneTextInputLayout.hint = getString(R.string.phone)
-            emailTextInputLayout.hint = getString(R.string.emailaddress)
-            schoolTextInputEditText.hint = getString(R.string.school)
         }
     }
 

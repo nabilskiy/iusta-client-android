@@ -6,6 +6,7 @@ import com.ls.iusta.data.models.customer.CustomerResponseEntity
 import com.ls.iusta.data.models.info.AboutEntity
 import com.ls.iusta.data.models.info.FaqEntity
 import com.ls.iusta.data.models.info.TermsEntity
+import com.ls.iusta.data.models.push.GetPushEntity
 import com.ls.iusta.data.models.push.PushEntity
 import com.ls.iusta.data.models.user.LoginEntity
 import com.ls.iusta.data.models.user.UserEntity
@@ -106,8 +107,8 @@ class UserRemoteDataSource @Inject constructor(
     override suspend fun savePushToken(push_token: String, auth_token: String?): Boolean =
         userRemote.savePushToken(push_token, auth_token)
 
-    override suspend fun notifications(auth_token: String?): List<PushEntity> =
-        userRemote.notifications(auth_token)
+    override suspend fun notifications(page:Int, auth_token: String?): GetPushEntity =
+        userRemote.notifications(page, auth_token)
 
     override suspend fun readPush(ids: String, auth_token: String?): Boolean =
         userRemote.readPush(ids, auth_token)

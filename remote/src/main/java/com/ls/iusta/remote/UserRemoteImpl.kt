@@ -6,6 +6,7 @@ import com.ls.iusta.data.models.customer.CustomerResponseEntity
 import com.ls.iusta.data.models.info.AboutEntity
 import com.ls.iusta.data.models.info.FaqEntity
 import com.ls.iusta.data.models.info.TermsEntity
+import com.ls.iusta.data.models.push.GetPushEntity
 import com.ls.iusta.data.models.push.PushEntity
 import com.ls.iusta.data.models.user.LoginEntity
 import com.ls.iusta.data.models.user.UserEntity
@@ -16,6 +17,7 @@ import com.ls.iusta.remote.mappers.customer.CustomerResponseEntityMapper
 import com.ls.iusta.remote.mappers.info.AboutEntityMapper
 import com.ls.iusta.remote.mappers.info.FaqEntityMapper
 import com.ls.iusta.remote.mappers.info.TermsEntityMapper
+import com.ls.iusta.remote.mappers.push.GetPushEntityMapper
 import com.ls.iusta.remote.mappers.push.PushEntityMapper
 import com.ls.iusta.remote.mappers.user.BaseEntityMapper
 import com.ls.iusta.remote.mappers.user.LoginEntityMapper
@@ -31,7 +33,7 @@ class UserRemoteImpl @Inject constructor(
     private val aboutEntityMapper: AboutEntityMapper,
     private val faqEntityMapper: FaqEntityMapper,
     private val termsEntityMapper: TermsEntityMapper,
-    private val pushEntityMapper: PushEntityMapper,
+    private val getPushEntityMapper: GetPushEntityMapper,
     private val baseEntityMapper: BaseEntityMapper
 ) : UserRemote {
 
@@ -131,10 +133,8 @@ class UserRemoteImpl @Inject constructor(
     override suspend fun savePushToken(push_token: String, auth_token: String?): Boolean =
         userService.savePushToken(push_token, auth_token).success
 
-    override suspend fun notifications(auth_token: String?): List<PushEntity> =
-        userService.notifications(auth_token).response.map {
-            pushEntityMapper.mapFromModel(it)
-        }
+    override suspend fun notifications(page:Int, auth_token: String?): GetPushEntity =
+        getPushEntityMapper.mapFromModel(userService.notifications(page, auth_token))
 
     override suspend fun readPush(ids: String, auth_token: String?): Boolean =
         userService.readPush(ids, auth_token).success

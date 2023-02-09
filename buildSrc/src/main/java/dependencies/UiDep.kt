@@ -14,6 +14,8 @@ object UiDep {
     const val navigationUiKtx = Dependencies.CoreDep.navigationUiKtx
     const val activityKtx = Dependencies.CoreDep.activityKtx
     const val swipeRefreshLayout = Dependencies.CoreDep.swipeRefreshLayout
+    const val paging = Dependencies.CoreDep.paging
+
 
     // LifeCycle
     val LifeCycle = listOf(
