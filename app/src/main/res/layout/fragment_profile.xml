@@ -149,7 +149,7 @@
 
         <TextView
             android:id="@+id/azButton"
-            android:background="@drawable/btn_accent_default"
+            android:background="@drawable/btn_lighter_grey_default"
             android:textColor="@color/white"
             android:gravity="center"
             android:includeFontPadding="false"
@@ -164,7 +164,7 @@
             app:layout_constraintTop_toBottomOf="@+id/lang" />
         <TextView
             android:id="@+id/engButton"
-            android:background="@drawable/btn_accent_default"
+            android:background="@drawable/btn_lighter_grey_default"
             android:textColor="@color/white"
             android:gravity="center"
             android:includeFontPadding="false"
@@ -179,7 +179,7 @@
             app:layout_constraintTop_toBottomOf="@+id/lang" />
         <TextView
             android:id="@+id/ruButton"
-            android:background="@drawable/btn_accent_default"
+            android:background="@drawable/btn_lighter_grey_default"
             android:textColor="@color/white"
             android:gravity="center"
             android:includeFontPadding="false"

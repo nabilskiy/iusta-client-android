@@ -142,7 +142,7 @@ class ProfileFragment :
 
     private fun bindData(user: User) {
         customerId = user.customer_id.toString()
-        binding.apply {
+        with(binding){
             schoolTextInputEditText.setText(user.customer_name)
             nameTextInputEditText.setText(user.firstname)
             surnameTextInputEditText.setText(user.lastname)
@@ -150,7 +150,6 @@ class ProfileFragment :
             phoneTextInputEditText.setText(user.phone_number)
             birthdayTextInputEditText.setText(user.birthday)
         }
-
     }
 
     private fun onUserLoaded(result: UserUiModel) {
@@ -167,11 +166,11 @@ class ProfileFragment :
                 handleErrorMessage(result.error)
             }
             is UserUiModel.ChangeLocale -> {
-               // handleLoading(false)
+                handleLoading(false)
                 (requireActivity() as MainActivity).updateLocale(Locale(result.lang))
             }
             is UserUiModel.GetLocale -> {
-              //  handleLoading(false)
+                handleLoading(false)
                 setLocaleBtn(result.lang)
             }
             is UserUiModel.Updated ->{
