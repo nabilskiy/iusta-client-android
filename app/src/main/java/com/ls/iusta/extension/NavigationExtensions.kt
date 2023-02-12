@@ -17,6 +17,7 @@
 package com.ls.iusta.extension
 
 import android.content.Intent
+import android.util.Log
 import android.util.SparseArray
 import androidx.core.util.forEach
 import androidx.fragment.app.FragmentManager
@@ -43,13 +44,10 @@ fun BottomNavigationView.setupWithNavController(
     val graphIdToTagMap = SparseArray<String>()
     // Result. Mutable live data with the selected controlled
     val selectedNavController = MutableLiveData<NavController>()
-
     var firstFragmentGraphId = 0
-
     // First create a NavHostFragment for each NavGraph ID
     navGraphIds.forEachIndexed { index, navGraphId ->
         val fragmentTag = getFragmentTag(index)
-
         // Find or create the Navigation host fragment
         val navHostFragment = obtainNavHostFragment(
             fragmentManager,
@@ -90,6 +88,10 @@ fun BottomNavigationView.setupWithNavController(
             false
         } else {
             val newlySelectedItemTag = graphIdToTagMap[item.itemId]
+            Log.d(
+                "TAG",
+                "setupWithNavController: selectedItemTag: " + selectedItemTag + " newlySelectedItemTag: " + newlySelectedItemTag
+            )
             if (selectedItemTag != newlySelectedItemTag) {
                 // Pop everything above the first fragment (the "fixed start destination")
                 fragmentManager.popBackStack(
@@ -97,7 +99,7 @@ fun BottomNavigationView.setupWithNavController(
                     FragmentManager.POP_BACK_STACK_INCLUSIVE
                 )
                 val selectedFragment = fragmentManager.findFragmentByTag(newlySelectedItemTag)
-                    as NavHostFragment
+                        as NavHostFragment
 
                 // Exclude the first fragment tag because it's always in the back stack.
                 if (firstFragmentTag != newlySelectedItemTag) {
@@ -133,13 +135,10 @@ fun BottomNavigationView.setupWithNavController(
             }
         }
     }
-
     // Optional: on item reselected, pop back stack to the destination of the graph
     setupItemReselected(graphIdToTagMap, fragmentManager)
-
     // Handle deep link
     setupDeepLinks(navGraphIds, fragmentManager, containerId, intent)
-
     // Finally, ensure that we update our BottomNavigationView when the back stack changes
     fragmentManager.addOnBackStackChangedListener {
         if (!isOnFirstFragment && !fragmentManager.isOnBackStack(firstFragmentTag)) {
@@ -148,9 +147,9 @@ fun BottomNavigationView.setupWithNavController(
         // Reset the graph if the currentDestination is not valid (happens when the back
         // stack is popped after using the back button).
         selectedNavController.value?.let { controller ->
-            if (controller.currentDestination == null) {
+         //   if (controller.currentDestination == null) {
                 controller.navigate(controller.graph.id)
-            }
+         //   }
         }
     }
     return selectedNavController
@@ -188,7 +187,7 @@ private fun BottomNavigationView.setupItemReselected(
     setOnItemReselectedListener { item ->
         val newlySelectedItemTag = graphIdToTagMap[item.itemId]
         val selectedFragment = fragmentManager.findFragmentByTag(newlySelectedItemTag)
-            as NavHostFragment
+                as NavHostFragment
         val navController = selectedFragment.navController
         // Pop the back stack to the start destination of the current navController graph
         navController.popBackStack(

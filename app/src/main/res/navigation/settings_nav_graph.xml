@@ -54,15 +54,15 @@
         <action
             android:id="@+id/action_aboutFragment_to_faqFragment"
             app:destination="@id/faqFragment"
-            app:popUpTo="@+id/settingsFragment"/>
+            app:popUpTo="@+id/aboutFragment"/>
         <action
             android:id="@+id/action_aboutFragment_to_privacyFragment"
             app:destination="@id/privacyFragment"
-            app:popUpTo="@+id/settingsFragment"/>
+            app:popUpTo="@+id/aboutFragment"/>
         <action
             android:id="@+id/action_aboutFragment_to_termsFragment"
             app:destination="@id/termsFragment"
-            app:popUpTo="@+id/settingsFragment" />
+            app:popUpTo="@+id/aboutFragment" />
     </fragment>
 
     <fragment
