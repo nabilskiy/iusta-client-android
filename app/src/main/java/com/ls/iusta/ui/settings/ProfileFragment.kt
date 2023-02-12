@@ -41,7 +41,7 @@ class ProfileFragment :
         super.onViewCreated(view, savedInstanceState)
         observe(viewModel.userInfo, ::onUserLoaded)
         setupViews()
-        viewModel.getUser()
+        viewModel.getLang()
     }
 
     private fun setupViews() {
@@ -171,6 +171,7 @@ class ProfileFragment :
             }
             is UserUiModel.GetLocale -> {
                 handleLoading(false)
+                viewModel.getUser()
                 setLocaleBtn(result.lang)
             }
             is UserUiModel.Updated ->{

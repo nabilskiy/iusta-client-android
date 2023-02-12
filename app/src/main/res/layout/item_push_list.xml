@@ -45,7 +45,6 @@
             android:gravity="center|start"
             android:maxLines="2"
             android:drawablePadding="6dp"
-            android:drawableStart="@drawable/ic_unread"
             style="@style/TextView.Ticket.Value"
             app:layout_constraintEnd_toStartOf="@+id/dateTv"
             app:layout_constraintStart_toStartOf="parent"

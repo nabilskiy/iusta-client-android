@@ -54,7 +54,14 @@ class NotificationsAdapter @Inject constructor(
             binding.apply {
                 textViewTitle.text = item.title
                 dateTv.text = item.created_at
-                if (item.read == 1)
+                if (item.read == 0)
+                    textViewTitle.setCompoundDrawablesWithIntrinsicBounds(
+                        R.drawable.ic_unread,
+                        0,
+                        0,
+                        0
+                    )
+                else
                     textViewTitle.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
                 root.setOnClickListener {
                     if (item.read == 0)

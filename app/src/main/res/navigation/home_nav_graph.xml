@@ -11,9 +11,11 @@
         tools:layout="@layout/fragment_tickets_list">
         <action
             android:id="@+id/action_ticketListFragment_to_ticketDetailFragment"
+            app:popUpTo="@id/ticketsListFragment"
             app:destination="@id/ticketDetailFragment" />
         <action
             android:id="@+id/action_ticketListFragment_to_createTicketFragment"
+            app:popUpTo="@id/ticketsListFragment"
             app:destination="@id/createTicketFragment" />
     </fragment>
     <fragment
@@ -38,7 +40,7 @@
         <action
             android:id="@+id/action_CategoriesListFragment_to_ticketDetailFragment"
             app:destination="@id/ticketDetailFragment"
-            app:popUpTo="@id/navigationGraphHome"
+            app:popUpTo="@id/ticketsListFragment"
             app:popUpToInclusive="true" />
     </fragment>
 
@@ -50,8 +52,7 @@
         <action
             android:id="@+id/action_notificationsFragment_to_ticketDetailFragment"
             app:destination="@id/ticketDetailFragment"
-            app:popUpTo="@id/navigationGraphHome"
-            app:popUpToInclusive="true" />
+            app:popUpTo="@id/ticketsListFragment" />
     </fragment>
 
 </navigation>

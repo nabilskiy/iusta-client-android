@@ -58,6 +58,13 @@
     <string name="ticket_num_label">Ticket Number:</string>
     <string name="ticket_status_label">Status:</string>
 
+    <!-- Add Rating Fragment -->
+    <string name="rate">Rate our specialist!</string>
+    <string name="average">Average</string>
+    <string name="comment">Add a comment</string>
+    <string name="type_comment">Type comment here</string>
+
+
 
     <!-- Create Ticket Fragment -->
     <string name="fragment_create_ticket_title_label">Create ticket</string>

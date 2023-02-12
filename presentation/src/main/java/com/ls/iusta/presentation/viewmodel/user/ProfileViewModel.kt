@@ -39,6 +39,12 @@ class ProfileViewModel @Inject constructor(
         _userInfo.postValue(UserUiModel.Loading)
         launchCoroutineIO {
             loadUserInfo()
+        }
+    }
+
+    fun getLang() {
+        _userInfo.postValue(UserUiModel.Loading)
+        launchCoroutineIO {
             getLocale()
         }
     }
@@ -80,7 +86,6 @@ class ProfileViewModel @Inject constructor(
             _userInfo.postValue(UserUiModel.Updated(it))
         }
     }
-
 
     private fun getLocale() {
         _userInfo.postValue(UserUiModel.GetLocale(presentationPreferencesHelper.locale.toString()))

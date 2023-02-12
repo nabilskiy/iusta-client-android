@@ -54,15 +54,15 @@
         <action
             android:id="@+id/action_aboutFragment_to_faqFragment"
             app:destination="@id/faqFragment"
-            app:popUpTo="@+id/aboutFragment" />
+            app:popUpTo="@+id/settingsFragment"/>
         <action
             android:id="@+id/action_aboutFragment_to_privacyFragment"
             app:destination="@id/privacyFragment"
-            app:popUpTo="@+id/aboutFragment" />
+            app:popUpTo="@+id/settingsFragment"/>
         <action
             android:id="@+id/action_aboutFragment_to_termsFragment"
             app:destination="@id/termsFragment"
-            app:popUpTo="@+id/aboutFragment" />
+            app:popUpTo="@+id/settingsFragment" />
     </fragment>
 
     <fragment
@@ -74,7 +74,7 @@
         android:id="@+id/privacyFragment"
         android:name="com.ls.iusta.ui.settings.info.TermsFragment"
         android:label="@string/fragment_privacy_title_label"
-        tools:layout="@layout/fragment_terms" >
+        tools:layout="@layout/fragment_terms">
         <argument
             android:name="url_type"
             app:argType="string" />
@@ -83,7 +83,7 @@
         android:id="@+id/termsFragment"
         android:name="com.ls.iusta.ui.settings.info.TermsFragment"
         android:label="@string/fragment_terms_title_label"
-        tools:layout="@layout/fragment_terms" >
+        tools:layout="@layout/fragment_terms">
         <argument
             android:name="url_type"
             app:argType="string" />
@@ -97,8 +97,14 @@
         <action
             android:id="@+id/action_notificationsFragment_to_ticketDetailFragment"
             app:destination="@id/ticketDetailFragment"
-        />
+            app:popUpTo="@id/settingsFragment"/>
     </fragment>
+
+    <fragment
+        android:id="@+id/ticketsListFragment"
+        android:name="com.ls.iusta.ui.ticketslist.TicketsListFragment"
+        android:label="@string/fragment_tickets_title_label"
+        tools:layout="@layout/fragment_tickets_list"/>
 
     <fragment
         android:id="@+id/ticketDetailFragment"

@@ -2,8 +2,8 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    app:startDestination="@id/historyTicketListFragment"
-    android:id="@+id/navigationGraphFavorite">
+    android:id="@+id/navigationGraphFavorite"
+    app:startDestination="@id/historyTicketListFragment">
     <fragment
         android:id="@+id/historyTicketListFragment"
         android:name="com.ls.iusta.ui.ticketslist.TicketsListFragment"
@@ -15,6 +15,7 @@
             app:popUpTo="@+id/historyTicketListFragment" />
         <action
             android:id="@+id/action_ticketListFragment_to_createTicketFragment"
+            app:popUpTo="@+id/historyTicketListFragment"
             app:destination="@id/createTicketFragment" />
     </fragment>
     <fragment
@@ -38,7 +39,7 @@
         <action
             android:id="@+id/action_CategoriesListFragment_to_ticketDetailFragment"
             app:destination="@id/historyTicketDetailFragment"
-            app:popUpTo="@id/navigationGraphHome"
+            app:popUpTo="@+id/historyTicketListFragment"
             app:popUpToInclusive="true" />
     </fragment>
     <fragment
@@ -49,8 +50,7 @@
         <action
             android:id="@+id/action_notificationsFragment_to_ticketDetailFragment"
             app:destination="@id/ticketDetailFragment"
-            app:popUpTo="@id/navigationGraphHome"
-            app:popUpToInclusive="true" />
+            app:popUpTo="@id/historyTicketListFragment" />
     </fragment>
     <fragment
         android:id="@+id/ticketDetailFragment"
