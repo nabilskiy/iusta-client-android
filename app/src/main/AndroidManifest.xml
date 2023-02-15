@@ -4,18 +4,25 @@
     package="com.ls.iusta">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
+
 
     <application
         android:name="com.ls.iusta.IUSTAApp"
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_round"
+        android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/Theme.IUsta">
         <activity
             android:name="com.ls.iusta.ui.SplashActivity"
             android:exported="true"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,34 +31,42 @@
             </intent-filter>
         </activity>
         <activity
-            android:theme="@style/Theme.IUsta"
             android:name="com.ls.iusta.ui.auth.LoginActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.IUsta" />
         <activity
-            android:theme="@style/Theme.IUsta"
             android:name="com.ls.iusta.ui.auth.RegActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.IUsta" />
         <activity
-            android:theme="@style/Theme.IUsta"
             android:name="com.ls.iusta.ui.auth.ResetPassActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.IUsta" />
         <activity
-            android:theme="@style/Theme.IUsta"
             android:name="com.ls.iusta.ui.MainActivity"
-            android:exported="true" />
-        <activity
+            android:exported="true"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.IUsta"
-            android:name="com.ls.iusta.ui.qrscanner.ScannerActivity"
-            android:exported="true" />
+            android:windowSoftInputMode="adjustPan|adjustResize" />
         <activity
-            android:theme="@style/Theme.Login"
+            android:name="com.ls.iusta.ui.qrscanner.ScannerActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.IUsta" />
+        <activity
             android:name="com.ls.iusta.ui.rating.AddRatingActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Login" />
 
-        <service android:name=".core.push.MessagingService"
+        <service
+            android:name=".core.push.MessagingService"
             android:exported="false">
             <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
 

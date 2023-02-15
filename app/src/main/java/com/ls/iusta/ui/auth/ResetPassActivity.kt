@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import androidx.activity.viewModels
 import androidx.core.widget.doOnTextChanged
+import com.google.android.gms.common.config.GservicesValue.value
 import com.ls.iusta.R
 import com.ls.iusta.base.BaseActivity
 import com.ls.iusta.databinding.ActivityResetpassBinding
@@ -11,6 +12,7 @@ import com.ls.iusta.domain.models.auth.LoginUiModel
 import com.ls.iusta.domain.models.auth.ResetPassUiModel
 import com.ls.iusta.extension.observe
 import com.ls.iusta.extension.showDialog
+import com.ls.iusta.extension.showSnackBar
 import com.ls.iusta.extension.startWithAnimation
 import com.ls.iusta.presentation.viewmodel.user.LoginViewModel
 import com.ls.iusta.presentation.viewmodel.user.ResetPassViewModel
@@ -51,8 +53,12 @@ class ResetPassActivity : BaseActivity<ActivityResetpassBinding>() {
             }
             is ResetPassUiModel.Success -> {
                 handleLoading(false)
-                if (!event.result)
-                    handleErrorMessage(getString(R.string.reset_email))
+                if (event.result.success == true)
+                    showSnackBar(binding.root, getString(R.string.resetpass_success))
+                else
+                    event.result.message?.map {
+                        handleErrorMessage(it.value.get(0))
+                    }
             }
             is ResetPassUiModel.Error -> {
                 handleErrorMessage(event.error)

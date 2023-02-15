@@ -160,7 +160,6 @@ class RegActivity : BaseActivity<ActivityRegisterBinding>() {
         }
     }
 
-
     private fun clearErrors() {
         with(binding) {
             passwordTextInputLayout.error = null

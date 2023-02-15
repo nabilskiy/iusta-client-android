@@ -80,8 +80,8 @@ class UserRemoteImpl @Inject constructor(
         il_customer_id: String,
         language: String,
         auth_token: String?
-    ): Boolean =
-        userService.userInfoEdit(
+    ): BaseModelEntity =
+        baseEntityMapper.mapFromModel(userService.userInfoEdit(
             firstname,
             lastname,
             middlename,
@@ -91,24 +91,24 @@ class UserRemoteImpl @Inject constructor(
             il_customer_id,
             language,
             auth_token
-        ).success
+        ))
 
 
-    override suspend fun resetPassword(email: String): Boolean =
-        userService.passwordReset(email).success
+    override suspend fun resetPassword(email: String): BaseModelEntity =
+        baseEntityMapper.mapFromModel(userService.passwordReset(email))
 
     override suspend fun updatePassword(
         old_password: String,
         new_password: String,
         new_password_confirmation: String,
         auth_token: String?
-    ): Boolean =
-        userService.passwordUpdate(
+    ): BaseModelEntity =
+        baseEntityMapper.mapFromModel(userService.passwordUpdate(
             old_password,
             new_password,
             new_password_confirmation,
             auth_token
-        ).success
+        ))
 
     override suspend fun logout(auth_token: String?): Boolean =
         userService.logout(auth_token).success

@@ -37,6 +37,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
             }
 
             nextButton.setOnClickListener {
+                binding.passwordTextInputLayout.error = null
                 val email = emailTextInputEditText.text.toString()
                 val password = passwordTextInputEditText.text.toString()
                 if (password.length > 7)

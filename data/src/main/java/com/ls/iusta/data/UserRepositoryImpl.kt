@@ -105,7 +105,7 @@ class UserRepositoryImpl @Inject constructor(
         email: String,
         il_customer_id: String,
         language: String
-    ): Flow<Boolean> = flow {
+    ): Flow<Base> = flow {
         val edited = userDataSourceFactory.getRemoteDataSource().editUserInfo(
             firstname,
             lastname,
@@ -117,19 +117,19 @@ class UserRepositoryImpl @Inject constructor(
             language,
             userDataSourceFactory.getAuthToken()
         )
-        emit(edited)
+        emit(baseMapper.mapFromEntity(edited))
     }
 
-    override suspend fun resetPassword(email: String): Flow<Boolean> = flow {
+    override suspend fun resetPassword(email: String): Flow<Base> = flow {
         val reset = userDataSourceFactory.getRemoteDataSource().resetPassword(email)
-        emit(reset)
+        emit(baseMapper.mapFromEntity(reset))
     }
 
     override suspend fun updatePassword(
         old_password: String,
         new_password: String,
         new_password_confirmation: String
-    ): Flow<Boolean> = flow {
+    ): Flow<Base> = flow {
         val updated = userDataSourceFactory.getRemoteDataSource()
             .updatePassword(
                 old_password,
@@ -137,7 +137,7 @@ class UserRepositoryImpl @Inject constructor(
                 new_password_confirmation,
                 userDataSourceFactory.getAuthToken()
             )
-        emit(updated)
+        emit(baseMapper.mapFromEntity(updated))
     }
 
     override suspend fun logout(): Flow<Boolean> = flow {

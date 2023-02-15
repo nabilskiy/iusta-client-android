@@ -17,6 +17,7 @@ import com.ls.iusta.domain.models.user.User
 import com.ls.iusta.domain.models.user.UserUiModel
 import com.ls.iusta.extension.hideKeyboard
 import com.ls.iusta.extension.observe
+import com.ls.iusta.extension.showSnackBar
 import com.ls.iusta.presentation.viewmodel.user.ProfileViewModel
 import com.ls.iusta.ui.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
@@ -176,6 +177,12 @@ class ProfileFragment :
             }
             is UserUiModel.Updated ->{
                 handleLoading(false)
+                if (result.result.success == true)
+                    showSnackBar(binding.root, getString(R.string.fragment_changeprofile_success))
+                else
+                    result.result.message?.map {
+                        handleErrorMessage(it.value.get(0))
+                    }
             }
             is UserUiModel.SuccessSearch -> {
                 //  handleLoading(false)

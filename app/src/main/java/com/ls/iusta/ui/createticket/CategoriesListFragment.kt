@@ -6,23 +6,25 @@ import android.content.ContentResolver
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.os.Handler
 import android.provider.MediaStore
 import android.util.Log
 import android.view.View
+import android.view.WindowManager
+import android.widget.FrameLayout
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.net.toFile
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.github.dhaval2404.imagepicker.util.FileUriUtils
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.ls.iusta.R
 import com.ls.iusta.base.BaseFragment
 import com.ls.iusta.databinding.DialogCreateTicketBinding
 import com.ls.iusta.databinding.DialogTicketCreatedBinding
@@ -36,7 +38,6 @@ import com.ls.iusta.extension.makeVisible
 import com.ls.iusta.extension.observe
 import com.ls.iusta.extension.showSnackBar
 import com.ls.iusta.presentation.viewmodel.tickets.CategoriesListViewModel
-import com.ls.iusta.ui.ticketslist.TicketsListFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
 import java.io.FileNotFoundException
@@ -62,6 +63,7 @@ class CategoriesListFragment :
     private lateinit var attachList: RecyclerView
     private lateinit var loaderImage: ProgressBar
     private lateinit var sizeTv: TextView
+    private lateinit var message: TextView
     var attachmentSize: Long = 0L
 
     @Inject
@@ -75,9 +77,11 @@ class CategoriesListFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.getCategories(menuId)
+        dialog = BottomSheetDialog(requireContext())
         observe(viewModel.category, ::onViewStateChange)
         viewModel.orderNoteAttachmentSize.observe(viewLifecycleOwner) { size ->
-            sizeTv.text = getString(R.string.total_size) + humanReadableByteCountBin(size)
+            sizeTv.text =
+                getString(com.ls.iusta.R.string.total_size) + humanReadableByteCountBin(size)
             attachmentSize = size
         }
         setupRecyclerView()
@@ -114,7 +118,8 @@ class CategoriesListFragment :
             if (category.menu) {
                 viewModel.getCategories(menuId)
             } else {
-                showCreateDialog()
+                if (!dialog.isShowing)
+                    showCreateDialog()
             }
         }
 
@@ -133,13 +138,17 @@ class CategoriesListFragment :
     }
 
     private fun showCreateDialog() {
-        dialog = BottomSheetDialog(requireContext())
         val dialogBindig = DialogCreateTicketBinding.inflate(layoutInflater)
         attachList = dialogBindig.attachments
         loaderImage = dialogBindig.loaderImage
         sizeTv = dialogBindig.size
+        message = dialogBindig.message
         attachList.apply {
             adapter = attachmentsAdapter
+        }
+
+        dialogBindig.close.setOnClickListener{
+            dialogBindig.idBtnDismiss.performClick()
         }
 
         dialogBindig.gallery.setOnClickListener {
@@ -161,28 +170,31 @@ class CategoriesListFragment :
             selectPDF()
         }
         dialogBindig.idBtnDismiss.setOnClickListener {
+            message.text = ""
+            message.makeGone()
             viewModel.attachmentSizeClear()
             attachmentFilesList.clear()
             attachmentsList.clear()
             attachmentsAdapter.notifyDataSetChanged()
-            dialog.dismiss()
+            dialog.cancel()
         }
         dialogBindig.idBtnCreate.setOnClickListener {
-
+            message.text = ""
+            message.makeGone()
             if (attachmentFilesList.isEmpty()) {
                 attachmentFilesList.add(AttachmentFile("", 0, File.createTempFile("temp", "temp")))
             }
-
             viewModel.sendTicket(
                 attachmentFilesList,
                 menuId,
                 dialogBindig.note.text.toString(),
                 attachmentSize
             )
-            dialog.dismiss()
         }
         dialog.setCancelable(false)
         dialog.setContentView(dialogBindig.root)
+        dialog.getWindow()
+            ?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
         dialog.show()
     }
 
@@ -196,7 +208,7 @@ class CategoriesListFragment :
                 )
                 // redirect to tickets list   CategoriesListFragmentDirections.actionCategoriesListFragmentToTicketsListFragment()
             )
-            dialogCreated.hide()
+            dialogCreated.cancel()
         }
         dialogCreated.setCancelable(false)
         dialogCreated.setContentView(dialogBindig.root)
@@ -214,14 +226,13 @@ class CategoriesListFragment :
             val resultCode = result.resultCode
             val data = result.data
             if (resultCode == Activity.RESULT_OK) {
-                //Image Uri will not be null for RESULT_OK
                 val fileUri = data?.data!!
-                //file:///storage/emulated/0/Android/data/com.ls.iusta/files/DCIM/IMG_20230206_122610675.png
-                //content://com.android.providers.downloads.documents/document/msf%3A64550
                 handleSelectImage(fileUri)
             } else if (resultCode == ImagePicker.RESULT_ERROR) {
+                loaderImage.makeGone()
                 showSnackBar(binding.root, ImagePicker.getError(data))
             } else {
+                loaderImage.makeGone()
                 showSnackBar(binding.root, "Task Cancelled")
             }
         }
@@ -229,8 +240,7 @@ class CategoriesListFragment :
     @SuppressLint("Range")
     private fun handleSelectImage(uri: Uri?) {
         var size: Long
-        var name:String
-
+        var name: String
         if (uri != null) {
             val realPath = FileUriUtils.getRealPath(requireContext(), uri)
 
@@ -238,7 +248,8 @@ class CategoriesListFragment :
                 val cursor = context?.contentResolver?.query(uri, null, null, null, null)
                 cursor?.moveToFirst()
                 name =
-                    cursor?.getString(cursor.getColumnIndex(MediaStore.Images.Media.DISPLAY_NAME)).toString()
+                    cursor?.getString(cursor.getColumnIndex(MediaStore.Images.Media.DISPLAY_NAME))
+                        .toString()
                 size = cursor?.getLong(cursor.getColumnIndex(MediaStore.Images.Media.SIZE))!!
             } else {
                 val assetFileDescriptor = try {
@@ -306,9 +317,9 @@ class CategoriesListFragment :
             }
             is CategoryUiModel.CreateTicketSuccess -> {
                 handleLoading(false)
+                dialog.cancel()
                 if (event.data.success) {
                     event.data.response?.TicketID?.toLong()?.let { showCreatedDialog(it) }
-                    dialog.hide()
                 } else
                     event.data.message?.map {
                         handleErrorMessage(it.value.get(0))
@@ -317,13 +328,15 @@ class CategoriesListFragment :
             is CategoryUiModel.NoteError -> {
                 if (event.error) {
                     handleLoading(false)
-                    handleErrorMessage(getString(R.string.empty_note))
+                    message.makeVisible()
+                    message.text = getString(com.ls.iusta.R.string.empty_note)
                 }
             }
             is CategoryUiModel.SizeError -> {
                 if (event.error) {
                     handleLoading(false)
-                    handleErrorMessage(getString(R.string.big_size))
+                    message.makeVisible()
+                    message.text = getString(com.ls.iusta.R.string.big_size)
                 }
             }
             is CategoryUiModel.Error -> {

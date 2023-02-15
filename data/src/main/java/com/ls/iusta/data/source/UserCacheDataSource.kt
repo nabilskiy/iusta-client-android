@@ -53,11 +53,11 @@ class UserCacheDataSource @Inject constructor(
         il_customer_id: String,
         language: String,
         auth_token: String?
-    ): Boolean {
+    ): BaseModelEntity {
         TODO("Not yet implemented")
     }
 
-    override suspend fun resetPassword(email: String): Boolean {
+    override suspend fun resetPassword(email: String): BaseModelEntity {
         TODO("Not yet implemented")
     }
 
@@ -66,7 +66,7 @@ class UserCacheDataSource @Inject constructor(
         new_password: String,
         new_password_confirmation: String,
         auth_token: String?
-    ): Boolean {
+    ): BaseModelEntity {
         TODO("Not yet implemented")
     }
 

@@ -3,14 +3,19 @@ package com.ls.iusta.core.dialog
 import android.app.Dialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.os.CountDownTimer
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
+import androidx.lifecycle.lifecycleScope
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.ls.iusta.R
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
 
 /**
  * show single loading dialog
@@ -41,6 +46,14 @@ fun Fragment.showLoadingDialog(
         })
         loadingDialog = dialog
         dialog.show()
+
+        object: CountDownTimer(20000, 1000){
+            override fun onTick(p0: Long) {}
+            override fun onFinish() {
+                dismissLoadingDialog()
+            }
+        }.start()
+
         dialog
     }
 }
@@ -69,6 +82,12 @@ fun AppCompatActivity.showLoadingDialog(
         })
         loadingDialog = dialog
         dialog.show()
+        object: CountDownTimer(20000, 1000){
+            override fun onTick(p0: Long) {}
+            override fun onFinish() {
+                dismissLoadingDialog()
+            }
+        }.start()
         dialog
     }
 }

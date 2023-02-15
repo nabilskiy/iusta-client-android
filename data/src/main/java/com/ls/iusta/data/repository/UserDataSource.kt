@@ -35,15 +35,15 @@ interface UserDataSource {
         il_customer_id: String,
         language: String,
         auth_token: String?
-    ): Boolean
+    ): BaseModelEntity
 
-    suspend fun resetPassword(email: String): Boolean
+    suspend fun resetPassword(email: String): BaseModelEntity
     suspend fun updatePassword(
         old_password: String,
         new_password: String,
         new_password_confirmation: String,
         auth_token: String?
-    ): Boolean
+    ): BaseModelEntity
 
     suspend fun logout(auth_token: String?): Boolean
 

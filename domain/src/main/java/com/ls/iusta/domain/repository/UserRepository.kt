@@ -35,14 +35,14 @@ interface UserRepository {
         email: String,
         il_customer_id: String,
         language: String
-    ): Flow<Boolean>
+    ): Flow<Base>
 
-    suspend fun resetPassword(email: String): Flow<Boolean>
+    suspend fun resetPassword(email: String): Flow<Base>
     suspend fun updatePassword(
         old_password: String,
         new_password: String,
         new_password_confirmation: String
-    ): Flow<Boolean>
+    ): Flow<Base>
 
     suspend fun logout(): Flow<Boolean>
     suspend fun logoutForce(): Flow<Boolean>
