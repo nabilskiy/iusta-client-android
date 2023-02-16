@@ -103,7 +103,7 @@ class NotificationsListFragment :
         isLoading = true
     }
 
-    private fun clearAdapter(){
+    private fun clearAdapter() {
         pageNum = 1
         lastPage = false
         notificationsAdapter.list = emptyList()
@@ -124,7 +124,8 @@ class NotificationsListFragment :
                     if (pageNum == 1) {
                         notificationsAdapter.list = event.data.response!!
                     } else {
-                        notificationsAdapter.addItems(event.data.response!!)
+                        notificationsAdapter.list =
+                            notificationsAdapter.list + event.data.response!!
                     }
                     isLoading = false
                 } else {

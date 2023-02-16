@@ -36,25 +36,25 @@
             android:maxLines="1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             tools:text="Earth"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/icon"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/categoryDescr"
-            style="@style/TextView.Ticket.Title2"
-            android:ellipsize="end"
-            android:maxLines="2"
-            tools:text="dasd ad asd asd dasd asdas das d"
-            android:layout_marginEnd="8dp"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/icon"
-            app:layout_constraintTop_toBottomOf="@+id/categoryName" />
+<!--        <com.google.android.material.textview.MaterialTextView-->
+<!--            android:id="@+id/categoryDescr"-->
+<!--            style="@style/TextView.Ticket.Title2"-->
+<!--            android:ellipsize="end"-->
+<!--            android:maxLines="2"-->
+<!--            tools:text="dasd ad asd asd dasd asdas das d"-->
+<!--            android:layout_marginEnd="8dp"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toEndOf="@+id/icon"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/categoryName" />-->
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

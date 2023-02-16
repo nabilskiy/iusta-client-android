@@ -7,11 +7,10 @@ import android.view.View
 import android.widget.ArrayAdapter
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.fragment.app.viewModels
-import com.google.android.gms.common.config.GservicesValue.value
+import com.google.android.material.datepicker.MaterialDatePicker
 import com.ls.iusta.R
 import com.ls.iusta.base.BaseFragment
 import com.ls.iusta.databinding.FragmentProfileBinding
-import com.ls.iusta.domain.models.auth.RegUiModel
 import com.ls.iusta.domain.models.customer.Customer
 import com.ls.iusta.domain.models.user.User
 import com.ls.iusta.domain.models.user.UserUiModel
@@ -21,8 +20,9 @@ import com.ls.iusta.extension.showSnackBar
 import com.ls.iusta.presentation.viewmodel.user.ProfileViewModel
 import com.ls.iusta.ui.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
+import java.text.SimpleDateFormat
 import java.util.*
-import javax.inject.Inject
+
 
 @AndroidEntryPoint
 class ProfileFragment :
@@ -46,7 +46,19 @@ class ProfileFragment :
     }
 
     private fun setupViews() {
+        val materialDateBuilder: MaterialDatePicker.Builder<*> =
+            MaterialDatePicker.Builder.datePicker()
+        materialDateBuilder.setTitleText(getString(R.string.set_date))
+        val materialDatePicker = materialDateBuilder.build()
+        materialDatePicker.addOnPositiveButtonClickListener {
+            val dateString: String =
+                SimpleDateFormat("dd.MM.yyyy").format(Date(it.toString().toLong()))
+            binding.birthdayTextInputEditText.setText(dateString)
+        }
         binding.apply {
+            birthdayTextInputEditText.setOnClickListener {
+                materialDatePicker.show(childFragmentManager, "BirthdayPicker");
+            }
             nextButton.setOnClickListener {
                 viewModel.updateUser(
                     nameTextInputEditText.text.toString(),
@@ -55,7 +67,8 @@ class ProfileFragment :
                     phoneTextInputEditText.text.toString(),
                     birthdayTextInputEditText.text.toString(),
                     emailTextInputEditText.text.toString(),
-                    customerId
+                    customerId,
+                    false
                 )
             }
             azButton.setOnClickListener {
@@ -138,12 +151,24 @@ class ProfileFragment :
                 binding.ruButton.background =
                     AppCompatResources.getDrawable(requireContext(), R.drawable.btn_accent_default)
             }
+            else -> {
+                binding.azButton.background = AppCompatResources.getDrawable(
+                    requireContext(),
+                    R.drawable.btn_lighter_grey_default
+                )
+                binding.engButton.background =
+                    AppCompatResources.getDrawable(requireContext(), R.drawable.btn_accent_default)
+                binding.ruButton.background = AppCompatResources.getDrawable(
+                    requireContext(),
+                    R.drawable.btn_lighter_grey_default
+                )
+            }
         }
     }
 
     private fun bindData(user: User) {
         customerId = user.customer_id.toString()
-        with(binding){
+        with(binding) {
             schoolTextInputEditText.setText(user.customer_name)
             nameTextInputEditText.setText(user.firstname)
             surnameTextInputEditText.setText(user.lastname)
@@ -167,6 +192,20 @@ class ProfileFragment :
                 handleErrorMessage(result.error)
             }
             is UserUiModel.ChangeLocale -> {
+                binding.apply {
+                    viewModel.updateUser(
+                        nameTextInputEditText.text.toString(),
+                        surnameTextInputEditText.text.toString(),
+                        "",
+                        phoneTextInputEditText.text.toString(),
+                        birthdayTextInputEditText.text.toString(),
+                        emailTextInputEditText.text.toString(),
+                        customerId,
+                        true
+                    )
+                }
+            }
+            is UserUiModel.UpdatedLocale -> {
                 handleLoading(false)
                 (requireActivity() as MainActivity).updateLocale(Locale(result.lang))
             }
@@ -175,7 +214,7 @@ class ProfileFragment :
                 viewModel.getUser()
                 setLocaleBtn(result.lang)
             }
-            is UserUiModel.Updated ->{
+            is UserUiModel.Updated -> {
                 handleLoading(false)
                 if (result.result.success == true)
                     showSnackBar(binding.root, getString(R.string.fragment_changeprofile_success))
@@ -197,7 +236,7 @@ class ProfileFragment :
                     adapter.notifyDataSetChanged()
                     binding.schoolTextInputEditText.showDropDown()
                 } else if (result.data.success && result.data.response == null) {
-                   // handleErrorMessage(getString(R.string.nothing))
+                    // handleErrorMessage(getString(R.string.nothing))
                 } else {
                     result.data.message?.map {
                         handleErrorMessage(it.value[0])

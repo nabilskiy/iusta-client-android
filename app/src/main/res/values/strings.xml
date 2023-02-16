@@ -21,7 +21,7 @@
     <string name="send">Send</string>
     <string name="goback">Go Back</string>
     <string name="resetpass_success">Password reset request sent successfully</string>
-    <string name="resetpass_error_empty" translatable="false">Please enter your email address</string>
+    <string name="resetpass_error_empty">Please enter your email address</string>
     <string name="resetpass_message">Please enter your email address. You will receive a link to create a new password via email</string>
 
     <!-- Change Password Fragment -->
@@ -84,20 +84,20 @@
     <string name="fragment_changeprofile_success">Profile data has been successfully changed</string>
     <string name="fragment_changepass_success">Password has been successfully changed</string>
     <string name="fragment_changepass_failure">Password has not been changed</string>
+    <string name="set_date">Select a date</string>
+
 
     <string name="fragment_faq_title_label">FAQ</string>
     <string name="fragment_privacy_title_label">Privacy Policy</string>
     <string name="fragment_terms_title_label">Terms and Conditions</string>
     <string name="splash_screen">Splash Screen</string>
     <string name="bookmark_error">Something went wrong, please try again.</string>
-    <string name="bookmark_success">Ticket bookmarked successfully</string>
-    <string name="un_bookmark_success">Ticket bookmarked removed successfully</string>
     <string name="assigned_specialist">Assigned specialist</string>
     <string name="proceed_to_scan">Proceed to scan</string>
     <string name="btn_continue">Continue</string>
     <string name="get_repaired">Choose what you want to get repaired</string>
     <string name="open_ticket">Open ticket</string>
-    <string name="no_ticket">Ticket not found</string>
+    <string name="no_ticket">Order not found</string>
     <string name="your_specialist_is_not_assigned">Your specialist is not assigned</string>
     <string name="your_specialist_on_his_way">Your specialist on his way</string>
     <string name="your_specialist_has_arrived">Your specialist has arrived</string>
@@ -117,22 +117,22 @@
     <!-- Errors -->
 
 
-    <string name="empty_fields_error" translatable="false">Fill in all the data</string>
-    <string name="empty_field" translatable="false">Empty field</string>
-    <string name="nothing" translatable="false">Nothing found</string>
-    <string name="empty_email" translatable="false">Empty email</string>
-    <string name="incorrect_email" translatable="false">Incorrect email</string>
-    <string name="empty_password" translatable="false">Empty password</string>
-    <string name="short_password" translatable="false">Password must be at least 8 characters</string>
-    <string name="empty_password_confirm" translatable="false">Empty confirm password</string>
-    <string name="empty_name" translatable="false">Empty name</string>
-    <string name="empty_surname" translatable="false">Empty surname</string>
-    <string name="empty_phone" translatable="false">Empty phone</string>
-    <string name="empty_school" translatable="false">Empty customer</string>
-    <string name="privacy_and_terms" translatable="false">You must accept the privacy policy and terms and conditions</string>
-    <string name="reset_email" translatable="false">The selected email is invalid.</string>
-    <string name="empty_note" translatable="false">Empty note</string>
-    <string name="big_size" translatable="false">Attachment too large, Max size 10mb</string>
+    <string name="empty_fields_error">Fill in all the data</string>
+    <string name="empty_field">Empty field</string>
+    <string name="nothing">Nothing found</string>
+    <string name="empty_email">Empty email</string>
+    <string name="incorrect_email">Incorrect email</string>
+    <string name="empty_password">Empty password</string>
+    <string name="short_password">Password must be at least 8 characters</string>
+    <string name="empty_password_confirm">Empty confirm password</string>
+    <string name="empty_name">Empty name</string>
+    <string name="empty_surname">Empty surname</string>
+    <string name="empty_phone">Empty phone</string>
+    <string name="empty_school">Empty customer</string>
+    <string name="privacy_and_terms">You must accept the privacy policy and terms and conditions</string>
+    <string name="reset_email">The selected email is invalid.</string>
+    <string name="empty_note">Empty note</string>
+    <string name="big_size">Attachment too large, Max size 10mb</string>
     <string name="see_order">See order</string>
     <string name="type_note_here">Type note here</string>
     <string name="cancel">Cancel</string>

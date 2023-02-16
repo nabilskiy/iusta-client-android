@@ -31,6 +31,7 @@ fun Fragment.showLoadingDialog(
     }.create().let { dialog ->
         dialog.setCancelable(cancelable)
         dialog.setCanceledOnTouchOutside(canceledOnTouchOutside)
+        dialog.window?.setDimAmount(0f)
         dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         if (loadingDialog?.isShowing == true) {
             loadingDialog?.dismiss()
@@ -47,7 +48,7 @@ fun Fragment.showLoadingDialog(
         loadingDialog = dialog
         dialog.show()
 
-        object: CountDownTimer(20000, 1000){
+        object : CountDownTimer(20000, 1000) {
             override fun onTick(p0: Long) {}
             override fun onFinish() {
                 dismissLoadingDialog()
@@ -67,6 +68,7 @@ fun AppCompatActivity.showLoadingDialog(
     }.create().let { dialog ->
         dialog.setCancelable(cancelable)
         dialog.setCanceledOnTouchOutside(canceledOnTouchOutside)
+        dialog.window?.setDimAmount(0f)
         dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         if (loadingDialog?.isShowing == true) {
             loadingDialog?.dismiss()
@@ -82,7 +84,7 @@ fun AppCompatActivity.showLoadingDialog(
         })
         loadingDialog = dialog
         dialog.show()
-        object: CountDownTimer(20000, 1000){
+        object : CountDownTimer(20000, 1000) {
             override fun onTick(p0: Long) {}
             override fun onFinish() {
                 dismissLoadingDialog()

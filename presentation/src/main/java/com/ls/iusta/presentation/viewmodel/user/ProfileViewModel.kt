@@ -56,7 +56,7 @@ class ProfileViewModel @Inject constructor(
         phone_number: String,
         birthday: String,
         email: String,
-        il_customer_id: String
+        il_customer_id: String, locale: Boolean
     ) {
         _userInfo.postValue(UserUiModel.Loading)
         launchCoroutineIO {
@@ -70,7 +70,8 @@ class ProfileViewModel @Inject constructor(
                     email,
                     il_customer_id,
                     presentationPreferencesHelper.locale.toString()
-                )
+                ),
+                locale
             )
         }
     }
@@ -81,9 +82,12 @@ class ProfileViewModel @Inject constructor(
         }
     }
 
-    private suspend fun saveUserInfo(data: SaveUserRequest) {
+    private suspend fun saveUserInfo(data: SaveUserRequest, locale: Boolean) {
         saveUserInfoUseCase(data).collect {
-            _userInfo.postValue(UserUiModel.Updated(it))
+            if (locale)
+                _userInfo.postValue(UserUiModel.UpdatedLocale(presentationPreferencesHelper.locale.toString()))
+            else
+                _userInfo.postValue(UserUiModel.Updated(it))
         }
     }
 

@@ -41,6 +41,7 @@ class RegActivity : BaseActivity<ActivityRegisterBinding>() {
     override fun initViewModel() {
         observe(viewModel.regData, ::onReg)
         viewModel.getTerms()
+        viewModel.getlang()
     }
 
     override fun initUI() {
@@ -220,6 +221,21 @@ class RegActivity : BaseActivity<ActivityRegisterBinding>() {
                             this@RegActivity,
                             R.drawable.btn_accent_default
                         )
+                }
+                else -> {
+                    azButton.background = AppCompatResources.getDrawable(
+                        this@RegActivity,
+                        R.drawable.btn_lighter_grey_default
+                    )
+                    engButton.background =
+                        AppCompatResources.getDrawable(
+                            this@RegActivity,
+                            R.drawable.btn_accent_default
+                        )
+                    ruButton.background = AppCompatResources.getDrawable(
+                        this@RegActivity,
+                        R.drawable.btn_lighter_grey_default
+                    )
                 }
             }
         }

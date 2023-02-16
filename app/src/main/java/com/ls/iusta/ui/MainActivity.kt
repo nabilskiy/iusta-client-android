@@ -167,6 +167,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
                             .buildRound(count.toString(), Color.RED)
                         viewNotifications?.icon = badge
                     }
+                else {
+                    viewNotifications?.icon = getDrawable(R.drawable.ic_baseline_notifications_none_24)
+                }
             }
             is MainScreenUIModel.Error -> {
                 handleErrorMessage(event.error)

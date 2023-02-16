@@ -93,6 +93,37 @@
     <string name="type_note_here">Type note here</string>
     <string name="cancel">Cancel</string>
     <string name="create">Create</string>
+    <string name="resetpass_success">Запрос на сброс пароля успешно отправлен</string>
+    <string name="resetpass_error_empty">Пожалуйста, введите Ваш адрес электронной почты</string>
+    <string name="rate">Оцените нашего специалиста!</string>
+    <string name="average">Средний</string>
+    <string name="comment">Добавить комментарий</string>
+    <string name="type_comment">Введите комментарий здесь</string>
+    <string name="create_ticket_success_label">Ваш заказ успешно отправлен</string>
+    <string name="create_ticket_view_label">Вы можете просмотреть статус своего заказа, нажав на кнопку</string>
+    <string name="create_ticket_open_label">Смотрите статус вашего заказа</string>
+    <string name="fragment_changeprofile_success">Данные профиля успешно изменены</string>
+    <string name="fragment_changepass_success">Пароль успешно изменен</string>
+    <string name="fragment_changepass_failure">Пароль не был изменен</string>
+    <string name="bookmark_error">Что-то пошло не так. Пожалуйста, попробуйте еще раз.</string>
+    <string name="empty_fields_error">Заполните все данные</string>
+    <string name="no_ticket">Заказ не найден</string>
+    <string name="empty_field">Пустое поле</string>
+    <string name="nothing">Ничего не найдено</string>
+    <string name="empty_email">Пустой адрес электронной почты</string>
+    <string name="incorrect_email">Неверный адрес электронной почты</string>
+    <string name="empty_password">Пустой пароль</string>
+    <string name="short_password">Пароль должен быть не менее 8 символов</string>
+    <string name="empty_password_confirm">Пустой пароль для подтверждения</string>
+    <string name="empty_name">Пустое имя</string>
+    <string name="empty_surname">Пустая фамилия</string>
+    <string name="empty_phone">Пустой телефон</string>
+    <string name="empty_school">Пустой клиент</string>
+    <string name="privacy_and_terms">Вы должны принять политику конфиденциальности и условия</string>
+    <string name="reset_email">Выбранный адрес электронной почты недействителен.</string>
+    <string name="empty_note">Пустая заметка</string>
+    <string name="big_size">Вложение слишком большое, максимальный размер 10 МБ</string>
+    <string name="set_date">Выберите дату</string>
 
 
 </resources>

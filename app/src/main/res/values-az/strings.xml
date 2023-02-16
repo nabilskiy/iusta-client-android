@@ -9,7 +9,7 @@
     <string name="login">Daxil ol</string>
     <string name="signup">Hələ qeydiyyatdan keçməmisiniz? <b><font color="#FF9800">Qeydiyyatdan keçin</font></b></string>
     <string name="forgotpass">Şifrəni unutmusunuz?</string>
-    <string name="next">Next</string>
+    <string name="next">Sonrakı</string>
     <string name="email">E-poçt</string>
     <string name="password">Şifrə</string>
     <string name="birthday">Ad günü</string>
@@ -93,6 +93,36 @@
     <string name="type_note_here">Type note here</string>
     <string name="cancel">Cancel</string>
     <string name="create">Create</string>
+    <string name="resetpass_success">Parolun sıfırlanması sorğusu uğurla göndərildi</string>
+    <string name="resetpass_error_empty">E-poçt ünvanınızı daxil edin</string>
+    <string name="rate">Mütəxəssimizi qiymətləndirin!</string>
+    <string name="average">Orta</string>
+    <string name="comment">Şərh əlavə edin</string>
+    <string name="type_comment">Bura şərh yazın</string>
+    <string name="create_ticket_success_label">Sifarişiniz uğurla göndərildi</string>
+    <string name="create_ticket_view_label">Sifarişinizin vəziyyətinə düyməni sıxaraq baxa bilərsiniz</string>
+    <string name="create_ticket_open_label">Sifarişinizin vəziyyətinə baxın</string>
+    <string name="fragment_changeprofile_success">Profil datası uğurla dəyişdirildi</string>
+    <string name="fragment_changepass_success">Parol uğurla dəyişdirildi</string>
+    <string name="fragment_changepass_failure">Parol dəyişdirilməyib</string>
+    <string name="empty_fields_error">Bütün məlumatları doldurun</string>
+    <string name="no_ticket">Sifariş tapılmadı</string>
+    <string name="empty_field">Boş sahə</string>
+    <string name="nothing">Heç nə tapılmadı</string>
+    <string name="empty_email">Boş e-poçt</string>
+    <string name="incorrect_email">Yanlış e-poçt</string>
+    <string name="empty_password">Boş parol</string>
+    <string name="short_password">Parol ən azı 8 simvoldan ibarət olmalıdır</string>
+    <string name="empty_password_confirm">Təsdiq parolunu boşaldın</string>
+    <string name="empty_name">Boş ad</string>
+    <string name="empty_surname">Boş soyad</string>
+    <string name="empty_phone">Boş telefon</string>
+    <string name="empty_school">Boş müştəri</string>
+    <string name="privacy_and_terms">Siz məxfilik siyasətini və şərtləri qəbul etməlisiniz</string>
+    <string name="reset_email">Seçilmiş e-poçt yanlışdır.</string>
+    <string name="empty_note">Boş qeyd</string>
+    <string name="big_size">Qoşma çox böyük, Maksimum ölçü 10mb</string>
+    <string name="set_date">Tarix seçin</string>
 
 
 </resources>

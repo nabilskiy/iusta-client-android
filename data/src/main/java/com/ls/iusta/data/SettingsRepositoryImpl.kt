@@ -55,6 +55,15 @@ class SettingsRepositoryImpl @Inject constructor(private val appVersion: String)
                 settingList.add(Settings(6, SettingType.EMPTY, "Выйти", ""))
                 settingList.add(Settings(7, SettingType.TEXT, "Версия", appVersion))
             }
+            else -> {
+                settingList.add(Settings(1, SettingType.SWITCH, "Theme", "", isNightMode))
+                settingList.add(Settings(2, SettingType.EMPTY, "Edit profile", ""))
+                settingList.add(Settings(3, SettingType.EMPTY, "Change password", ""))
+                settingList.add(Settings(4, SettingType.EMPTY, "About", ""))
+                settingList.add(Settings(5, SettingType.EMPTY, "Contact Us", ""))
+                settingList.add(Settings(6, SettingType.EMPTY, "Logout", ""))
+                settingList.add(Settings(7, SettingType.TEXT, "App version", appVersion))
+            }
         }
 
         return settingList
@@ -77,6 +86,11 @@ class SettingsRepositoryImpl @Inject constructor(private val appVersion: String)
                 settingList.add(Settings(1, SettingType.EMPTY, "ЧаВо", ""))
                 settingList.add(Settings(2, SettingType.EMPTY, "Политика конфиденциальности", ""))
                 settingList.add(Settings(3, SettingType.EMPTY, "Условия и положения", ""))
+            }
+            else ->{
+                settingList.add(Settings(1, SettingType.EMPTY, "FAQ", ""))
+                settingList.add(Settings(2, SettingType.EMPTY, "Privacy Policy", ""))
+                settingList.add(Settings(3, SettingType.EMPTY, "Terms and Conditions", ""))
             }
         }
         return settingList

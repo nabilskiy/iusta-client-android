@@ -81,10 +81,15 @@ class RegisterViewModel @Inject constructor(
 
     fun getTerms() {
         launchCoroutineIO {
-            getLocale()
             loadTerms( GetInfoRequest(
                 presentationPreferencesHelper.locale.toString()
             ))
+        }
+    }
+
+    fun getlang() {
+        launchCoroutineIO {
+            getLocale()
         }
     }
 

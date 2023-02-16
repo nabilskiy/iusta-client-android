@@ -45,7 +45,7 @@ class CategoriesAdapter @Inject constructor(
         override fun bind(item: Category) {
             binding.apply {
                 categoryName.text = item.name
-                categoryDescr.text = item.description
+               // categoryDescr.text = item.description
                 glide.load(item.icon).into(icon)
 
                 root.setOnClickListener {

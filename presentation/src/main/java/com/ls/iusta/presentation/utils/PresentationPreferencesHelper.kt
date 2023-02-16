@@ -2,6 +2,7 @@ package com.ls.iusta.presentation.utils
 
 import android.content.Context
 import android.content.SharedPreferences
+import java.util.*
 import javax.inject.Inject
 
 class PresentationPreferencesHelper @Inject constructor (context: Context) {
@@ -20,6 +21,6 @@ class PresentationPreferencesHelper @Inject constructor (context: Context) {
 
 
     var locale: String?
-        get() = preferences.getString(PREF_KEY_LOCALE, "en")
+        get() = preferences.getString(PREF_KEY_LOCALE, Locale.getDefault().language.toString())
         set(loc) = preferences.edit().putString(PREF_KEY_LOCALE, loc).apply()
 }

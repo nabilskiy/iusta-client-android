@@ -81,12 +81,6 @@ class TicketsListFragment : BaseFragment<FragmentTicketsListBinding, TicketsList
                 )
             }
 
-            ticketAdapter.registerAdapterDataObserver(object : RecyclerView.AdapterDataObserver() {
-                override fun onItemRangeInserted(positionStart: Int, itemCount: Int) {
-                    lManager.scrollToPositionWithOffset(positionStart, 0)
-                }
-            })
-
             nextButton.setOnClickListener {
                 findNavController().navigate(
                     TicketsListFragmentDirections.actionTicketListFragmentToCreateTicketFragment()
@@ -106,7 +100,7 @@ class TicketsListFragment : BaseFragment<FragmentTicketsListBinding, TicketsList
         isLoading = true
     }
 
-    private fun clearAdapter(){
+    private fun clearAdapter() {
         pageNum = 1
         lastPage = false
         ticketAdapter.list = emptyList()
@@ -127,7 +121,8 @@ class TicketsListFragment : BaseFragment<FragmentTicketsListBinding, TicketsList
                     if (pageNum == 1) {
                         ticketAdapter.list = event.data.response!!
                     } else {
-                        ticketAdapter.addItems(event.data.response!!)
+                        ticketAdapter.list = ticketAdapter.list + event.data.response!!
+//                        ticketAdapter.addItems(event.data.response!!)
                     }
                     isLoading = false
                 } else {
