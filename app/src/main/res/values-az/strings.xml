@@ -123,6 +123,7 @@
     <string name="empty_note">Boş qeyd</string>
     <string name="big_size">Qoşma çox böyük, Maksimum ölçü 10mb</string>
     <string name="set_date">Tarix seçin</string>
+    <string name="empty_code">Zəhmət olmasa skan edin və ya sifariş id-ni yazın</string>
 
 
 </resources>

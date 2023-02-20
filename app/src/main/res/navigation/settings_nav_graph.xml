@@ -97,7 +97,7 @@
         <action
             android:id="@+id/action_notificationsFragment_to_ticketDetailFragment"
             app:destination="@id/ticketDetailFragment"
-            app:popUpTo="@id/settingsFragment"/>
+            app:popUpTo="@id/notificationsFragment"/>
     </fragment>
 
     <fragment

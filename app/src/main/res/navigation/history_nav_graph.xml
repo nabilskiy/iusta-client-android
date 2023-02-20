@@ -50,7 +50,7 @@
         <action
             android:id="@+id/action_notificationsFragment_to_ticketDetailFragment"
             app:destination="@id/ticketDetailFragment"
-            app:popUpTo="@id/historyTicketListFragment" />
+            app:popUpTo="@id/notificationsFragment" />
     </fragment>
     <fragment
         android:id="@+id/ticketDetailFragment"

@@ -52,7 +52,7 @@
         <action
             android:id="@+id/action_notificationsFragment_to_ticketDetailFragment"
             app:destination="@id/ticketDetailFragment"
-            app:popUpTo="@id/ticketsListFragment" />
+            app:popUpTo="@id/notificationsFragment" />
     </fragment>
 
 </navigation>

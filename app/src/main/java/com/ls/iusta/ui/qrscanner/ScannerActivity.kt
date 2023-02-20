@@ -39,10 +39,15 @@ class ScannerActivity : BaseActivity<ActivityScannerBinding>() {
     override fun initUI() {
         with(binding) {
             nextButton.setOnClickListener {
-                val intent = Intent()
-                intent.putExtra("ticket_id", ticketIdScanned.text.toString())
-                setResult(RESULT_OK, intent)
-                finish()
+                val code = ticketIdScanned.text.toString()
+                if (code.isNotEmpty()){
+                    val intent = Intent()
+                    intent.putExtra("ticket_id", code)
+                    setResult(RESULT_OK, intent)
+                    finish()
+                }else{
+                    handleErrorMessage(getString(R.string.empty_code))
+                }
             }
         }
     }

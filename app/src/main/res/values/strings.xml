@@ -116,7 +116,7 @@
 
     <!-- Errors -->
 
-
+    <string name="empty_code">Plsease scan or type order id</string>
     <string name="empty_fields_error">Fill in all the data</string>
     <string name="empty_field">Empty field</string>
     <string name="nothing">Nothing found</string>

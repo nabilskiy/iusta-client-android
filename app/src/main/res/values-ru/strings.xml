@@ -124,6 +124,7 @@
     <string name="empty_note">Пустая заметка</string>
     <string name="big_size">Вложение слишком большое, максимальный размер 10 МБ</string>
     <string name="set_date">Выберите дату</string>
+    <string name="empty_code">Пожалуйста, отсканируйте или введите идентификатор заказа</string>
 
 
 </resources>

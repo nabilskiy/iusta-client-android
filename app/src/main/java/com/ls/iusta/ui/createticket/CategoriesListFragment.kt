@@ -191,7 +191,7 @@ class CategoriesListFragment :
                 attachmentSize
             )
         }
-        dialog.setCancelable(false)
+        dialog.setCanceledOnTouchOutside(false)
         dialog.setContentView(dialogBindig.root)
         dialog.getWindow()
             ?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
@@ -264,8 +264,6 @@ class CategoriesListFragment :
                     Log.d("TAG", "handleSelectImage: " + size)
                 }
             }
-
-
             attachmentFilesList.add(
                 AttachmentFile(
                     name,
