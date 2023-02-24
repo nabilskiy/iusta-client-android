@@ -26,7 +26,7 @@ interface TicketService {
     suspend fun createTicket(
         @Part attachments: List<MultipartBody.Part>?,
         @Query("category_id") category_id: Int?,
-        @Query("note") note: String?,
+        @Query("ticket_note") note: String?,
         @Query("auth_token") auth_token: String?,
         @Query("secret_key") secret_key: String = SECRET_KEY
     ): CreateTicketResponseModel

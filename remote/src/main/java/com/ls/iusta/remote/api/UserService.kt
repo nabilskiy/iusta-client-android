@@ -77,7 +77,7 @@ interface UserService {
         @Field("phone_number") phone_number: String,
         @Field("birthday") birthday: String,
         @Field("email") email: String,
-        @Field("Il_customer_id") Il_customer_id: String,
+        @Field("il_customer_id") Il_customer_id: String,
         @Field("language") language: String,
         @Field("auth_token") auth_token: String?,
         @Field("secret_key") secret_key: String = SECRET_KEY
