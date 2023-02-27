@@ -99,4 +99,7 @@ object Dependencies {
         const val lottie = "com.airbnb.android:lottie:${Versions.lottieVersion}"
     }
 
+    object PhoneMaskDep {
+        const val phoneMask = "io.github.vicmikhailau:MaskedEditText:${Versions.phoneMask}"
+    }
 }

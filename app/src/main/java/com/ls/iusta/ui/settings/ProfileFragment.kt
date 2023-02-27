@@ -60,16 +60,18 @@ class ProfileFragment :
                 materialDatePicker.show(childFragmentManager, "BirthdayPicker");
             }
             nextButton.setOnClickListener {
-                viewModel.updateUser(
-                    nameTextInputEditText.text.toString(),
-                    surnameTextInputEditText.text.toString(),
-                    "",
-                    phoneTextInputEditText.text.toString(),
-                    birthdayTextInputEditText.text.toString(),
-                    emailTextInputEditText.text.toString(),
-                    customerId,
-                    false
-                )
+                if (schoolTextInputEditText.text.toString().isNotEmpty())
+                    viewModel.updateUser(
+                        nameTextInputEditText.text.toString(),
+                        surnameTextInputEditText.text.toString(),
+                        "",
+                        phoneTextInputEditText.unMaskedText.toString(),
+                        birthdayTextInputEditText.text.toString(),
+                        emailTextInputEditText.text.toString(),
+                        customerId,
+                        false
+                    )
+                else handleErrorMessage(getString(R.string.empty_school))
             }
             azButton.setOnClickListener {
                 setLocaleBtn("az")
@@ -197,7 +199,7 @@ class ProfileFragment :
                         nameTextInputEditText.text.toString(),
                         surnameTextInputEditText.text.toString(),
                         "",
-                        phoneTextInputEditText.text.toString(),
+                        phoneTextInputEditText.unMaskedText.toString(),
                         birthdayTextInputEditText.text.toString(),
                         emailTextInputEditText.text.toString(),
                         customerId,

@@ -7,18 +7,14 @@ import android.text.TextWatcher
 import android.widget.ArrayAdapter
 import androidx.activity.viewModels
 import androidx.appcompat.content.res.AppCompatResources
-import androidx.core.content.ContentProviderCompat.requireContext
-import com.google.android.gms.common.config.GservicesValue.value
 import com.ls.iusta.R
 import com.ls.iusta.base.BaseActivity
 import com.ls.iusta.core.dialog.showDialog
 import com.ls.iusta.databinding.ActivityRegisterBinding
 import com.ls.iusta.domain.models.auth.RegUiModel
 import com.ls.iusta.domain.models.customer.Customer
-import com.ls.iusta.domain.models.user.UserUiModel
 import com.ls.iusta.extension.*
 import com.ls.iusta.presentation.viewmodel.user.RegisterViewModel
-import com.ls.iusta.ui.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 
@@ -29,7 +25,6 @@ class RegActivity : BaseActivity<ActivityRegisterBinding>() {
     private var customers = emptyList<Customer>()
     private lateinit var adapter: ArrayAdapter<String>
     private lateinit var customerId: String
-    private var customerIdIsSet: Boolean = false
     private var langId: String = "en"
     private lateinit var policyLink: String
     private lateinit var termsLink: String
@@ -60,7 +55,7 @@ class RegActivity : BaseActivity<ActivityRegisterBinding>() {
                 val surname = surnameTextInputEditText.text.toString()
                 if (surname.isEmpty())
                     surnameTextInputLayout.error = getString(R.string.empty_surname)
-                val phone = phoneTextInputEditText.text.toString()
+                val phone = phoneTextInputEditText.unMaskedText.toString()
                 if (phone.isEmpty())
                     phoneTextInputLayout.error = getString(R.string.empty_phone)
                 val email = emailTextInputEditText.text.toString()
@@ -126,9 +121,8 @@ class RegActivity : BaseActivity<ActivityRegisterBinding>() {
                 }
             })
 
-            schoolTextInputEditText.setOnItemClickListener { adapterView, view, i, l ->
+            schoolTextInputEditText.setOnItemClickListener { _, _, i, _ ->
                 hideKeyboard()
-                // customerIdIsSet = true
                 customerId = customers[i].id.toString()
             }
 
@@ -254,7 +248,7 @@ class RegActivity : BaseActivity<ActivityRegisterBinding>() {
                     binding.messageDialog.makeVisible()
                 } else {
                     event.result.message?.map {
-                        handleErrorMessage(it.value.get(0))
+                        handleErrorMessage(it.value[0])
                     }
                 }
             }

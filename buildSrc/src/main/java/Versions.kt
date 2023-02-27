@@ -66,5 +66,9 @@ object Versions {
     // Lottie animation
     const val lottieVersion = "4.1.0"
 
+    // Phone Mask
+    const val phoneMask = "4.0.7"
+
+
 
 }

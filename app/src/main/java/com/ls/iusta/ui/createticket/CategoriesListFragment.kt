@@ -170,14 +170,14 @@ class CategoriesListFragment :
             selectPDF()
         }
         dialogBindig.idBtnDismiss.setOnClickListener {
-            message.text = ""
-            message.makeGone()
-            viewModel.attachmentSizeClear()
-            attachmentFilesList.clear()
-            attachmentsList.clear()
-            attachmentsAdapter.notifyDataSetChanged()
+            clearNotes()
             dialog.cancel()
         }
+
+        dialog.setOnDismissListener {
+            clearNotes()
+        }
+
         dialogBindig.idBtnCreate.setOnClickListener {
             message.text = ""
             message.makeGone()
@@ -196,6 +196,15 @@ class CategoriesListFragment :
         dialog.getWindow()
             ?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
         dialog.show()
+    }
+
+    private fun  clearNotes(){
+        message.text = ""
+        message.makeGone()
+        viewModel.attachmentSizeClear()
+        attachmentFilesList.clear()
+        attachmentsList.clear()
+        attachmentsAdapter.notifyDataSetChanged()
     }
 
     private fun showCreatedDialog(ticketId: Long) {

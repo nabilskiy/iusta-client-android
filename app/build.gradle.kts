@@ -90,6 +90,8 @@ dependencies {
     coreLibraryDesugaring(UiDep.desugar)
     //Locale
     implementation(UiDep.locale)
+    //Phone Mask
+    implementation(UiDep.phoneMask)
     //Firebase
     implementation(platform(UiDep.firebaseBom))
     UiDep.Firebase.forEach {

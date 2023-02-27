@@ -55,4 +55,6 @@ object UiDep {
         Dependencies.FirebaseDep.analytics
     )
 
+    //Phone Mask
+    const val phoneMask = Dependencies.PhoneMaskDep.phoneMask
 }
