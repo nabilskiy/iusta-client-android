@@ -55,7 +55,8 @@ class RegActivity : BaseActivity<ActivityRegisterBinding>() {
                 val surname = surnameTextInputEditText.text.toString()
                 if (surname.isEmpty())
                     surnameTextInputLayout.error = getString(R.string.empty_surname)
-                val phone = phoneTextInputEditText.unMaskedText.toString()
+                //todo remove after backend fix
+                val phone = "4"+phoneTextInputEditText.unMaskedText.toString()
                 if (phone.isEmpty())
                     phoneTextInputLayout.error = getString(R.string.empty_phone)
                 val email = emailTextInputEditText.text.toString()

@@ -65,7 +65,8 @@ class ProfileFragment :
                         nameTextInputEditText.text.toString(),
                         surnameTextInputEditText.text.toString(),
                         "",
-                        phoneTextInputEditText.unMaskedText.toString(),
+                        //todo remove after backend fix
+                       "4"+ phoneTextInputEditText.unMaskedText.toString(),
                         birthdayTextInputEditText.text.toString(),
                         emailTextInputEditText.text.toString(),
                         customerId,
